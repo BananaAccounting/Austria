@@ -1,9 +1,9 @@
-%%info_test_name{ch.banana.addon.vatreportaustria2015.test}
-%%info_test_app{Banana80}{8.0.0.150515}
-%%info_test_os{Windows 7}
+%%info_test_name{/Users/lorenzo/Documents/Programmazione/GitHub/Austria/VatReportAustria2015/ch.banana.addon.vatreportaustria2015.js}
+%%info_test_app{Banana80}{8.0.0.150518}
+%%info_test_os{Mac OS X Yosemite}
 %%info_test_qt{5.4.1}
-%%info_test_date{2015-05-19}{09:27:00.806}
-\documentclass{article}
+%%info_test_date{2015-05-29}{16:25:23.771}
+\documentclass{report}
 \usepackage{color}
 \usepackage{adjustbox}
 \begin{document}
@@ -13,9 +13,9 @@
 \newcommand{\info}[2]{\textit{#1: #2}\\}
 \newcommand{\fatalerror}[1]{\textbf{\textcolor[rgb]{1,0,0}{Fatal error: #1}}\\}
 \newcommand{\keyvalue}[2]{\textbf{Keyvalue: #1} #2\\}
+\newcommand{\excltest}[1]{#1}}
 %Begin test data
 \section{Example 1}
-\subsection{Whole year report}
 \begin{reportvalue}{Whole year report}
 [  ] Umsatzsteuervoranmeldung 2015 \\
 [  ] Berichtige Umsatzsteuervoranmeldung 2015 \\
@@ -95,8 +95,8 @@
 6.1  &  & 090  & \multicolumn{2}{l}{} & +/-  & 0.00 \\
 7.2  & Überschuss (Gutschrift)  & 095  & \multicolumn{2}{l}{} & -  & 160.00 \\
 \end{tabular}
-Banana Accounting, v. 8.0.0.150515, script v. 2015-04-08, Seite  \end{reportvalue}
-\subsection{Second trimester report}
+\excltest{Banana Accounting, v. 8.0.0.150518, script v. 2015-04-08, } Seite  
+\end{reportvalue}
 \begin{reportvalue}{Second trimester report}
 [  ] Umsatzsteuervoranmeldung 2015 \\
 [  ] Berichtige Umsatzsteuervoranmeldung 2015 \\
@@ -176,8 +176,8 @@ Banana Accounting, v. 8.0.0.150515, script v. 2015-04-08, Seite  \end{reportvalu
 6.1  &  & 090  & \multicolumn{2}{l}{} & +/-  & 0.00 \\
 7.2  & Überschuss (Gutschrift)  & 095  & \multicolumn{2}{l}{} & -  & 1'760.00 \\
 \end{tabular}
-Banana Accounting, v. 8.0.0.150515, script v. 2015-04-08, Seite  \end{reportvalue}
-\subsection{January report}
+\excltest{Banana Accounting, v. 8.0.0.150518, script v. 2015-04-08, } Seite  
+\end{reportvalue}
 \begin{reportvalue}{January report}
 [  ] Umsatzsteuervoranmeldung 2015 \\
 [  ] Berichtige Umsatzsteuervoranmeldung 2015 \\
@@ -257,8 +257,8 @@ Banana Accounting, v. 8.0.0.150515, script v. 2015-04-08, Seite  \end{reportvalu
 6.1  &  & 090  & \multicolumn{2}{l}{} & +/-  & 0.00 \\
 7.1  & Vorauszahlung (Zahllast)  & 095  & \multicolumn{2}{l}{} &  & 1'600.00 \\
 \end{tabular}
-Banana Accounting, v. 8.0.0.150515, script v. 2015-04-08, Seite  \end{reportvalue}
-\subsection{Vat codes table}
+\excltest{Banana Accounting, v. 8.0.0.150518, script v. 2015-04-08, } Seite  
+\end{reportvalue}
 \begin{tablevalue}{Vat codes table}{ l  l  l  l  l  l  l  l  l  l }
 Group & VatCode & Description & Gr & Gr1 & IsDue & AmountType & VatRate & VatRateOnGross & VatAccount\\
  &  &  &  &  &  &  &  &  & \\
@@ -297,7 +297,6 @@ T &  & TOTAL &  &  &  &  &  &  & \\
  &  &  &  &  &  &  &  &  & \\
 \end{tablevalue}
 \section{Example with errors}
-\subsection{Whole year report}
 \begin{reportvalue}{Whole year report}
 [  ] Umsatzsteuervoranmeldung 2015 \\
 [  ] Berichtige Umsatzsteuervoranmeldung 2015 \\
@@ -380,8 +379,8 @@ T &  & TOTAL &  &  &  &  &  &  & \\
 Warning! Different values: Total 4.13 <10'800.00>, Total 4.14;4.15;4.16;4.17;4.18;4.19 <2'200.00> \\
 Warning! Different values: Total 4.27 <4'000.00>, Total 4.28;4.29;4.30 <3'900.00> \\
 Warning! Different values: Total from Banana <160.00>, Total from report <-1'890.00> \\
-Banana Accounting, v. 8.0.0.150515, script v. 2015-04-08, Seite  \end{reportvalue}
-\subsection{Second trimester report}
+\excltest{Banana Accounting, v. 8.0.0.150518, script v. 2015-04-08, } Seite  
+\end{reportvalue}
 \begin{reportvalue}{Second trimester report}
 [  ] Umsatzsteuervoranmeldung 2015 \\
 [  ] Berichtige Umsatzsteuervoranmeldung 2015 \\
@@ -464,8 +463,8 @@ Banana Accounting, v. 8.0.0.150515, script v. 2015-04-08, Seite  \end{reportvalu
 Warning! Different values: Total 4.13 <2'800.00>, Total 4.14;4.15;4.16;4.17;4.18;4.19 <2'200.00> \\
 Warning! Different values: Total 4.27 <4'000.00>, Total 4.28;4.29;4.30 <3'900.00> \\
 Warning! Different values: Total from Banana <1'760.00>, Total from report <-1'890.00> \\
-Banana Accounting, v. 8.0.0.150515, script v. 2015-04-08, Seite  \end{reportvalue}
-\subsection{January report}
+\excltest{Banana Accounting, v. 8.0.0.150518, script v. 2015-04-08, } Seite  
+\end{reportvalue}
 \begin{reportvalue}{January report}
 [  ] Umsatzsteuervoranmeldung 2015 \\
 [  ] Berichtige Umsatzsteuervoranmeldung 2015 \\
@@ -547,8 +546,8 @@ Banana Accounting, v. 8.0.0.150515, script v. 2015-04-08, Seite  \end{reportvalu
 \end{tabular}
 Warning! Different values: Total 4.13 <8'000.00>, Total 4.14;4.15;4.16;4.17;4.18;4.19 <0.00> \\
 Warning! Different values: Total from Banana <-1'600.00>, Total from report <0.00> \\
-Banana Accounting, v. 8.0.0.150515, script v. 2015-04-08, Seite  \end{reportvalue}
-\subsection{Vat codes table 2}
+\excltest{Banana Accounting, v. 8.0.0.150518, script v. 2015-04-08, } Seite  
+\end{reportvalue}
 \begin{tablevalue}{Vat codes table}{ l  l  l  l  l  l  l  l  l  l }
 Group & VatCode & Description & Gr & Gr1 & IsDue & AmountType & VatRate & VatRateOnGross & VatAccount\\
  &  &  &  &  &  &  &  &  & \\
@@ -586,5 +585,5 @@ T &  & TOTAL &  &  &  &  &  &  & \\
  &  &  &  &  &  &  &  &  & \\
  &  &  &  &  &  &  &  &  & \\
 \end{tablevalue}
-%%info_test_time_elapsed{00:00:00.949}
+%%info_test_time_elapsed{00:00:00.566}
 \end{document}

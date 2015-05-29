@@ -23,7 +23,6 @@
 // @outputformat = none
 // @inputdatasource = none
 // @includejs = ch.banana.addon.vatreportaustria2015.js
-// @includejs = ch.banana.addon.vatreportaustria2015.test.difftext.js
 // @timeout = -1
 
 
@@ -38,105 +37,26 @@ function exec() {
 	//------------------------------------
 	
 	//Open the banana document
-	var banDoc1 = Banana.application.openDocument("C:/Users/ivan/Documents/GitHub/Austria/VatReportAustria2015/2015_Buchhaltung_example.ac2");
+   var banDoc1 = Banana.application.openDocument("2015_Buchhaltung_example.ac2");
 	
 	Test.logger.addSection("Example 1");
-
-	Test.logger.addSubSection("Whole year report");
 	report_test(banDoc1, "2015-01-01", "2015-12-31", "Whole year report");
-	
-	Test.logger.addSubSection("Second trimester report");
 	report_test(banDoc1, "2015-04-01", "2015-06-30", "Second trimester report");
-	
-	Test.logger.addSubSection("January report");
 	report_test(banDoc1, "2015-01-01", "2015-01-31", "January report");
-	
-	Test.logger.addSubSection("Vat codes table");
 	table_test(banDoc1, "Vat codes table");
-
 
 	//-----------------------------
 	//Generate the file with errors
 	//-----------------------------
 	
 	//Open the banana document
-	var banDoc2 = Banana.application.openDocument("C:/Users/ivan/Documents/GitHub/Austria/VatReportAustria2015/2015_Buchhaltung_test_error.ac2");
+   var banDoc2 = Banana.application.openDocument("2015_Buchhaltung_test_error.ac2");
 	
-	Test.logger.addSection("Example with errors");
-	
-	Test.logger.addSubSection("Whole year report");
+   Test.logger.addSection("Example with errors");
 	report_test(banDoc2, "2015-01-01", "2015-12-31", "Whole year report");
-	
-	Test.logger.addSubSection("Second trimester report");
 	report_test(banDoc2, "2015-04-01", "2015-06-30", "Second trimester report");
-	
-	Test.logger.addSubSection("January report");
 	report_test(banDoc2, "2015-01-01", "2015-01-31", "January report");
-	
-	Test.logger.addSubSection("Vat codes table 2");
 	table_test(banDoc2, "Vat codes table");
-
-	
-	
-	
-	//-------------------------------
-	//Informations / texts comparison
-	//-------------------------------
-	
-	//Save all LaTex text of the expected and the current files in order to compare them.
-	var expected = Test.expectedResults();
-	var current = Test.currentResults();
-	
-	//Compare the two files and get some info
-	var diffArray = [];
-	var arrCnt = [];
-	
-	//Function call to compare the files and save the differences
-	diffArray = diff_text(expected, current, arrCnt);
-	
-	//Get some info from the files to add them on the report
-	var a = expected.split('\n'); //Expected file
-	var expectedDate = "";
-	var rows1 = 0;
-	for (var i = 0; i < a.length; i++) {
-		if (a[i].substring(0,16) === "%%info_test_date") {
-			expectedDate = a[i].substring(16);
-		}
-		rows1++;
-	}
-	
-	var b = current.split('\n'); //Current file
-	var currentDate = "";
-	var rows2 = 0;
-	for (var i = 0; i < b.length; i++) {
-		if (b[i].substring(0,16) === "%%info_test_date") {
-			currentDate = b[i].substring(16);
-		}
-		rows2++;
-	}
-	
-	//Add some informations to the report
-	Test.logger.addSection("General informations");
-	Test.logger.addComment("Expected file creation date: " + expectedDate);
-	Test.logger.addComment("Current file creation date: " + currentDate);
-	Test.logger.addComment("Number of rows compared: " + arrCnt[3]);
-	Test.logger.addComment("Number of identical rows: " + arrCnt[0]);
-	Test.logger.addComment("Number of added rows: " + arrCnt[1]);
-	Test.logger.addComment("Number of deleted rows: " + arrCnt[2]);
-	Test.logger.addComment("Total number rows Expected file: " + rows1);
-	Test.logger.addComment("Total number rows Current file: " + rows2);
-
-	//Add differences to the report
-	Test.logger.addSection("Files differences");
-	if (diffArray.length > 0) {
-		for (var i = 0; i < diffArray.length; i++) {
-			Test.logger.addComment(diffArray[i]);
-		}
-	} else {
-		Test.logger.addComment("There are no differences.");
-	}
-	
-
 }
 
 

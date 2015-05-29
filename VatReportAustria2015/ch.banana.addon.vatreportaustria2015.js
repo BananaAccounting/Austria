@@ -971,9 +971,11 @@ function get_object(source, id) {
 
 //This function adds a Footer to the report
 function add_footer(report, param) {
-  report.getFooter().addClass("footer");
-  report.getFooter().addText(param.bananaVersion + ", " + param.scriptVersion + ", Seite ", "description");
-  report.getFooter().addFieldPageNr();
+   report.getFooter().addClass("footer");
+   var versionLine = report.getFooter().addText(param.bananaVersion + ", " + param.scriptVersion + ", ", "description");
+   versionLine.excludeFromTest();
+   report.getFooter().addText("Seite ", "description");
+   report.getFooter().addFieldPageNr();
 }
 
 
