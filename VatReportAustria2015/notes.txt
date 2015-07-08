@@ -1,0 +1,10 @@
+Zusammensende meldung
+Monatlich
+Summe alle transaktione pro UID nummer 
+- Code IG.LIEF Lieferung
+- Code IG.LEIS Leistung
+Summe je UID afu euro gerundet 1.55 > 2.00
+
+Finanz online. 
+
+
