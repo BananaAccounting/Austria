@@ -1,4 +1,4 @@
-Zusammensende meldung
+Zusammenfassende meldung
 Monatlich
 Summe alle transaktione pro UID nummer 
 - Code IG.LIEF Lieferung
