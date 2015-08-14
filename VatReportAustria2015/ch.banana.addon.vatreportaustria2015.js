@@ -14,7 +14,7 @@
 //
 // @id = ch.banana.addon.vatreportaustria2015
 // @api = 1.0
-// @pubdate = 2015-05-19
+// @pubdate = 2015-08-14
 // @publisher = Banana.ch SA
 // @description = VAT report Austria 2015
 // @task = app.command
@@ -149,7 +149,7 @@ function create_vat_report(banDoc, startDate, endDate, isTest) {
 	var param = {
 		"reportName":"VAT report Austria 2015",												//Save the report's name
 		"bananaVersion":"Banana Accounting, v. " + banDoc.info("Base", "ProgramVersion"), 	//Save the version of Banana Accounting used
-		"scriptVersion":"script v. 2015-04-08", 											//Save the version of the script
+		"scriptVersion":"script v. 2015-08-14 (TEST VERSION)", 											//Save the version of the script
 		"fiscalNumber":banDoc.info("AccountingDataBase","FiscalNumber"),					//Save the fiscal number
 		"startDate":startDate,																//Save the openingDate that will be used to specify the accounting period starting date
 		"endDate":endDate, 																	//Save the closureDate that will be used to specify the accounting period ending date		
@@ -318,7 +318,11 @@ function create_vat_report(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("4.4", "", 1);
 	tableRow.addCell(get_value(param.form, "4.4", "description"), styleDescription, 4);
 	tableRow.addCell("", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.4", "vatTaxable")), styleValueTotal, 1);
+	if (get_value(param.form, "4.4", "vatTaxable") != 0) {
+		tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.4", "vatTaxable")), styleValueTotal, 1);
+	} else {
+		tableRow.addCell("", styleValueTotal, 1);
+	}
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("Davon steuerfrei MIT Vorsteuerabzug gemäß", "horizontalLine descriptionBold", 7);
@@ -395,7 +399,11 @@ function create_vat_report(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("4.13", "", 1);
 	tableRow.addCell(get_value(param.form, "4.13", "description"), styleDescription, 4);
 	tableRow.addCell("", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.13", "vatTaxable")), styleValueTotal, 1);
+	if (get_value(param.form, "4.13", "vatTaxable") != 0) {
+		tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.13", "vatTaxable")), styleValueTotal, 1);
+	} else {
+		tableRow.addCell("", styleValueTotal, 1);	
+	}
 		
 	tableRow = table_1.addRow();
 	tableRow.addCell("Davon sind zu versteuern mit:", "horizontalLine descriptionBold", 4);
@@ -526,7 +534,11 @@ function create_vat_report(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("4.27", "", 1);
 	tableRow.addCell(get_value(param.form, "4.27", "description"), styleDescription, 2);
 	tableRow.addCell("", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.27", "vatTaxable")), styleValueTotal, 1);
+	if (get_value(param.form, "4.27", "vatTaxable") != 0) {
+		tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.27", "vatTaxable")), styleValueTotal, 1);
+	} else {
+		tableRow.addCell("", styleValueTotal, 1);
+	}
 	tableRow.addCell("", "", 2);
 	
 	tableRow = table_1.addRow();
@@ -680,18 +692,18 @@ function create_vat_report(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "5.12", "vatAmount")), styleValueAmount, 1);
 	
 	//Printing of the total with ID 5.13
+	tableRow = table_1.addRow();
+	tableRow.addCell("5.13", "", 1);
+	tableRow.addCell(get_value(param.form, "5.13", "description"), styleDescription, 4);
 	if (get_value(param.form, "5.13", "vatAmount") < 0) {
-		tableRow = table_1.addRow();
-		tableRow.addCell("5.13", "", 1);
-		tableRow.addCell(get_value(param.form, "5.13", "description"), styleDescription, 4);
 		tableRow.addCell("-", "", 1);
 		tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "5.13", "vatAmount")*-1), styleValueTotal, 1);
-	} else {
-		tableRow = table_1.addRow();
-		tableRow.addCell("5.13", "", 1);
-		tableRow.addCell(get_value(param.form, "5.13", "description"), styleDescription, 4);
+	} else if (get_value(param.form, "5.13", "vatAmount") > 0) {
 		tableRow.addCell("", "", 1);
 		tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "5.13", "vatAmount")), styleValueTotal, 1);
+	} else {
+		tableRow.addCell("", "", 1);
+		tableRow.addCell("", styleValueTotal, 1);
 	}
 	
 	//Printing of the objects with ID 6
@@ -733,7 +745,7 @@ function create_vat_report(banDoc, startDate, endDate, isTest) {
 		tableRow.addCell(get_value(param.form, "7", "code"), styleDescription, 1);
 		tableRow.addCell("", "", 2);
 		tableRow.addCell("", "", 1);
-		tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "7", "vatAmount")), styleValueTotal, 1);
+		tableRow.addCell("", styleValueTotal, 1);
 	}
 	
 	//Verification of some total values
@@ -847,10 +859,15 @@ function load_vat_balances(banDoc, form) {
 			vTaxable = Banana.SDecimal.invert(vTaxable);
 			vAmount = Banana.SDecimal.invert(vAmount);
 		}
-		
-		//Save values into the structure
-		form[i]["vatTaxable"] = vTaxable;
-		form[i]["vatAmount"] = vAmount;
+
+		//Save values into the structure (only non-zero values)
+		if (vTaxable != 0) {
+			form[i]["vatTaxable"] = vTaxable;
+		}
+
+		if (vAmount != 0) {
+			form[i]["vatAmount"] = vAmount;
+		}
 	}
 }
 
@@ -1085,7 +1102,7 @@ function create_styleSheet() {
 	style = stylesheet.addStyle(".footer");
 	style.setAttribute("text-align", "right");
 	style.setAttribute("font-size", "8px");
-	style.setAttribute("font", "Times New Roman");
+	style.setAttribute("font-family", "Courier New");
 
 	style = stylesheet.addStyle(".heading1");
 	style.setAttribute("font-size", "16px");
