@@ -1,6 +1,6 @@
 # Vat Report Austria
 ## How to use the Vat Report
-1. Install last version of Banana Experimental [http://www.banana.ch/cms/en/node/4617]
+1. Install last version of Banana 8 Beta [http://www.banana.ch/cms/en/node/4617]
 2. Download github directory BananaAccounting/Austria as a zip file  [https://github.com/BananaAccounting/Austria/archive/master.zip]  
 3. Extract the zip file to a directory in your computer. 
 4. Start Banana Experimental
