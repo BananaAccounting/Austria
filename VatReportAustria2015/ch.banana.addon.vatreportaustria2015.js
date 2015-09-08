@@ -31,6 +31,10 @@
 //The parameters are:
 // - id		 	 : this is a UNIQUE id for each object contained in the structure
 // - type 	     : used to differentiate the TYPE of object (text, umsatzsteuer, summe, vorsteuer, sonstige);
+// - vatClass    : 1 = Vorsteuer vatTaxable
+//                 2 = Umsatzsteur vatTaxable  
+//                 3 = Vorsteuer vatPosted  
+//                 4 = Umsatzsteur vatPosted  
 // - description : used to specify the description text of the object
 // - value       : (ONLY for type "text") this will contain the information values taken from Banana -> File Properties
 // - code		 : (ONLY for type "umsatzsteuer/vorsteuer/summe") this is the GR1 code contained in Banana;
@@ -50,6 +54,9 @@ function load_form(param) {
 	form.push({"id":"3.7", "type":"text", "description":"Telefonnummer", "value":param.telephone});
 	form.push({"id":"3.8", "type":"text", "description":"Postleitzahl", "value":param.zip});
 	form.push({"id":"3.9", "type":"text", "description":"ORT (BLOCKSCHRIFT)", "value":param.city});
+	
+	form.push({"id": "4.2", , "gr": "001", "vatClass": "2", "description": "zuzüglich Eigenverbrauch (§ 1 Abs. 1 Z 2, § 3 Abs. 2 und § 3a Abs. 1a)"});
+	form.push({"id": "4.17", , "gr": "037", "vatClass": "4", "description": "19% für Jungholz und Mittelberg"});	
 	
 	form.push({"id": "4.1", "type": "umsatzsteuer", "description": "Gesamtbetrag der Bemessungsgrundlage für Lieferungen und sonstige Leistungen (ohne den nachstehend angeführten Eigenverbrauch) einschließlich Anzahlungen (jeweils ohne Umsatzsteuer)", "code": "000"});	
 	form.push({"id": "4.2", "type": "umsatzsteuer", "description": "zuzüglich Eigenverbrauch (§ 1 Abs. 1 Z 2, § 3 Abs. 2 und § 3a Abs. 1a)", "code": "001"});
@@ -167,7 +174,8 @@ function create_vat_report(banDoc, startDate, endDate, isTest) {
 	//Loading data and calculate the totals
 	load_form(param);
 	load_vat_balances(banDoc, param.form);
-	calc_form_totals(param.form, ["vatTaxable", "vatAmount"]);
+	calc_form_totals(param.form, ["vatAmount"]);
+	// format amounts toLocaleNumberFormat
 	
 	//Create a report.
 	var report = Banana.Report.newReport(param.reportName);
@@ -851,22 +859,19 @@ function load_vat_balances(banDoc, form) {
 	for (var i in form) {
 		//We use the Banana.document.vatCurrentBalance() function to calculate VAT taxable and VAT amount values
 		var objVatCurrentBalance = banDoc.vatCurrentBalance(get_vat_codes(vatCodes, get_object(form, form[i]["id"]).code), get_value(form, "2.2", "openingDate"), get_value(form, "2.2", "closureDate"));
-		var vTaxable = objVatCurrentBalance.vatTaxable;
-		var vAmount = objVatCurrentBalance.vatAmount;
-		
-		//Invert sign if the type is "umsatzsteuer"
-		if (form[i]["type"] === "umsatzsteuer") {
-			vTaxable = Banana.SDecimal.invert(vTaxable);
-			vAmount = Banana.SDecimal.invert(vAmount);
+		form[i]["vatAmount"]  = 0;
+		//vatClass decide the value to use
+		if (form[i]["vatClass"] === "1") {
+			form[i]["vatAmount"]  = objVatCurrentBalance.vatTaxable;
 		}
-
-		//Save values into the structure (only non-zero values)
-		if (vTaxable != 0) {
-			form[i]["vatTaxable"] = vTaxable;
+		else if (form[i]["vatClass"] === "2") {
+			form[i]["vatAmount"]  = Banana.SDecimal.invert(objVatCurrentBalance.vatTaxable);
 		}
-
-		if (vAmount != 0) {
-			form[i]["vatAmount"] = vAmount;
+		else if (form[i]["vatClass"] === "3") {
+			form[i]["vatAmount"]  = objVatCurrentBalance.vatPosted;
+		}
+		else if (form[i]["vatClass"] === "4") {
+			form[i]["vatAmount"]  = Banana.SDecimal.invert(objVatCurrentBalance.vatPosted);
 		}
 	}
 }
