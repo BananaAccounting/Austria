@@ -14,7 +14,7 @@
 //
 // @id = ch.banana.addon.vatreportaustria2015
 // @api = 1.0
-// @pubdate = 2015-09-14
+// @pubdate = 2015-09-18
 // @publisher = Banana.ch SA
 // @description = VAT report Austria 2015 - Development
 // @task = app.command
@@ -27,13 +27,17 @@
 
 
 
-
+//Global variables
+var form = [];
 var param = {};
+
+
+
 function loadParam(banDoc, startDate, endDate) {
 	param = {
 		"reportName":"VAT report Austria 2015",												//Save the report's name
 		"bananaVersion":"Banana Accounting, v. " + banDoc.info("Base", "ProgramVersion"), 	//Save the version of Banana Accounting used
-		"scriptVersion":"script v. 2015-09-14 (TEST VERSION)", 								//Save the version of the script
+		"scriptVersion":"script v. 2015-09-18 (TEST VERSION)", 								//Save the version of the script
 		"fiscalNumber":banDoc.info("AccountingDataBase","FiscalNumber"),					//Save the fiscal number
 		"startDate":startDate,																//Save the startDate that will be used to specify the accounting period starting date
 		"endDate":endDate, 																	//Save the endDate that will be used to specify the accounting period ending date		
@@ -46,6 +50,7 @@ function loadParam(banDoc, startDate, endDate) {
 		"telephone":banDoc.info("AccountingDataBase","Phone"), 								//Save the phone number
 		"zip":banDoc.info("AccountingDataBase","Zip"), 										//Save the zip code
 		"city":banDoc.info("AccountingDataBase","City"),									//Save the city
+		"pageCounterText":"Seite",															//Save the text for the page counter
 		"grColumn" : "Gr1",																	//Save the GR column (Gr1 or Gr2)
 		"rounding" : 2,																		//Speficy the rounding type		
 		"formatNumber":true 																//Choose if format number or not
@@ -57,31 +62,29 @@ function loadParam(banDoc, startDate, endDate) {
 //We create objects by adding some parameters that will be used to extract informations from Banana and to determine their behavior and purpose.
 //The parameters are:
 // - id: this is a UNIQUE id for each object contained in the structure
-// - gr: (ONLY for type "umsatzsteuer/vorsteuer/summe") this is the GR1 contained in Banana;
-// - vatClass: 1 = Vorsteuer vatTaxable, 2 = Umsatzsteur vatTaxable, 3 = Vorsteuer vatPosted, 4 = Umsatzsteur vatPosted  
-// - description: used to specify the description text of the object
-// - sum: ONLY for totals, used to sum/subtract objects amounts to calculate totals
-// - value, month, year, startDate, endDate: these will contain the informations taken from Banana -> File Properties / inserted by the user
-var form = [];
+// - gr: this is the GR1 or GR2 contained in Banana (only for objects that will have an amount - totals excluded);
+// - vatClass: 1 = Vorsteuer vatTaxable; 2 = Umsatzsteur vatTaxable; 3 = Vorsteuer vatPosted; 4 = Umsatzsteur vatPosted  
+// - description: used to insert the desired text-description of the objects
+// - sum: used to sum/subtract the amounts of the objects to calculate totals
 function loadForm() {
 
-	form.push({"id":"1.1", "description":"Finanzamtsnummer - Steuernummer", "value":param.fiscalNumber});	
-	form.push({"id":"2.1", "description":"für den Kalendermonat", "month":getMonthName(Banana.Converter.toDate(param.startDate)), "year":Banana.Converter.toDate(param.startDate).getFullYear()});		
-	form.push({"id":"2.2", "description":"für das Kalendervierteljahr", "startDate":param.startDate, "endDate":param.endDate});	
-	form.push({"id":"3.1", "description":"BEZEICHNUNG DES UNTERNEHMENS (BLOCKSCHRIFT)", "value":param.company});
-	form.push({"id":"3.2", "description":"STRASSE (BLOCKSCHRIFT)", "value":param.address});
-	form.push({"id":"3.3", "description":"Hausnummer", "value":param.hausnummer});
-	form.push({"id":"3.4", "description":"Stiege", "value":param.stiege});
-	form.push({"id":"3.5", "description":"Türnummer", "value":param.tuernummer});
-	form.push({"id":"3.6", "description":"Land", "value":param.nation});
-	form.push({"id":"3.7", "description":"Telefonnummer", "value":param.telephone});
-	form.push({"id":"3.8", "description":"Postleitzahl", "value":param.zip});
-	form.push({"id":"3.9", "description":"ORT (BLOCKSCHRIFT)", "value":param.city});
-	
+	form.push({"id":"1.1", "description":"Finanzamtsnummer - Steuernummer"});	
+	form.push({"id":"2.1", "description":"für den Kalendermonat"});		
+	form.push({"id":"2.2", "description":"für das Kalendervierteljahr"});	
+	form.push({"id":"3.1", "description":"BEZEICHNUNG DES UNTERNEHMENS (BLOCKSCHRIFT)"});
+	form.push({"id":"3.2", "description":"STRASSE (BLOCKSCHRIFT)"});
+	form.push({"id":"3.3", "description":"Hausnummer"});
+	form.push({"id":"3.4", "description":"Stiege"});
+	form.push({"id":"3.5", "description":"Türnummer"});
+	form.push({"id":"3.6", "description":"Land"});
+	form.push({"id":"3.7", "description":"Telefonnummer"});
+	form.push({"id":"3.8", "description":"Postleitzahl"});
+	form.push({"id":"3.9", "description":"ORT (BLOCKSCHRIFT)"});
+
 	form.push({"id":"4.1", "gr":"000", "vatClass":"2", "description":"Gesamtbetrag der Bemessungsgrundlage für Lieferungen und sonstige Leistungen (ohne den nachstehend angeführten Eigenverbrauch) einschließlich Anzahlungen (jeweils ohne Umsatzsteuer)"});	
 	form.push({"id":"4.2", "gr":"001", "vatClass":"2", "description":"zuzüglich Eigenverbrauch (§ 1 Abs. 1 Z 2, § 3 Abs. 2 und § 3a Abs. 1a)"});
 	form.push({"id":"4.3", "gr":"021", "vatClass":"2", "description":"abzüglich Umsätze, für die die Steuerschuld gemäß § 19 Abs. 1 zweiter Satz sowie gemäß § 19 Abs. 1a, 1b, 1c, 1d und 1e auf den Leistungsempfänger übergegangen ist."});
-	form.push({"id":"4.4", "gr":"", "description":"SUMME", "sum":"4.1;4.2;-4.3"});
+	form.push({"id":"4.4", "description":"SUMME", "sum":"4.1;4.2;-4.3"});
 	form.push({"id":"4.5", "gr":"011", "vatClass":"2", "description":"§ 6 Abs. 1 Z 1 iVm § 7 (Ausfuhrlieferungen)"});
 	form.push({"id":"4.6", "gr":"012", "vatClass":"2", "description":"§ 6 Abs. 1 Z 1 iVm § 8 (Lohnveredelungen)"});
 	form.push({"id":"4.7", "gr":"015", "vatClass":"2", "description":"§ 6 Abs. 1 Z 2 bis 6 sowie § 23 Abs. 5 (Seeschifffahrt, Luftfahrt, grenzüberschreitende Personenbeförderung, Diplomaten, Reisevorleistungen im Drittlandsgebiet usw.)."});
@@ -90,7 +93,7 @@ function loadForm() {
 	form.push({"id":"4.10", "gr":"019", "vatClass":"2", "description":"§ 6 Abs. 1 Z 9 lit. a (Grundstücksumsätze)"});
 	form.push({"id":"4.11", "gr":"016", "vatClass":"2", "description":"§ 6 Abs. 1 Z 27 (Kleinunternehmer)"});		
 	form.push({"id":"4.12", "gr":"020", "vatClass":"2", "description":"§ 6 Abs. 1 Z (übrige steuerfreie Umsätze ohne Vorsteuerabzug)"});
-	form.push({"id":"4.13", "gr":"", "description":"Gesamtbetrag der steuerpflichtigen Lieferungen, sonstigen Leistungen und Eigenverbrauch (einschließlich steuerpflichtiger Anzahlungen)", "sum":"4.4;-4.5;-4.6;-4.7;-4.8;-4.9;-4.10;-4.11;-4.12"});
+	form.push({"id":"4.13", "description":"Gesamtbetrag der steuerpflichtigen Lieferungen, sonstigen Leistungen und Eigenverbrauch (einschließlich steuerpflichtiger Anzahlungen)", "sum":"4.4;-4.5;-4.6;-4.7;-4.8;-4.9;-4.10;-4.11;-4.12"});
 	
 	form.push({"id":"4.14.1", "gr":"022", "vatClass":"2", "description":"20% Normalsteuersatz"});
 	form.push({"id":"4.14.2", "gr":"022", "vatClass":"4", "description":"20% Normalsteuersatz"});
@@ -112,7 +115,7 @@ function loadForm() {
 	form.push({"id":"4.24", "gr":"032", "vatClass":"4", "description":"Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe)"});			
 	form.push({"id":"4.25", "gr":"070", "vatClass":"2", "description":"Gesamtbetrag der Bemessungsgrundlagen für innergemeinschaftliche Erwerbe"});
 	form.push({"id":"4.26", "gr":"071", "vatClass":"2", "description":"Davon steuerfrei gemäß Art. 6 Abs. 2"});
-	form.push({"id":"4.27", "gr":"", "description":"Gesamtbetrag der steuerpflichtigen innergemeinschaftlichen Erwerbe", "sum":"4.25;-4.26"});		
+	form.push({"id":"4.27", "description":"Gesamtbetrag der steuerpflichtigen innergemeinschaftlichen Erwerbe", "sum":"4.25;-4.26"});		
 	
 	form.push({"id":"4.28.1", "gr":"072", "vatClass":"2", "description":"20% Normalsteuersatz"});
 	form.push({"id":"4.28.2", "gr":"072", "vatClass":"4", "description":"20% Normalsteuersatz"});
@@ -136,15 +139,17 @@ function loadForm() {
 	form.push({"id":"5.10", "gr":"062", "vatClass":"3", "description":"Davon nicht abzugsfähig gemäß § 12 Abs. 3 iVm Abs. 4 und 5"});
 	form.push({"id":"5.11", "gr":"063", "vatClass":"3", "description":"Berichtigung gemäß § 12 Abs. 10 und 11"});
 	form.push({"id":"5.12", "gr":"067", "vatClass":"3", "description":"Berichtigung gemäß § 16"});
-	form.push({"id":"5.13", "gr":"", "description":"Gesamtbetrag der abziehbaren Vorsteuer", "sum":"-5.1;-5.2;-5.3;-5.4;-5.5;-5.6;-5.7;-5.8;-5.9;5.10;-5.11;-5.12"});
+	form.push({"id":"5.13", "description":"Gesamtbetrag der abziehbaren Vorsteuer", "sum":"-5.1;-5.2;-5.3;-5.4;-5.5;-5.6;-5.7;-5.8;-5.9;5.10;-5.11;-5.12"});
 	
 	form.push({"id":"6.1", "gr":"090", "vatClass":"3", "description":""});
 	form.push({"id":"7", "gr":"095", "description":"", "sum":"4.14.2;4.15.2;4.16.2;4.17.2;4.18.2;4.19.2;4.20;4.21;4.22;4.23;4.24;4.28.2;4.29.2;4.30.2;5.13;6.1"});
-
-	param.form = form;
 }
 
 
+
+//------------------------------------------------------------------------------//
+// FUNCTIONS
+//------------------------------------------------------------------------------//
 
 //Main function
 function exec(string) {
@@ -153,6 +158,7 @@ function exec(string) {
 		return;
 	}
 
+	//Every time the script is executed we clear the messages in banana
 	Banana.document.clearMessages();
 	
 	//Function call to manage and save user settings about the period date
@@ -160,7 +166,7 @@ function exec(string) {
 
 	//Check if user has entered a period date.
 	//If yes, we can get all the informations we need, process them and finally create the report.
-	//If no, the script execution will be stopped immediately.
+	//If not, the script execution will be stopped immediately.
 	if (dateform) {
 		//Variable by checkTotals() and checkBalance() functions to check if use them to create the "normal-report" or to create the "test-report".
 		//The reports are differents: on test-report we don't want to display any dialog boxes.
@@ -177,7 +183,7 @@ function exec(string) {
 
 
 //The purpose of this function is to do some operations before the values are converted
-function postProcessAmounts(banDoc, report, isTest) {
+function postProcessAmounts(banDoc, isTest) {
 
 	//Invert the 5.13 total if negative
 	if (Banana.SDecimal.sign(getValue(form, "5.13", "amount")) == -1) { //amount < 0
@@ -192,139 +198,143 @@ function postProcessAmounts(banDoc, report, isTest) {
 	}
 
 	//Verification of some total values
-	checkTotals("4.13", "4.14.1;4.15.1;4.16.1;4.17.1;4.18.1;4.19.1", report, isTest);
-	checkTotals("4.27", "4.28.1;4.29.1;4.30.1", report, isTest);
+	checkTotals("4.13", "4.14.1;4.15.1;4.16.1;4.17.1;4.18.1;4.19.1", isTest);
+	checkTotals("4.27", "4.28.1;4.29.1;4.30.1", isTest);
 	
 	//Verification of the balance values
-	checkBalance(banDoc, report, isTest);
+	checkBalance(banDoc, isTest);
 }
 
-//------------------------------------------------------------------------------//
-// FUNCTIONS
-//------------------------------------------------------------------------------//
 
 //Function that create the report
 function createVatReport(banDoc, startDate, endDate, isTest) {
 
-	//Create a report.
-	var report = Banana.Report.newReport(param.reportName);
-
-
+	/** 1. CREATE AND LOAD THE PARAMETERS AND THE FORM */
 	loadParam(banDoc, startDate, endDate);
 	loadForm();
+	
+	/** 2. EXTRACT THE DATA, CALCULATE AND LOAD THE BALANCES */
 	loadBalances();
+	
+	/** 3. CALCULATE THE TOTALS */
 	calcFormTotals(["amount"]);
-	postProcessAmounts(banDoc, report, isTest);
+	
+	/** 4. DO SOME OPERATIONS BEFORE CONVERTING THE VALUES */
+	postProcessAmounts(banDoc, isTest);
+	
+	/** 5. CONVERT ALL THE VALUES */
 	formatValues(["amount"]);
 	
 
-	//Adding a footer.
-	addFooter(report, param);
-	
-	//Variable used for the difference in months between the opening date and the closure date
-	var monthsNumber = getMonthDiff(Banana.Converter.toDate(getValue(form, "2.2", "startDate")), Banana.Converter.toDate(getValue(form, "2.2", "endDate")));
-		
 
-	//Begin printing the report...
+	/** START PRINT... */
+	/** ------------------------------------------------------------------------------------------------------------- */
+
+	//Create a report.
+	var report = Banana.Report.newReport(param.reportName);
+
+	//Variable used for the difference in months between the opening date and the closure date
+	var monthsNumber = getMonthDiff(Banana.Converter.toDate(param.startDate), Banana.Converter.toDate(param.endDate));
+		
 	//Title
 	report.addParagraph("[  ] Umsatzsteuervoranmeldung 2015", "heading1");		
 	report.addParagraph("[  ] Berichtige Umsatzsteuervoranmeldung 2015", "heading1");
 		
 	//Table with basic informations
-	var table = report.addTable("table");		
+	var table1 = report.addTable("table");		
 		
 	//Printing of the objects with ID 1-2
-	tableRow = table.addRow();
+	tableRow = table1.addRow();
 	tableRow.addCell("1. Abgabenkontonummer", "valueTitle");
 	tableRow.addCell("2. Zeitraum", "valueTitle", 3);
 
 	if (monthsNumber == 1) {
-		tableRow = table.addRow();
+		tableRow = table1.addRow();
 		tableRow.addCell("1.1 " + getValue(form, "1.1", "description"), "description", 1);
 		tableRow.addCell("2.1 " + getValue(form, "2.1", "description"), "description", 3);
 		
-		tableRow = table.addRow();
-		tableRow.addCell(getValue(form, "1.1", "value"), "valueText", 1);
-		tableRow.addCell(getValue(form, "2.1", "month"), "valueText", 1);
-		tableRow.addCell(getValue(form, "2.1", "year"), "valueText", 1);
+		tableRow = table1.addRow();
+		tableRow.addCell(param.fiscalNumber, "valueText", 1);
+		tableRow.addCell(getMonthName(Banana.Converter.toDate(param.startDate)), "valueText", 1);
+		tableRow.addCell(Banana.Converter.toDate(param.startDate).getFullYear(), "valueText", 1);
 		tableRow.addCell(" ", "valueText", 1);
 	} else if (monthsNumber > 1) {
-		tableRow = table.addRow();
+		tableRow = table1.addRow();
 		tableRow.addCell("1.1 " + getValue(form, "1.1", "description"), "description", 1);
 		tableRow.addCell("2.2 " + getValue(form, "2.2", "description"), "description", 3);
 		
-		tableRow = table.addRow();
-		tableRow.addCell(getValue(form, "1.1", "value"), "valueText", 1);
-		tableRow.addCell(Banana.Converter.toLocaleDateFormat(getValue(form, "2.2", "startDate")), "valueText", 1);
+		tableRow = table1.addRow();
+		tableRow.addCell(param.fiscalNumber, "valueText", 1);
+		tableRow.addCell(Banana.Converter.toLocaleDateFormat(param.startDate), "valueText", 1);
 		tableRow.addCell("bis ", "valueText", 1);
-		tableRow.addCell(Banana.Converter.toLocaleDateFormat(getValue(form, "2.2", "endDate")), "valueText", 1);
+		tableRow.addCell(Banana.Converter.toLocaleDateFormat(param.endDate), "valueText", 1);
 	}
 		
-	tableRow = table.addRow();
+	tableRow = table1.addRow();
 	tableRow.addCell("1.2 Steuernummer noch nicht vorhanden", "description");
 	tableRow.addCell("", "", 3);
 	
 	//Printing of the objects with ID 3
-	tableRow = table.addRow();
+	tableRow = table1.addRow();
 	tableRow.addCell("3. Angaben zum Unternehmen", "valueTitle", 4);
 	
-	tableRow = table.addRow();
+	tableRow = table1.addRow();
 	tableRow.addCell("3.1 " + getValue(form, "3.1", "description"), "description", 4);
 	
-	tableRow = table.addRow();
-	tableRow.addCell(getValue(form, "3.1", "value").toUpperCase(), "valueText", 4);
+	tableRow = table1.addRow();
+	tableRow.addCell(param.company.toUpperCase(), "valueText", 4);
 	
-	tableRow = table.addRow();
+	tableRow = table1.addRow();
 	tableRow.addCell("3.2 " + getValue(form, "3.2", "description"), "description", 3);
 	tableRow.addCell("3.3 " + getValue(form, "3.3", "description"), "description", 1);
 	
-	tableRow = table.addRow();
-	tableRow.addCell(getValue(form, "3.2", "value").toUpperCase(), "valueText", 3);
-	tableRow.addCell(getValue(form, "3.3", "value").toUpperCase(), "valueText", 1);
+	tableRow = table1.addRow();
+	tableRow.addCell(param.address.toUpperCase(), "valueText", 3);
+	tableRow.addCell(param.hausnummer.toUpperCase(), "valueText", 1);
 	
-	tableRow = table.addRow();
+	tableRow = table1.addRow();
 	tableRow.addCell("3.4 " + getValue(form, "3.4", "description"), "description", 1);
 	tableRow.addCell("3.5 " + getValue(form, "3.5", "description"), "description", 1);
 	tableRow.addCell("3.6 " + getValue(form, "3.6", "description"), "description", 1);
 	tableRow.addCell("3.7 " + getValue(form, "3.7", "description"), "description", 1);
 	
-	tableRow = table.addRow();
-	tableRow.addCell(getValue(form, "3.4", "value"), "valueText", 1);
-	tableRow.addCell(getValue(form, "3.5", "value"), "valueText", 1);
-	tableRow.addCell(getValue(form, "3.6", "value"), "valueText", 1);
-	tableRow.addCell(getValue(form, "3.7", "value"), "valueText", 1);
+	tableRow = table1.addRow();
+	tableRow.addCell(param.stiege, "valueText", 1);
+	tableRow.addCell(param.tuernummer, "valueText", 1);
+	tableRow.addCell(param.nation, "valueText", 1);
+	tableRow.addCell(param.telephone, "valueText", 1);
 	
-	tableRow = table.addRow();
+	tableRow = table1.addRow();
 	tableRow.addCell("3.8 " + getValue(form, "3.8", "description"), "description", 1);
 	tableRow.addCell("3.9 " + getValue(form, "3.9", "description"), "description", 3);
 	
-	tableRow = table.addRow();
-	tableRow.addCell(getValue(form, "3.8", "value"), "valueText", 1);
-	tableRow.addCell(getValue(form, "3.9", "value").toUpperCase(), "valueText", 3);
+	tableRow = table1.addRow();
+	tableRow.addCell(param.zip, "valueText", 1);
+	tableRow.addCell(param.city.toUpperCase(), "valueText", 3);
 	
 	//Create new table for the data
-	var table_1 = report.addTable("table");
+	var table = report.addTable("table");
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("", "", 7);
 	
 	//Printing of the objects with ID 4
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.", "valueTitle", 1);
 	tableRow.addCell("Berechnung der Umsatzsteuer:", "valueTitle", 5);
 	tableRow.addCell("Bemessungsgrundlage", "valueTitle1", 1);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("Lieferungen, sonstige Leistungen und Eigenverbrauch:", "descriptionBold", 7);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.1", "", 1);
 	tableRow.addCell(getValue(form, "4.1", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("", "", 1);
 	tableRow.addCell(getValue(form, "4.1", "amount"), "valueAmount", 1);
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	
 	tableRow.addCell("4.2", "", 1);
 	tableRow.addCell(getValue(form, "4.2", "description"), "description", 1);
@@ -333,7 +343,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("+", "", 1);
 	tableRow.addCell(getValue(form, "4.2", "amount"), "valueAmount", 1);
 
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.3", "", 1);
 	tableRow.addCell(getValue(form, "4.3", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.3", "gr"), "description", 1);
@@ -342,7 +352,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell(getValue(form, "4.3", "amount"), "valueAmount", 1);
 
 	//Printing of the total with ID 4.4
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.4", "", 1);
 	tableRow.addCell(getValue(form, "4.4", "description"), "description", 4);
 	tableRow.addCell("", "", 1);
@@ -352,10 +362,10 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 		tableRow.addCell("", "valueTotal", 1);
 	}
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("Davon steuerfrei MIT Vorsteuerabzug gemäß", "horizontalLine descriptionBold", 7);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.5", "", 1);
 	tableRow.addCell(getValue(form, "4.5", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.5", "gr"), "description", 1);
@@ -363,7 +373,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("-", "", 1);
 	tableRow.addCell(getValue(form, "4.5", "amount"), "valueAmount", 1);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.6", "", 1);
 	tableRow.addCell(getValue(form, "4.6", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.6", "gr"), "description", 1);
@@ -371,7 +381,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("-", "", 1);
 	tableRow.addCell(getValue(form, "4.6", "amount"), "valueAmount", 1);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.7", "", 1);
 	tableRow.addCell(getValue(form, "4.7", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.7", "gr"), "description", 1);
@@ -379,7 +389,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("-", "", 1);
 	tableRow.addCell(getValue(form, "4.7", "amount"), "valueAmount", 1);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.8", "", 1);
 	tableRow.addCell(getValue(form, "4.8", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.8", "gr"), "description", 1);
@@ -387,7 +397,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("-", "", 1);
 	tableRow.addCell(getValue(form, "4.8", "amount"), "valueAmount", 1);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.9", "", 1);
 	tableRow.addCell(getValue(form, "4.9", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.9", "gr"), "description", 1);
@@ -395,10 +405,10 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("-", "", 1);
 	tableRow.addCell(getValue(form, "4.9", "amount"), "valueAmount", 1);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("Davon steuerfrei OHNE Vorsteuerabzug gemäß", "horizontalLine descriptionBold", 7);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.10", "", 1);
 	tableRow.addCell(getValue(form, "4.10", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.10", "gr"), "description", 1);
@@ -406,7 +416,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("-", "", 1);
 	tableRow.addCell(getValue(form, "4.10", "amount"), "valueAmount", 1);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.11", "", 1);
 	tableRow.addCell(getValue(form, "4.11", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.11", "gr"), "description", 1);
@@ -414,7 +424,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("-", "", 1);
 	tableRow.addCell(getValue(form, "4.11", "amount"), "valueAmount", 1);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.12", "", 1);
 	tableRow.addCell(getValue(form, "4.12", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.12", "gr"), "description", 1);
@@ -423,7 +433,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell(getValue(form, "4.12", "amount"), "valueAmount", 1);
 	
 	//Printing of the total with ID 4.13
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.13", "", 1);
 	tableRow.addCell(getValue(form, "4.13", "description"), "description", 4);
 	tableRow.addCell("", "", 1);
@@ -433,14 +443,14 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 		tableRow.addCell("", "valueTotal", 1);	
 	}
 		
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("Davon sind zu versteuern mit:", "horizontalLine descriptionBold", 4);
 	tableRow.addCell("Bemessungsgrundlage", "description1 horizontalLine", 1);
 	tableRow.addCell("", "horizontalLine", 1);
 	tableRow.addCell("Umsatzsteuer", "description1 horizontalLine", 1);
 	
-	tableRow = table_1.addRow();
-	tableRow.addCell("4.14.1", "", 1);
+	tableRow = table.addRow();
+	tableRow.addCell("4.14", "", 1);
 	tableRow.addCell(getValue(form, "4.14.1", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.14.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
@@ -448,55 +458,55 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("", "", 1);
 	tableRow.addCell(getValue(form, "4.14.2", "amount"), "valueAmount", 1);
 
-	tableRow = table_1.addRow();
-	tableRow.addCell("4.15.1", "", 1);
+	tableRow = table.addRow();
+	tableRow.addCell("4.15", "", 1);
 	tableRow.addCell(getValue(form, "4.15.1", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.15.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
 	tableRow.addCell(getValue(form, "4.15.1", "amount"), "valueAmount", 1);
-	tableRow.addCell("", "", 1);
+	tableRow.addCell("+", "", 1);
 	tableRow.addCell(getValue(form, "4.15.2", "amount"), "valueAmount", 1);
 
-	tableRow = table_1.addRow();
-	tableRow.addCell("4.16.1", "", 1);
+	tableRow = table.addRow();
+	tableRow.addCell("4.16", "", 1);
 	tableRow.addCell(getValue(form, "4.16.1", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.16.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
 	tableRow.addCell(getValue(form, "4.16.1", "amount"), "valueAmount", 1);
-	tableRow.addCell("", "", 1);
+	tableRow.addCell("+", "", 1);
 	tableRow.addCell(getValue(form, "4.16.2", "amount"), "valueAmount", 1);
 
-	tableRow = table_1.addRow();
-	tableRow.addCell("4.17.1", "", 1);
+	tableRow = table.addRow();
+	tableRow.addCell("4.17", "", 1);
 	tableRow.addCell(getValue(form, "4.17.1", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.17.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
 	tableRow.addCell(getValue(form, "4.17.1", "amount"), "valueAmount", 1);
-	tableRow.addCell("", "", 1);
+	tableRow.addCell("+", "", 1);
 	tableRow.addCell(getValue(form, "4.17.2", "amount"), "valueAmount", 1);
 
-	tableRow = table_1.addRow();
-	tableRow.addCell("4.18.1", "", 1);
+	tableRow = table.addRow();
+	tableRow.addCell("4.18", "", 1);
 	tableRow.addCell(getValue(form, "4.18.1", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.18.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
 	tableRow.addCell(getValue(form, "4.18.1", "amount"), "valueAmount", 1);
-	tableRow.addCell("", "", 1);
+	tableRow.addCell("+", "", 1);
 	tableRow.addCell(getValue(form, "4.18.2", "amount"), "valueAmount", 1);
 
-	tableRow = table_1.addRow();
-	tableRow.addCell("4.19.1", "", 1);
+	tableRow = table.addRow();
+	tableRow.addCell("4.19", "", 1);
 	tableRow.addCell(getValue(form, "4.19.1", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.19.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
 	tableRow.addCell(getValue(form, "4.19.1", "amount"), "valueAmount", 1);
-	tableRow.addCell("", "", 1);
+	tableRow.addCell("+", "", 1);
 	tableRow.addCell(getValue(form, "4.19.2", "amount"), "valueAmount", 1);
 
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("Weiters zu versteuern:", "horizontalLine descriptionBold", 7);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.20", "", 1);
 	tableRow.addCell(getValue(form, "4.20", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.20", "gr"), "description", 1);
@@ -504,7 +514,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("+", "", 1);
 	tableRow.addCell(getValue(form, "4.20", "amount"), "valueAmount", 1);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.21", "", 1);
 	tableRow.addCell(getValue(form, "4.21", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.21", "gr"), "description", 1);
@@ -512,7 +522,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("+", "", 1);
 	tableRow.addCell(getValue(form, "4.21", "amount"), "valueAmount", 1);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.22", "", 1);
 	tableRow.addCell(getValue(form, "4.22", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.22", "gr"), "description", 1);
@@ -520,7 +530,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("+", "", 1);
 	tableRow.addCell(getValue(form, "4.22", "amount"), "valueAmount", 1);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.23", "", 1);
 	tableRow.addCell(getValue(form, "4.23", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.23", "gr"), "description", 1);
@@ -528,7 +538,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("+", "", 1);
 	tableRow.addCell(getValue(form, "4.23", "amount"), "valueAmount", 1);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.24", "", 1);
 	tableRow.addCell(getValue(form, "4.24", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.24", "gr"), "description", 1);
@@ -536,12 +546,12 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("+", "", 1);
 	tableRow.addCell(getValue(form, "4.24", "amount"), "valueAmount", 1);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("Innergemeinschaftliche Erwerbe:", "horizontalLine descriptionBold", 4);
 	tableRow.addCell("Bemessungsgrundlage", "description1 horizontalLine", 1);
 	tableRow.addCell("", "horizontalLine", 2);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.25", "", 1);
 	tableRow.addCell(getValue(form, "4.25", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.25", "gr"), "description", 1);
@@ -549,7 +559,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell(getValue(form, "4.25", "amount"), "valueAmount", 1);
 	tableRow.addCell("", "", 2);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.26", "", 1);
 	tableRow.addCell(getValue(form, "4.26", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.26", "gr"), "description", 1);
@@ -558,7 +568,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("", "", 2);
 	
 	//Printing of the total with ID 4.27
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.27", "", 1);
 	tableRow.addCell(getValue(form, "4.27", "description"), "description", 2);
 	tableRow.addCell("", "", 1);
@@ -569,12 +579,11 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	}
 	tableRow.addCell("", "", 2);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("Davon sind zu versteuern mit:", "horizontalLine descriptionBold", 7);
 	
-
-	tableRow = table_1.addRow();
-	tableRow.addCell("4.28.1", "", 1);
+	tableRow = table.addRow();
+	tableRow.addCell("4.28", "", 1);
 	tableRow.addCell(getValue(form, "4.28.1", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.28.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
@@ -582,8 +591,8 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("+", "", 1);
 	tableRow.addCell(getValue(form, "4.28.2", "amount"), "valueAmount", 1);
 
-	tableRow = table_1.addRow();
-	tableRow.addCell("4.29.1", "", 1);
+	tableRow = table.addRow();
+	tableRow.addCell("4.29", "", 1);
 	tableRow.addCell(getValue(form, "4.29.1", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.29.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
@@ -591,8 +600,8 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("+", "", 1);
 	tableRow.addCell(getValue(form, "4.29.2", "amount"), "valueAmount", 1);
 
-	tableRow = table_1.addRow();
-	tableRow.addCell("4.30.1", "", 1);
+	tableRow = table.addRow();
+	tableRow.addCell("4.30", "", 1);
 	tableRow.addCell(getValue(form, "4.30.1", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.30.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
@@ -600,10 +609,10 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("+", "", 1);
 	tableRow.addCell(getValue(form, "4.30.2", "amount"), "valueAmount", 1);
 
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("Nicht zu versteuernde Erwerbe:", "horizontalLine descriptionBold", 7);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.31", "", 1);
 	tableRow.addCell(getValue(form, "4.31", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.31", "gr"), "description", 1);
@@ -611,7 +620,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell(getValue(form, "4.31", "amount"), "valueAmount", 1);
 	tableRow.addCell("", "", 2);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("4.32", "", 1);
 	tableRow.addCell(getValue(form, "4.32", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.32", "gr"), "description", 1);
@@ -620,11 +629,11 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("", "", 2);
 	
 	//Printing of the objects with ID 5
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("5.", "valueTitle", 1);
 	tableRow.addCell("Berechnung der abziehbaren Vorsteuer:", "valueTitle", 6);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("5.1", "", 1);
 	tableRow.addCell(getValue(form, "5.1", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "5.1", "gr"), "description", 1);
@@ -632,7 +641,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("-", "", 1);
 	tableRow.addCell(getValue(form, "5.1", "amount"), "valueAmount", 1);
 
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("5.2", "", 1);
 	tableRow.addCell(getValue(form, "5.2", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "5.2", "gr"), "description", 1);
@@ -640,7 +649,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("-", "", 1);
 	tableRow.addCell(getValue(form, "5.2", "amount"), "valueAmount", 1);		
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("5.3", "", 1);
 	tableRow.addCell(getValue(form, "5.3", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "5.3", "gr"), "description", 1);
@@ -648,7 +657,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("-", "", 1);
 	tableRow.addCell(getValue(form, "5.3", "amount"), "valueAmount", 1);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("5.4", "", 1);
 	tableRow.addCell(getValue(form, "5.4", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "5.4", "gr"), "description", 1);
@@ -656,7 +665,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("-", "", 1);
 	tableRow.addCell(getValue(form, "5.4", "amount"), "valueAmount", 1);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("5.5", "", 1);
 	tableRow.addCell(getValue(form, "5.5", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "5.5", "gr"), "description", 1);
@@ -664,7 +673,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("-", "", 1);
 	tableRow.addCell(getValue(form, "5.5", "amount"), "valueAmount", 1);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("5.6", "", 1);
 	tableRow.addCell(getValue(form, "5.6", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "5.6", "gr"), "description", 1);
@@ -672,7 +681,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("-", "", 1);
 	tableRow.addCell(getValue(form, "5.6", "amount"), "valueAmount", 1);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("5.7", "", 1);
 	tableRow.addCell(getValue(form, "5.7", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "5.7", "gr"), "description", 1);
@@ -680,7 +689,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("-", "", 1);
 	tableRow.addCell(getValue(form, "5.7", "amount"), "valueAmount", 1);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("5.8", "", 1);
 	tableRow.addCell(getValue(form, "5.8", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "5.8", "gr"), "description", 1);
@@ -688,7 +697,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("-", "", 1);
 	tableRow.addCell(getValue(form, "5.8", "amount"), "valueAmount", 1);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("5.9", "", 1);
 	tableRow.addCell(getValue(form, "5.9", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "5.9", "gr"), "description", 1);
@@ -696,7 +705,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("-", "", 1);
 	tableRow.addCell(getValue(form, "5.9", "amount"), "valueAmount", 1);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("5.10", "", 1);
 	tableRow.addCell(getValue(form, "5.10", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "5.10", "gr"), "description", 1);
@@ -704,7 +713,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("+", "", 1);
 	tableRow.addCell(getValue(form, "5.10", "amount"), "valueAmount", 1);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("5.11", "", 1);
 	tableRow.addCell(getValue(form, "5.11", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "5.11", "gr"), "description", 1);
@@ -712,7 +721,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("+/-", "", 1);
 	tableRow.addCell(getValue(form, "5.11", "amount"), "valueAmount", 1);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("5.12", "", 1);
 	tableRow.addCell(getValue(form, "5.12", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "5.12", "gr"), "description", 1);
@@ -721,26 +730,29 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell(getValue(form, "5.12", "amount"), "valueAmount", 1);
 	
 	//Printing of the total with ID 5.13
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("5.13", "", 1);
 	tableRow.addCell(getValue(form, "5.13", "description"), "description", 4);
+	
 	if (getValue(form, "5.13", "sign") == -1) { //value < 0
 		tableRow.addCell("-", "", 1);
 		tableRow.addCell(getValue(form, "5.13", "amount"), "valueTotal", 1);
-	} else if (Banana.SDecimal.sign(getValue(form, "5.13", "amount")) == 1) { //value > 0
-		tableRow.addCell("", "", 1);
-		tableRow.addCell(getValue(form, "5.13", "amount"), "valueTotal", 1);
-	} else if (Banana.SDecimal.sign(getValue(form, "5.13", "amount")) == 0) { //value = 0
-		tableRow.addCell("", "", 1);
-		tableRow.addCell("", "valueTotal", 1);
+	} else {
+		if (Banana.SDecimal.sign(getValue(form, "5.13", "amount")) == 1) { //value > 0
+			tableRow.addCell("", "", 1);
+			tableRow.addCell(getValue(form, "5.13", "amount"), "valueTotal", 1);
+		} else if (Banana.SDecimal.sign(getValue(form, "5.13", "amount")) == 0) { //value = 0
+			tableRow.addCell("", "", 1);
+			tableRow.addCell("", "valueTotal", 1);
+		}
 	}
 
 	//Printing of the objects with ID 6
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("6.", "valueTitle", 1);
 	tableRow.addCell("Sonstige Berichtigungen:", "valueTitle", 6);
 	
-	tableRow = table_1.addRow();
+	tableRow = table.addRow();
 	tableRow.addCell("6.1", "", 1);
 	tableRow.addCell(getValue(form, "6.1", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "6.1", "gr"), "description", 1);
@@ -750,32 +762,34 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	
 	//Printing of the objects with ID 7
 	//We check if the final total value is positive or negative because we have to use different descriptions.
-	//If negative we invert the sign
-	if (Banana.SDecimal.sign(getValue(form, "7", "amount")) == 1) { //value > 0
-		tableRow = table_1.addRow();
-		tableRow.addCell("7.1", "", 1);
-		tableRow.addCell("Vorauszahlung (Zahllast)", "description", 1);
-		tableRow.addCell(getValue(form, "7", "gr"), "description", 1);
-		tableRow.addCell("", "", 2);
-		tableRow.addCell("", "", 1);
-		tableRow.addCell(getValue(form, "7", "amount"), "valueTotal", 1);
-	} else if (getValue(form, "7", "sign") == -1) { //value < 0
-		tableRow = table_1.addRow();
+	if (getValue(form, "7", "sign") == -1) { //value < 0
+		tableRow = table.addRow();
 		tableRow.addCell("7.2", "", 1);
 		tableRow.addCell("Überschuss (Gutschrift)", "description", 1);
 		tableRow.addCell(getValue(form, "7", "gr"), "description", 1);
 		tableRow.addCell("", "", 2);
 		tableRow.addCell("-", "", 1);
 		tableRow.addCell(getValue(form, "7", "amount"), "valueTotal", 1);
-	} else if (Banana.SDecimal.sign(getValue(form, "7", "amount")) == 0) { //value = 0
-		tableRow = table_1.addRow();
-		tableRow.addCell("7.1 / 7.2", "", 1);
-		tableRow.addCell("Vorauszahlung (Zahllast) / Überschuss (Gutschrift)", "description", 1);
-		tableRow.addCell(getValue(form, "7", "gr"), "description", 1);
-		tableRow.addCell("", "", 2);
-		tableRow.addCell("", "", 1);
-		tableRow.addCell("", "valueTotal", 1);
+	} else {
+		if (Banana.SDecimal.sign(getValue(form, "7", "amount")) == 1) { //value > 0
+			tableRow = table.addRow();
+			tableRow.addCell("7.1", "", 1);
+			tableRow.addCell("Vorauszahlung (Zahllast)", "description", 1);
+			tableRow.addCell(getValue(form, "7", "gr"), "description", 1);
+			tableRow.addCell("", "", 2);
+			tableRow.addCell("", "", 1);
+			tableRow.addCell(getValue(form, "7", "amount"), "valueTotal", 1);
+		} else if (Banana.SDecimal.sign(getValue(form, "7", "amount")) == 0) { //value = 0
+			tableRow = table.addRow();
+			tableRow.addCell("7.1 / 7.2", "", 1);
+			tableRow.addCell("Vorauszahlung (Zahllast) / Überschuss (Gutschrift)", "description", 1);
+			tableRow.addCell(getValue(form, "7", "gr"), "description", 1);
+			tableRow.addCell("", "", 2);
+			tableRow.addCell("", "", 1);
+			tableRow.addCell("", "valueTotal", 1);
+		}
 	}
+
 	
 	//Add all the warning messages to the report
 	for (var i = 0; i < form.length; i++) {
@@ -784,9 +798,16 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 		}
 	}
 
+	//Add a footer to the report
+	addFooter(report, param);
+
+
+	/** END PRINT ... */
+	/** ------------------------------------------------------------------------------------------------------------- */
+
+	//Return the final report
 	return report;
 }
-
 
 
 //The purpose of this function is to convert all the values from the given list to local format
@@ -806,7 +827,7 @@ function formatValues(fields) {
 //The purpose of this function is to verify two sums.
 //Given two lists of values divided by the character ";" the function creates two totals and compares them.
 //It is also possible to compare directly single values, instead of a list of values.
-function checkTotals(valuesList1, valuesList2, report, isTest) {
+function checkTotals(valuesList1, valuesList2, isTest) {
 	//Calculate the first total
 	if (valuesList1) {
 		var total1 = 0;
@@ -844,13 +865,13 @@ function checkTotals(valuesList1, valuesList2, report, isTest) {
 
 
 //The purpose of this function is to verify if the balance from Banana euquals the report total
-function checkBalance(banDoc, report, isTest) {
+function checkBalance(banDoc, isTest) {
 	//First, we get the total from the report, specifying the correct id total 
 	var totalFromReport = getValue(form, "7", "amount");
 
 	//Second, we get the VAT balance table from Banana using the function Banana.document.vatReport([startDate, endDate]).
 	//The two dates are taken directly from the structure. 
-	var vatReportTable = banDoc.vatReport(getValue(form, "2.2", "startDate"), getValue(form, "2.2", "endDate"));
+	var vatReportTable = banDoc.vatReport(param.startDate, param.endDate);
 	
 	//Now we can read the table rows values
 	for (var i = 0; i < vatReportTable.rowCount; i++) {
@@ -860,11 +881,13 @@ function checkBalance(banDoc, report, isTest) {
 		
 		//Since we know that the balance is summed in group named "_tot_", we check if that value equals the total from the report
 		if (group === "_tot_") {
+
+			//In order to compare correctly the values we have to invert the sign of the result from Banana (if negative), using the Banana.SDecimal.invert() function.
+			if (Banana.SDecimal.sign(vatBalance) == -1) {
+				vatBalance = Banana.SDecimal.invert(vatBalance);
+			}
+
 			//Now we can compare the two values using the Banana.SDecimal.compare() function and return a message if they are different.
-			//In order to compare correctly the values we don't have to invert the sign of the result from Banana anymore.
-			//This because we invert it with function postProcessAmount() before the calling of checkBalance().
-			
-			//if (Banana.SDecimal.compare(totalFromReport, Banana.SDecimal.invert(vatBalance)) !== 0) {
 			if (Banana.SDecimal.compare(totalFromReport, vatBalance) !== 0) {
 				if (!isTest) {
 					//Add an information dialog
@@ -882,7 +905,6 @@ function checkBalance(banDoc, report, isTest) {
 		}
 	}
 }
-
 
 
 //The main purpose of this function is to create an array with all the values of a given column of the table (codeColumn) belonging to the same group (grText)
@@ -931,7 +953,6 @@ function getColumnListForGr(table, grText, codeColumn, grColumn) {
 }
 
 
-
 //The purpose of this function is to load all the balances and save the values into the form
 function loadBalances() {
 
@@ -952,7 +973,6 @@ function loadBalances() {
 		}
 	}
 }
-
 
 
 //The purpose of this function is to calculate all the balances of the accounts belonging to the same group (grText)
@@ -981,7 +1001,6 @@ function calculateAccountGr1Balance(grText, bClass, grColumn, startDate, endDate
 		return Banana.SDecimal.invert(currentBal.total);
 	}
 }
-
 
 
 //The purpose of this function is to calculate all the VAT balances of the accounts belonging to the same group (grText)
@@ -1100,7 +1119,7 @@ function calcTotal(id, fields) {
 			}
 		}
 	} else if (valueObj.gr) {
-		//Already calculated in loadForm_balances()
+		//Already calculated in loadFormBalances()
 	}
 }
 
@@ -1127,16 +1146,6 @@ function getObject(form, id) {
 		}
 	}
 	Banana.document.addMessage("Couldn't find object with id: " + id);
-}
-
-
-//This function adds a Footer to the report
-function addFooter(report, param) {
-   report.getFooter().addClass("footer");
-   var versionLine = report.getFooter().addText(param.bananaVersion + ", " + param.scriptVersion + ", ", "description");
-   //versionLine.excludeFromTest();
-   report.getFooter().addText("Seite ", "description");
-   report.getFooter().addFieldPageNr();
 }
 
 
@@ -1189,6 +1198,16 @@ function getPeriodSettings() {
 		return;
 	}
 	return scriptform;
+}
+
+
+//This function adds a Footer to the report
+function addFooter(report, param) {
+   report.getFooter().addClass("footer");
+   var versionLine = report.getFooter().addText(param.bananaVersion + ", " + param.scriptVersion + ", ", "description");
+   //versionLine.excludeFromTest();
+   report.getFooter().addText(param.pageCounterText + " ", "description");
+   report.getFooter().addFieldPageNr();
 }
 
 
