@@ -14,145 +14,29 @@
 //
 // @id = ch.banana.addon.vatreportaustria2015
 // @api = 1.0
-// @pubdate = 2015-08-14
+// @pubdate = 2015-09-14
 // @publisher = Banana.ch SA
-// @description = VAT report Austria 2015
+// @description = VAT report Austria 2015 - Development
 // @task = app.command
 // @doctype = 100.110;100.130
 // @docproperties = austria
 // @outputformat = none
-// @inputdatasource = none
+// @inputdataform = none
 // @timeout = -1
 
 
 
-//This is the function that loads our parameterized structure.
-//We create objects by adding some parameters that will be used to extract informations from Banana and to determine their behavior and purpose.
-//The parameters are:
-// - id		 	 : this is a UNIQUE id for each object contained in the structure
-// - type 	     : used to differentiate the TYPE of object (text, umsatzsteuer, summe, vorsteuer, sonstige);
-// - description : used to specify the description text of the object
-// - value       : (ONLY for type "text") this will contain the information values taken from Banana -> File Properties
-// - code		 : (ONLY for type "umsatzsteuer/vorsteuer/summe") this is the GR1 code contained in Banana;
-// - sum		 : (ONLY for type "summe") used to sum/subtract objects amounts (vatTaxable/vatAmount) to calculate totals.
-function load_form(param) {
-
-	var form = [];
-	form.push({"id":"1.1", "type":"text", "description":"Finanzamtsnummer - Steuernummer", "value":param.fiscalNumber});	
-	form.push({"id":"2.1", "type":"text", "description":"für den Kalendermonat", "month":get_month_name(Banana.Converter.toDate(param.startDate)), "year":Banana.Converter.toDate(param.startDate).getFullYear()});		
-	form.push({"id":"2.2", "type":"text", "description":"für das Kalendervierteljahr", "openingDate":param.startDate, "closureDate":param.endDate});	
-	form.push({"id":"3.1", "type":"text", "description":"BEZEICHNUNG DES UNTERNEHMENS (BLOCKSCHRIFT)", "value":param.company});
-	form.push({"id":"3.2", "type":"text", "description":"STRASSE (BLOCKSCHRIFT)", "value":param.address});
-	form.push({"id":"3.3", "type":"text", "description":"Hausnummer", "value":param.hausnummer});
-	form.push({"id":"3.4", "type":"text", "description":"Stiege", "value":param.stiege});
-	form.push({"id":"3.5", "type":"text", "description":"Türnummer", "value":param.tuernummer});
-	form.push({"id":"3.6", "type":"text", "description":"Land", "value":param.nation});
-	form.push({"id":"3.7", "type":"text", "description":"Telefonnummer", "value":param.telephone});
-	form.push({"id":"3.8", "type":"text", "description":"Postleitzahl", "value":param.zip});
-	form.push({"id":"3.9", "type":"text", "description":"ORT (BLOCKSCHRIFT)", "value":param.city});
-	
-	form.push({"id": "4.1", "type": "umsatzsteuer", "description": "Gesamtbetrag der Bemessungsgrundlage für Lieferungen und sonstige Leistungen (ohne den nachstehend angeführten Eigenverbrauch) einschließlich Anzahlungen (jeweils ohne Umsatzsteuer)", "code": "000"});	
-	form.push({"id": "4.2", "type": "umsatzsteuer", "description": "zuzüglich Eigenverbrauch (§ 1 Abs. 1 Z 2, § 3 Abs. 2 und § 3a Abs. 1a)", "code": "001"});
-	form.push({"id": "4.3", "type": "umsatzsteuer", "description": "abzüglich Umsätze, für die die Steuerschuld gemäß § 19 Abs. 1 zweiter Satz sowie gemäß § 19 Abs. 1a, 1b, 1c, 1d und 1e auf den Leistungsempfänger übergegangen ist.", "code": "021"});
-	form.push({"id": "4.4", "type": "summe", "description": "SUMME", "code": "", "sum":"4.1;4.2;-4.3"});
-	form.push({"id": "4.5", "type": "umsatzsteuer", "description": "§ 6 Abs. 1 Z 1 iVm § 7 (Ausfuhrlieferungen)", "code": "011"});
-	form.push({"id": "4.6", "type": "umsatzsteuer", "description": "§ 6 Abs. 1 Z 1 iVm § 8 (Lohnveredelungen)", "code": "012"});
-	form.push({"id": "4.7", "type": "umsatzsteuer", "description": "§ 6 Abs. 1 Z 2 bis 6 sowie § 23 Abs. 5 (Seeschifffahrt, Luftfahrt, grenzüberschreitende Personenbeförderung, Diplomaten, Reisevorleistungen im Drittlandsgebiet usw.).", "code": "015"});
-	form.push({"id": "4.8", "type": "umsatzsteuer", "description": "Art. 6 Abs. 1 (innergemeinschaftliche Lieferungen ohne die nachstehend gesondert anzuführenden Fahrzeuglieferungen)", "code": "017"});
-	form.push({"id": "4.9", "type": "umsatzsteuer", "description": "Art. 6 Abs. 1, sofern Lieferungen neuer Fahrzeuge an Abnehmer ohne UID-Nummer bzw. durch Fahrzeuglieferer gemäß Art. 2 erfolgten.", "code": "018"});
-	form.push({"id": "4.10", "type": "umsatzsteuer", "description": "§ 6 Abs. 1 Z 9 lit. a (Grundstücksumsätze)", "code": "019"});
-	form.push({"id": "4.11", "type": "umsatzsteuer", "description": "§ 6 Abs. 1 Z 27 (Kleinunternehmer)", "code": "016"});		
-	form.push({"id": "4.12", "type": "umsatzsteuer", "description": "§ 6 Abs. 1 Z (übrige steuerfreie Umsätze ohne Vorsteuerabzug)", "code": "020"});
-	form.push({"id": "4.13", "type": "summe", "description": "Gesamtbetrag der steuerpflichtigen Lieferungen, sonstigen Leistungen und Eigenverbrauch (einschließlich steuerpflichtiger Anzahlungen)", "code": "", "sum":"4.4;-4.5;-4.6;-4.7;-4.8;-4.9;-4.10;-4.11;-4.12"});
-	form.push({"id": "4.14", "type": "umsatzsteuer", "description": "20% Normalsteuersatz", "code": "022"});
-	form.push({"id": "4.15", "type": "umsatzsteuer", "description": "10% ermäßigter Steuersatz", "code": "029"});
-	form.push({"id": "4.16", "type": "umsatzsteuer", "description": "12% für Weinumsätze durch landwirtschaftliche Betriebe", "code": "025"});	
-	form.push({"id": "4.17", "type": "umsatzsteuer", "description": "19% für Jungholz und Mittelberg", "code": "037"});	
-	form.push({"id": "4.18", "type": "umsatzsteuer", "description": "10% Zusatzsteuer für pauschalierte land- und forstwirtschaftliche Betriebe", "code": "052"});
-	form.push({"id": "4.19", "type": "umsatzsteuer", "description": "8% Zusatzsteuer für pauschalierte land- und forstwirtschaftliche Betriebe", "code": "038"});		
-	form.push({"id": "4.20", "type": "umsatzsteuer", "description": "Steuerschuld gemäß § 11 Abs. 12 und 14, § 16 Abs. 2 sowie gemäß Art. 7 Abs. 4", "code": "056"});
-	form.push({"id": "4.21", "type": "umsatzsteuer", "description": "Steuerschuld gemäß § 19 Abs. 1 zweiter Satz, § 19 Abs. 1c, 1e sowie gemäß Art. 25 Abs. 5", "code": "057"});		
-	form.push({"id": "4.22", "type": "umsatzsteuer", "description": "Steuerschuld gemäß § 19 Abs. 1a (Bauleistungen)", "code": "048"});			
-	form.push({"id": "4.23", "type": "umsatzsteuer", "description": "Steuerschuld gemäß § 19 Abs. 1b (Sicherungseigentum, Vorbehaltseigentum und Grundstücke im Zwangsversteigerungsverfahren)","code": "044"});			
-	form.push({"id": "4.24", "type": "umsatzsteuer", "description": "Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe)", "code": "032"});			
-	form.push({"id": "4.25", "type": "umsatzsteuer", "description": "Gesamtbetrag der Bemessungsgrundlagen für innergemeinschaftliche Erwerbe", "code": "070"});
-	form.push({"id": "4.26", "type": "umsatzsteuer", "description": "Davon steuerfrei gemäß Art. 6 Abs. 2", "code": "071"});
-	form.push({"id": "4.27", "type": "summe", "description": "Gesamtbetrag der steuerpflichtigen innergemeinschaftlichen Erwerbe", "code": "", "sum":"4.25;-4.26"});		
-	form.push({"id": "4.28", "type": "umsatzsteuer", "description": "20% Normalsteuersatz", "code": "072"});
-	form.push({"id": "4.29", "type": "umsatzsteuer", "description": "10% ermäßigter Steuersatz", "code": "073"});	
-	form.push({"id": "4.30", "type": "umsatzsteuer", "description": "19% für Jungholz und Mittelberg", "code": "088"});		
-	form.push({"id": "4.31", "type": "umsatzsteuer", "description": "Erwerbe gemäß Art. 3 Abs. 8 zweiter Satz, die im Mitgliedstaat des Bestimmungslandes besteuert worden sind", "code": "076"});			
-	form.push({"id": "4.32", "type": "umsatzsteuer", "description": "Erwerbe gemäß Art. 3 Abs. 8 zweiter Satz, die gemäß Art. 25 Abs. 2 im Inland als besteuert gelten", "code": "077"});
-	
-	form.push({"id": "5.1", "type": "vorsteuer", "description": "Gesamtbetrag der Vorsteuern (ohne die nachstehend gesondert anzuführenden Beträge)", "code": "060"});
-	form.push({"id": "5.2", "type": "vorsteuer", "description": "Vorsteuern betreffend die entrichtete Einfuhrumsatzsteuer (§ 12 Abs. 1 Z 2 lit. a)", "code": "061"});
-	form.push({"id": "5.3", "type": "vorsteuer", "description": "Vorsteuern betreffend die geschuldete, auf dem Abgabenkonto verbuchte Einfuhrumsatzsteuer (§ 12 Abs. 1 Z 2 lit. b)", "code": "083"});	
-	form.push({"id": "5.4", "type": "vorsteuer", "description": "Vorsteuern aus dem innergemeinschaftlichen Erwerb", "code": "065"});
-	form.push({"id": "5.5", "type": "vorsteuer", "description": "Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1 zweiter Satz, § 19 Abs. 1c, 1e sowie gemäß Art. 25 Abs. 5", "code": "066"});		
-	form.push({"id": "5.6", "type": "vorsteuer", "description": "Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1a (Bauleistungen)", "code": "082"});
-	form.push({"id": "5.7", "type": "vorsteuer", "description": "Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1b (Sicherungseigentum, Vorbehaltseigentum und Grundstücke im Zwangsversteigerungsverfahren)", "code": "087"});			
-	form.push({"id": "5.8", "type": "vorsteuer", "description": "Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe)", "code": "089"});
-	form.push({"id": "5.9", "type": "vorsteuer", "description": "Vorsteuern für innergemeinschaftliche Lieferungen neuer Fahrzeuge von Fahrzeuglieferern gemäß Art. 2", "code": "064"});		
-	form.push({"id": "5.10", "type": "vorsteuer", "description": "Davon nicht abzugsfähig gemäß § 12 Abs. 3 iVm Abs. 4 und 5", "code": "062"});
-	form.push({"id": "5.11", "type": "vorsteuer", "description": "Berichtigung gemäß § 12 Abs. 10 und 11", "code": "063"});
-	form.push({"id": "5.12", "type": "vorsteuer", "description": "Berichtigung gemäß § 16", "code": "067"});
-	form.push({"id": "5.13", "type": "summe", "description": "Gesamtbetrag der abziehbaren Vorsteuer", "code": "", "sum":"-5.1;-5.2;-5.3;-5.4;-5.5;-5.6;-5.7;-5.8;-5.9;5.10;-5.11;-5.12"});
-	
-	form.push({"id": "6.1", "type": "sonstige", "description": "", "code": "090"});
-	form.push({"id": "7", "type": "summe", "description": "", "code": "095", "sum":"4.14;4.15;4.16;4.17;4.18;4.19;4.20;4.21;4.22;4.23;4.24;4.28;4.29;4.30;5.13;6.1"});
-
-	param.form = form;
-}
 
 
-//Variable used to speficy the rounding type
-var rounding = 2;
-
-
-//Main function
-function exec(string) {
-	//Check if we are on an opened document
-	if (!Banana.document) {
-		return;
-	}
-	
-	//Function call to manage and save user settings about the period date
-	var dateform = get_period_settings();
-
-	//Check if user has entered a period date.
-	//If yes, we can get all the informations we need, process them and finally create the report.
-	//If no, the script execution will be stopped immediately.
-	if (dateform) {
-		//Variable by check_totals() and check_balance() functions to check if use them to create the "normal-report" or to create the "test-report".
-		//The reports are differents: on test-report we don't want to display any dialog boxes.
-		var isTest = false;
-		
-		//Function call to create the report
-		var report = create_vat_report(Banana.document, dateform.selectionStartDate, dateform.selectionEndDate, isTest);
-		
-		//Print the report
-		var stylesheet = create_styleSheet();
-		Banana.Report.preview(report, stylesheet);	
-
-	}
-}
-
-
-
-//------------------------------------------------------------------------------//
-// FUNCTIONS
-//------------------------------------------------------------------------------//
-
-//Function that create the report
-function create_vat_report(banDoc, startDate, endDate, isTest) {
-
-	var param = {
+var param = {};
+function loadParam(banDoc, startDate, endDate) {
+	param = {
 		"reportName":"VAT report Austria 2015",												//Save the report's name
 		"bananaVersion":"Banana Accounting, v. " + banDoc.info("Base", "ProgramVersion"), 	//Save the version of Banana Accounting used
-		"scriptVersion":"script v. 2015-08-14 (TEST VERSION)", 											//Save the version of the script
+		"scriptVersion":"script v. 2015-09-14 (TEST VERSION)", 								//Save the version of the script
 		"fiscalNumber":banDoc.info("AccountingDataBase","FiscalNumber"),					//Save the fiscal number
-		"startDate":startDate,																//Save the openingDate that will be used to specify the accounting period starting date
-		"endDate":endDate, 																	//Save the closureDate that will be used to specify the accounting period ending date		
+		"startDate":startDate,																//Save the startDate that will be used to specify the accounting period starting date
+		"endDate":endDate, 																	//Save the endDate that will be used to specify the accounting period ending date		
 		"company":banDoc.info("AccountingDataBase","Company"), 								//Save the company name
 		"address":banDoc.info("AccountingDataBase","Address1"), 							//Save the address
 		"hausnummer":"", 																	//Save details
@@ -161,119 +45,262 @@ function create_vat_report(banDoc, startDate, endDate, isTest) {
 		"nation":banDoc.info("AccountingDataBase","Country"), 								//Save the country
 		"telephone":banDoc.info("AccountingDataBase","Phone"), 								//Save the phone number
 		"zip":banDoc.info("AccountingDataBase","Zip"), 										//Save the zip code
-		"city":banDoc.info("AccountingDataBase","City") 									//Save the city
+		"city":banDoc.info("AccountingDataBase","City"),									//Save the city
+		"grColumn" : "Gr1",																	//Save the GR column (Gr1 or Gr2)
+		"rounding" : 2,																		//Speficy the rounding type		
+		"formatNumber":true 																//Choose if format number or not
 	};
+}
 
-	//Loading data and calculate the totals
-	load_form(param);
-	load_vat_balances(banDoc, param.form);
-	calc_form_totals(param.form, ["vatTaxable", "vatAmount"]);
+
+//This is the function that loads our parameterized structure.
+//We create objects by adding some parameters that will be used to extract informations from Banana and to determine their behavior and purpose.
+//The parameters are:
+// - id: this is a UNIQUE id for each object contained in the structure
+// - gr: (ONLY for type "umsatzsteuer/vorsteuer/summe") this is the GR1 contained in Banana;
+// - vatClass: 1 = Vorsteuer vatTaxable, 2 = Umsatzsteur vatTaxable, 3 = Vorsteuer vatPosted, 4 = Umsatzsteur vatPosted  
+// - description: used to specify the description text of the object
+// - sum: ONLY for totals, used to sum/subtract objects amounts to calculate totals
+// - value, month, year, startDate, endDate: these will contain the informations taken from Banana -> File Properties / inserted by the user
+var form = [];
+function loadForm() {
+
+	form.push({"id":"1.1", "description":"Finanzamtsnummer - Steuernummer", "value":param.fiscalNumber});	
+	form.push({"id":"2.1", "description":"für den Kalendermonat", "month":getMonthName(Banana.Converter.toDate(param.startDate)), "year":Banana.Converter.toDate(param.startDate).getFullYear()});		
+	form.push({"id":"2.2", "description":"für das Kalendervierteljahr", "startDate":param.startDate, "endDate":param.endDate});	
+	form.push({"id":"3.1", "description":"BEZEICHNUNG DES UNTERNEHMENS (BLOCKSCHRIFT)", "value":param.company});
+	form.push({"id":"3.2", "description":"STRASSE (BLOCKSCHRIFT)", "value":param.address});
+	form.push({"id":"3.3", "description":"Hausnummer", "value":param.hausnummer});
+	form.push({"id":"3.4", "description":"Stiege", "value":param.stiege});
+	form.push({"id":"3.5", "description":"Türnummer", "value":param.tuernummer});
+	form.push({"id":"3.6", "description":"Land", "value":param.nation});
+	form.push({"id":"3.7", "description":"Telefonnummer", "value":param.telephone});
+	form.push({"id":"3.8", "description":"Postleitzahl", "value":param.zip});
+	form.push({"id":"3.9", "description":"ORT (BLOCKSCHRIFT)", "value":param.city});
 	
+	form.push({"id":"4.1", "gr":"000", "vatClass":"2", "description":"Gesamtbetrag der Bemessungsgrundlage für Lieferungen und sonstige Leistungen (ohne den nachstehend angeführten Eigenverbrauch) einschließlich Anzahlungen (jeweils ohne Umsatzsteuer)"});	
+	form.push({"id":"4.2", "gr":"001", "vatClass":"2", "description":"zuzüglich Eigenverbrauch (§ 1 Abs. 1 Z 2, § 3 Abs. 2 und § 3a Abs. 1a)"});
+	form.push({"id":"4.3", "gr":"021", "vatClass":"2", "description":"abzüglich Umsätze, für die die Steuerschuld gemäß § 19 Abs. 1 zweiter Satz sowie gemäß § 19 Abs. 1a, 1b, 1c, 1d und 1e auf den Leistungsempfänger übergegangen ist."});
+	form.push({"id":"4.4", "gr":"", "description":"SUMME", "sum":"4.1;4.2;-4.3"});
+	form.push({"id":"4.5", "gr":"011", "vatClass":"2", "description":"§ 6 Abs. 1 Z 1 iVm § 7 (Ausfuhrlieferungen)"});
+	form.push({"id":"4.6", "gr":"012", "vatClass":"2", "description":"§ 6 Abs. 1 Z 1 iVm § 8 (Lohnveredelungen)"});
+	form.push({"id":"4.7", "gr":"015", "vatClass":"2", "description":"§ 6 Abs. 1 Z 2 bis 6 sowie § 23 Abs. 5 (Seeschifffahrt, Luftfahrt, grenzüberschreitende Personenbeförderung, Diplomaten, Reisevorleistungen im Drittlandsgebiet usw.)."});
+	form.push({"id":"4.8", "gr":"017", "vatClass":"2", "description":"Art. 6 Abs. 1 (innergemeinschaftliche Lieferungen ohne die nachstehend gesondert anzuführenden Fahrzeuglieferungen)"});
+	form.push({"id":"4.9", "gr":"018", "vatClass":"2", "description":"Art. 6 Abs. 1, sofern Lieferungen neuer Fahrzeuge an Abnehmer ohne UID-Nummer bzw. durch Fahrzeuglieferer gemäß Art. 2 erfolgten."});
+	form.push({"id":"4.10", "gr":"019", "vatClass":"2", "description":"§ 6 Abs. 1 Z 9 lit. a (Grundstücksumsätze)"});
+	form.push({"id":"4.11", "gr":"016", "vatClass":"2", "description":"§ 6 Abs. 1 Z 27 (Kleinunternehmer)"});		
+	form.push({"id":"4.12", "gr":"020", "vatClass":"2", "description":"§ 6 Abs. 1 Z (übrige steuerfreie Umsätze ohne Vorsteuerabzug)"});
+	form.push({"id":"4.13", "gr":"", "description":"Gesamtbetrag der steuerpflichtigen Lieferungen, sonstigen Leistungen und Eigenverbrauch (einschließlich steuerpflichtiger Anzahlungen)", "sum":"4.4;-4.5;-4.6;-4.7;-4.8;-4.9;-4.10;-4.11;-4.12"});
+	
+	form.push({"id":"4.14.1", "gr":"022", "vatClass":"2", "description":"20% Normalsteuersatz"});
+	form.push({"id":"4.14.2", "gr":"022", "vatClass":"4", "description":"20% Normalsteuersatz"});
+	form.push({"id":"4.15.1", "gr":"029", "vatClass":"2", "description":"10% ermäßigter Steuersatz"});
+	form.push({"id":"4.15.2", "gr":"029", "vatClass":"4", "description":"10% ermäßigter Steuersatz"});
+	form.push({"id":"4.16.1", "gr":"025", "vatClass":"2", "description":"12% für Weinumsätze durch landwirtschaftliche Betriebe"});
+	form.push({"id":"4.16.2", "gr":"025", "vatClass":"4", "description":"12% für Weinumsätze durch landwirtschaftliche Betriebe"});	
+	form.push({"id":"4.17.1", "gr":"037", "vatClass":"2", "description":"19% für Jungholz und Mittelberg"});
+	form.push({"id":"4.17.2", "gr":"037", "vatClass":"4", "description":"19% für Jungholz und Mittelberg"});	
+	form.push({"id":"4.18.1", "gr":"052", "vatClass":"2", "description":"10% Zusatzsteuer für pauschalierte land- und forstwirtschaftliche Betriebe"});
+	form.push({"id":"4.18.2", "gr":"052", "vatClass":"4", "description":"10% Zusatzsteuer für pauschalierte land- und forstwirtschaftliche Betriebe"});
+	form.push({"id":"4.19.1", "gr":"038", "vatClass":"2", "description":"8% Zusatzsteuer für pauschalierte land- und forstwirtschaftliche Betriebe"});
+	form.push({"id":"4.19.2", "gr":"038", "vatClass":"4", "description":"8% Zusatzsteuer für pauschalierte land- und forstwirtschaftliche Betriebe"});	
+
+	form.push({"id":"4.20", "gr":"056", "vatClass":"4", "description":"Steuerschuld gemäß § 11 Abs. 12 und 14, § 16 Abs. 2 sowie gemäß Art. 7 Abs. 4"});
+	form.push({"id":"4.21", "gr":"057", "vatClass":"4", "description":"Steuerschuld gemäß § 19 Abs. 1 zweiter Satz, § 19 Abs. 1c, 1e sowie gemäß Art. 25 Abs. 5"});		
+	form.push({"id":"4.22", "gr":"048", "vatClass":"4", "description":"Steuerschuld gemäß § 19 Abs. 1a (Bauleistungen)"});			
+	form.push({"id":"4.23", "gr":"044", "vatClass":"4", "description":"Steuerschuld gemäß § 19 Abs. 1b (Sicherungseigentum, Vorbehaltseigentum und Grundstücke im Zwangsversteigerungsverfahren)"});			
+	form.push({"id":"4.24", "gr":"032", "vatClass":"4", "description":"Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe)"});			
+	form.push({"id":"4.25", "gr":"070", "vatClass":"2", "description":"Gesamtbetrag der Bemessungsgrundlagen für innergemeinschaftliche Erwerbe"});
+	form.push({"id":"4.26", "gr":"071", "vatClass":"2", "description":"Davon steuerfrei gemäß Art. 6 Abs. 2"});
+	form.push({"id":"4.27", "gr":"", "description":"Gesamtbetrag der steuerpflichtigen innergemeinschaftlichen Erwerbe", "sum":"4.25;-4.26"});		
+	
+	form.push({"id":"4.28.1", "gr":"072", "vatClass":"2", "description":"20% Normalsteuersatz"});
+	form.push({"id":"4.28.2", "gr":"072", "vatClass":"4", "description":"20% Normalsteuersatz"});
+	form.push({"id":"4.29.1", "gr":"073", "vatClass":"2", "description":"10% ermäßigter Steuersatz"});
+	form.push({"id":"4.29.2", "gr":"073", "vatClass":"4", "description":"10% ermäßigter Steuersatz"});
+	form.push({"id":"4.30.1", "gr":"088", "vatClass":"2", "description":"19% für Jungholz und Mittelberg"});
+	form.push({"id":"4.30.2", "gr":"088", "vatClass":"4", "description":"19% für Jungholz und Mittelberg"});		
+
+	form.push({"id":"4.31", "gr":"076", "vatClass":"2", "description":"Erwerbe gemäß Art. 3 Abs. 8 zweiter Satz, die im Mitgliedstaat des Bestimmungslandes besteuert worden sind"});			
+	form.push({"id":"4.32", "gr":"077", "vatClass":"2", "description":"Erwerbe gemäß Art. 3 Abs. 8 zweiter Satz, die gemäß Art. 25 Abs. 2 im Inland als besteuert gelten"});
+	
+	form.push({"id":"5.1", "gr":"060", "vatClass":"3", "description":"Gesamtbetrag der Vorsteuern (ohne die nachstehend gesondert anzuführenden Beträge)"});
+	form.push({"id":"5.2", "gr":"061", "vatClass":"3", "description":"Vorsteuern betreffend die entrichtete Einfuhrumsatzsteuer (§ 12 Abs. 1 Z 2 lit. a)"});
+	form.push({"id":"5.3", "gr":"083", "vatClass":"3", "description":"Vorsteuern betreffend die geschuldete, auf dem Abgabenkonto verbuchte Einfuhrumsatzsteuer (§ 12 Abs. 1 Z 2 lit. b)"});	
+	form.push({"id":"5.4", "gr":"065", "vatClass":"3", "description":"Vorsteuern aus dem innergemeinschaftlichen Erwerb"});
+	form.push({"id":"5.5", "gr":"066", "vatClass":"3", "description":"Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1 zweiter Satz, § 19 Abs. 1c, 1e sowie gemäß Art. 25 Abs. 5"});		
+	form.push({"id":"5.6", "gr":"082", "vatClass":"3", "description":"Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1a (Bauleistungen)"});
+	form.push({"id":"5.7", "gr":"087", "vatClass":"3", "description":"Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1b (Sicherungseigentum, Vorbehaltseigentum und Grundstücke im Zwangsversteigerungsverfahren)"});			
+	form.push({"id":"5.8", "gr":"089", "vatClass":"3", "description":"Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe)"});
+	form.push({"id":"5.9", "gr":"064", "vatClass":"3", "description":"Vorsteuern für innergemeinschaftliche Lieferungen neuer Fahrzeuge von Fahrzeuglieferern gemäß Art. 2"});		
+	form.push({"id":"5.10", "gr":"062", "vatClass":"3", "description":"Davon nicht abzugsfähig gemäß § 12 Abs. 3 iVm Abs. 4 und 5"});
+	form.push({"id":"5.11", "gr":"063", "vatClass":"3", "description":"Berichtigung gemäß § 12 Abs. 10 und 11"});
+	form.push({"id":"5.12", "gr":"067", "vatClass":"3", "description":"Berichtigung gemäß § 16"});
+	form.push({"id":"5.13", "gr":"", "description":"Gesamtbetrag der abziehbaren Vorsteuer", "sum":"-5.1;-5.2;-5.3;-5.4;-5.5;-5.6;-5.7;-5.8;-5.9;5.10;-5.11;-5.12"});
+	
+	form.push({"id":"6.1", "gr":"090", "vatClass":"3", "description":""});
+	form.push({"id":"7", "gr":"095", "description":"", "sum":"4.14.2;4.15.2;4.16.2;4.17.2;4.18.2;4.19.2;4.20;4.21;4.22;4.23;4.24;4.28.2;4.29.2;4.30.2;5.13;6.1"});
+
+	param.form = form;
+}
+
+
+
+//Main function
+function exec(string) {
+	//Check if we are on an opened document
+	if (!Banana.document) {
+		return;
+	}
+
+	Banana.document.clearMessages();
+	
+	//Function call to manage and save user settings about the period date
+	var dateform = getPeriodSettings();
+
+	//Check if user has entered a period date.
+	//If yes, we can get all the informations we need, process them and finally create the report.
+	//If no, the script execution will be stopped immediately.
+	if (dateform) {
+		//Variable by checkTotals() and checkBalance() functions to check if use them to create the "normal-report" or to create the "test-report".
+		//The reports are differents: on test-report we don't want to display any dialog boxes.
+		var isTest = false;
+		
+		//Function call to create the report
+		var report = createVatReport(Banana.document, dateform.selectionStartDate, dateform.selectionEndDate, isTest);
+		
+		//Print the report
+		var stylesheet = createStylesheet();
+		Banana.Report.preview(report, stylesheet);	
+	}
+}
+
+
+//The purpose of this function is to do some operations before the values are converted
+function postProcessAmounts(banDoc, report, isTest) {
+
+	//Invert the 5.13 total if negative
+	if (Banana.SDecimal.sign(getValue(form, "5.13", "amount")) == -1) { //amount < 0
+		getObject(form, "5.13").sign = -1;
+		getObject(form, "5.13").amount = Banana.SDecimal.invert(getValue(form, "5.13", "amount"));
+	}
+
+	//Invert the 7. total if negative
+	if (Banana.SDecimal.sign(getValue(form, "7", "amount")) == -1) { //amount < 0
+		getObject(form, "7").sign = -1;
+		getObject(form, "7").amount = Banana.SDecimal.invert(getValue(form, "7", "amount"));
+	}
+
+	//Verification of some total values
+	checkTotals("4.13", "4.14.1;4.15.1;4.16.1;4.17.1;4.18.1;4.19.1", report, isTest);
+	checkTotals("4.27", "4.28.1;4.29.1;4.30.1", report, isTest);
+	
+	//Verification of the balance values
+	checkBalance(banDoc, report, isTest);
+}
+
+//------------------------------------------------------------------------------//
+// FUNCTIONS
+//------------------------------------------------------------------------------//
+
+//Function that create the report
+function createVatReport(banDoc, startDate, endDate, isTest) {
+
 	//Create a report.
 	var report = Banana.Report.newReport(param.reportName);
+
+
+	loadParam(banDoc, startDate, endDate);
+	loadForm();
+	loadBalances();
+	calcFormTotals(["amount"]);
+	postProcessAmounts(banDoc, report, isTest);
+	formatValues(["amount"]);
 	
+
 	//Adding a footer.
-	add_footer(report, param);
-	
-	//Variables used for the report's style.
-	var styleCellBlack = "black";
-	var styleCellTextAlignRight = "right";
-	var styleDescription = "description";
-	var styleDescriptionBold = "descriptionBold";
-	var styleExpanding = "expanding";
-	var styleHeading1 = "heading1";
-	var styleHeading2 = "heading2";
-	var styleHeading3 = "heading3";
-	var styleHeading4 = "heading4";
-	var styleHorizontalLine = "horizontalLine";
-	var styleRowNumber = "rowNumber";
-	var styleValueAmount = "valueAmount";
-	var styleValueDate = "valueDate";
-	var styleValueText = "valueText";
-	var styleValueTotal = "valueTotal";
-	var styleValueTitle = "valueTitle";
-	var styleValueTitle1 = "valueTitle1";
+	addFooter(report, param);
 	
 	//Variable used for the difference in months between the opening date and the closure date
-	var monthsNumber = get_month_diff(Banana.Converter.toDate(get_value(param.form, "2.2", "openingDate")), Banana.Converter.toDate(get_value(param.form, "2.2", "closureDate")));
+	var monthsNumber = getMonthDiff(Banana.Converter.toDate(getValue(form, "2.2", "startDate")), Banana.Converter.toDate(getValue(form, "2.2", "endDate")));
 		
+
 	//Begin printing the report...
-	
 	//Title
-	report.addParagraph("[  ] Umsatzsteuervoranmeldung 2015", styleHeading1);		
-	report.addParagraph("[  ] Berichtige Umsatzsteuervoranmeldung 2015", styleHeading1);
+	report.addParagraph("[  ] Umsatzsteuervoranmeldung 2015", "heading1");		
+	report.addParagraph("[  ] Berichtige Umsatzsteuervoranmeldung 2015", "heading1");
 		
 	//Table with basic informations
 	var table = report.addTable("table");		
 		
 	//Printing of the objects with ID 1-2
 	tableRow = table.addRow();
-	tableRow.addCell("1. Abgabenkontonummer", styleValueTitle);
-	tableRow.addCell("2. Zeitraum", styleValueTitle, 3);
+	tableRow.addCell("1. Abgabenkontonummer", "valueTitle");
+	tableRow.addCell("2. Zeitraum", "valueTitle", 3);
 
 	if (monthsNumber == 1) {
 		tableRow = table.addRow();
-		tableRow.addCell("1.1 " + get_value(param.form, "1.1", "description"), styleDescription, 1);
-		tableRow.addCell("2.1 " + get_value(param.form, "2.1", "description"), styleDescription, 3);
+		tableRow.addCell("1.1 " + getValue(form, "1.1", "description"), "description", 1);
+		tableRow.addCell("2.1 " + getValue(form, "2.1", "description"), "description", 3);
 		
 		tableRow = table.addRow();
-		tableRow.addCell(get_value(param.form, "1.1", "value"), styleValueText, 1);
-		tableRow.addCell(get_value(param.form, "2.1", "month"), styleValueText, 1);
-		tableRow.addCell(get_value(param.form, "2.1", "year"), styleValueText, 1);
-		tableRow.addCell(" ", styleValueText, 1);
+		tableRow.addCell(getValue(form, "1.1", "value"), "valueText", 1);
+		tableRow.addCell(getValue(form, "2.1", "month"), "valueText", 1);
+		tableRow.addCell(getValue(form, "2.1", "year"), "valueText", 1);
+		tableRow.addCell(" ", "valueText", 1);
 	} else if (monthsNumber > 1) {
 		tableRow = table.addRow();
-		tableRow.addCell("1.1 " + get_value(param.form, "1.1", "description"), styleDescription, 1);
-		tableRow.addCell("2.2 " + get_value(param.form, "2.2", "description"), styleDescription, 3);
+		tableRow.addCell("1.1 " + getValue(form, "1.1", "description"), "description", 1);
+		tableRow.addCell("2.2 " + getValue(form, "2.2", "description"), "description", 3);
 		
 		tableRow = table.addRow();
-		tableRow.addCell(get_value(param.form, "1.1", "value"), styleValueText, 1);
-		tableRow.addCell(Banana.Converter.toLocaleDateFormat(get_value(param.form, "2.2", "openingDate")), styleValueText, 1);
-		tableRow.addCell("bis ", styleValueText, 1);
-		tableRow.addCell(Banana.Converter.toLocaleDateFormat(get_value(param.form, "2.2", "closureDate")), styleValueText, 1);
+		tableRow.addCell(getValue(form, "1.1", "value"), "valueText", 1);
+		tableRow.addCell(Banana.Converter.toLocaleDateFormat(getValue(form, "2.2", "startDate")), "valueText", 1);
+		tableRow.addCell("bis ", "valueText", 1);
+		tableRow.addCell(Banana.Converter.toLocaleDateFormat(getValue(form, "2.2", "endDate")), "valueText", 1);
 	}
 		
 	tableRow = table.addRow();
-	tableRow.addCell("1.2 Steuernummer noch nicht vorhanden", styleDescription);
+	tableRow.addCell("1.2 Steuernummer noch nicht vorhanden", "description");
 	tableRow.addCell("", "", 3);
 	
 	//Printing of the objects with ID 3
 	tableRow = table.addRow();
-	tableRow.addCell("3. Angaben zum Unternehmen", styleValueTitle, 4);
+	tableRow.addCell("3. Angaben zum Unternehmen", "valueTitle", 4);
 	
 	tableRow = table.addRow();
-	tableRow.addCell("3.1 " + get_value(param.form, "3.1", "description"), styleDescription, 4);
+	tableRow.addCell("3.1 " + getValue(form, "3.1", "description"), "description", 4);
 	
 	tableRow = table.addRow();
-	tableRow.addCell(get_value(param.form, "3.1", "value").toUpperCase(), styleValueText, 4);
+	tableRow.addCell(getValue(form, "3.1", "value").toUpperCase(), "valueText", 4);
 	
 	tableRow = table.addRow();
-	tableRow.addCell("3.2 " + get_value(param.form, "3.2", "description"), styleDescription, 3);
-	tableRow.addCell("3.3 " + get_value(param.form, "3.3", "description"), styleDescription, 1);
+	tableRow.addCell("3.2 " + getValue(form, "3.2", "description"), "description", 3);
+	tableRow.addCell("3.3 " + getValue(form, "3.3", "description"), "description", 1);
 	
 	tableRow = table.addRow();
-	tableRow.addCell(get_value(param.form, "3.2", "value").toUpperCase(), styleValueText, 3);
-	tableRow.addCell(get_value(param.form, "3.3", "value").toUpperCase(), styleValueText, 1);
+	tableRow.addCell(getValue(form, "3.2", "value").toUpperCase(), "valueText", 3);
+	tableRow.addCell(getValue(form, "3.3", "value").toUpperCase(), "valueText", 1);
 	
 	tableRow = table.addRow();
-	tableRow.addCell("3.4 " + get_value(param.form, "3.4", "description"), styleDescription, 1);
-	tableRow.addCell("3.5 " + get_value(param.form, "3.5", "description"), styleDescription, 1);
-	tableRow.addCell("3.6 " + get_value(param.form, "3.6", "description"), styleDescription, 1);
-	tableRow.addCell("3.7 " + get_value(param.form, "3.7", "description"), styleDescription, 1);
+	tableRow.addCell("3.4 " + getValue(form, "3.4", "description"), "description", 1);
+	tableRow.addCell("3.5 " + getValue(form, "3.5", "description"), "description", 1);
+	tableRow.addCell("3.6 " + getValue(form, "3.6", "description"), "description", 1);
+	tableRow.addCell("3.7 " + getValue(form, "3.7", "description"), "description", 1);
 	
 	tableRow = table.addRow();
-	tableRow.addCell(get_value(param.form, "3.4", "value"), styleValueText, 1);
-	tableRow.addCell(get_value(param.form, "3.5", "value"), styleValueText, 1);
-	tableRow.addCell(get_value(param.form, "3.6", "value"), styleValueText, 1);
-	tableRow.addCell(get_value(param.form, "3.7", "value"), styleValueText, 1);
+	tableRow.addCell(getValue(form, "3.4", "value"), "valueText", 1);
+	tableRow.addCell(getValue(form, "3.5", "value"), "valueText", 1);
+	tableRow.addCell(getValue(form, "3.6", "value"), "valueText", 1);
+	tableRow.addCell(getValue(form, "3.7", "value"), "valueText", 1);
 	
 	tableRow = table.addRow();
-	tableRow.addCell("3.8 " + get_value(param.form, "3.8", "description"), styleDescription, 1);
-	tableRow.addCell("3.9 " + get_value(param.form, "3.9", "description"), styleDescription, 3);
+	tableRow.addCell("3.8 " + getValue(form, "3.8", "description"), "description", 1);
+	tableRow.addCell("3.9 " + getValue(form, "3.9", "description"), "description", 3);
 	
 	tableRow = table.addRow();
-	tableRow.addCell(get_value(param.form, "3.8", "value"), styleValueText, 1);
-	tableRow.addCell(get_value(param.form, "3.9", "value").toUpperCase(), styleValueText, 3);
+	tableRow.addCell(getValue(form, "3.8", "value"), "valueText", 1);
+	tableRow.addCell(getValue(form, "3.9", "value").toUpperCase(), "valueText", 3);
 	
 	//Create new table for the data
 	var table_1 = report.addTable("table");
@@ -283,45 +310,46 @@ function create_vat_report(banDoc, startDate, endDate, isTest) {
 	
 	//Printing of the objects with ID 4
 	tableRow = table_1.addRow();
-	tableRow.addCell("4.", styleValueTitle, 1);
-	tableRow.addCell("Berechnung der Umsatzsteuer:", styleValueTitle, 5);
-	tableRow.addCell("Bemessungsgrundlage", styleValueTitle1, 1);
+	tableRow.addCell("4.", "valueTitle", 1);
+	tableRow.addCell("Berechnung der Umsatzsteuer:", "valueTitle", 5);
+	tableRow.addCell("Bemessungsgrundlage", "valueTitle1", 1);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("Lieferungen, sonstige Leistungen und Eigenverbrauch:", "descriptionBold", 7);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("4.1", "", 1);
-	tableRow.addCell(get_value(param.form, "4.1", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.1", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "4.1", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.1", "vatTaxable")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.1", "amount"), "valueAmount", 1);
 	tableRow = table_1.addRow();
+	
 	tableRow.addCell("4.2", "", 1);
-	tableRow.addCell(get_value(param.form, "4.2", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.2", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "4.2", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.2", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("+", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.2", "vatTaxable")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.2", "amount"), "valueAmount", 1);
 
 	tableRow = table_1.addRow();
 	tableRow.addCell("4.3", "", 1);
-	tableRow.addCell(get_value(param.form, "4.3", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.3", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "4.3", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.3", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("-", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.3", "vatTaxable")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.3", "amount"), "valueAmount", 1);
 
 	//Printing of the total with ID 4.4
 	tableRow = table_1.addRow();
 	tableRow.addCell("4.4", "", 1);
-	tableRow.addCell(get_value(param.form, "4.4", "description"), styleDescription, 4);
+	tableRow.addCell(getValue(form, "4.4", "description"), "description", 4);
 	tableRow.addCell("", "", 1);
-	if (get_value(param.form, "4.4", "vatTaxable") != 0) {
-		tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.4", "vatTaxable")), styleValueTotal, 1);
+	if (getValue(form, "4.4", "vatTaxable") != 0) {
+		tableRow.addCell(getValue(form, "4.4", "amount"), "valueTotal", 1);
 	} else {
-		tableRow.addCell("", styleValueTotal, 1);
+		tableRow.addCell("", "valueTotal", 1);
 	}
 	
 	tableRow = table_1.addRow();
@@ -329,80 +357,80 @@ function create_vat_report(banDoc, startDate, endDate, isTest) {
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("4.5", "", 1);
-	tableRow.addCell(get_value(param.form, "4.5", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.5", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "4.5", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.5", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("-", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.5", "vatTaxable")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.5", "amount"), "valueAmount", 1);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("4.6", "", 1);
-	tableRow.addCell(get_value(param.form, "4.6", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.6", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "4.6", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.6", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("-", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.6", "vatTaxable")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.6", "amount"), "valueAmount", 1);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("4.7", "", 1);
-	tableRow.addCell(get_value(param.form, "4.7", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.7", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "4.7", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.7", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("-", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.7", "vatTaxable")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.7", "amount"), "valueAmount", 1);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("4.8", "", 1);
-	tableRow.addCell(get_value(param.form, "4.8", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.8", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "4.8", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.8", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("-", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.8", "vatTaxable")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.8", "amount"), "valueAmount", 1);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("4.9", "", 1);
-	tableRow.addCell(get_value(param.form, "4.9", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.9", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "4.9", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.9", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("-", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.9", "vatTaxable")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.9", "amount"), "valueAmount", 1);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("Davon steuerfrei OHNE Vorsteuerabzug gemäß", "horizontalLine descriptionBold", 7);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("4.10", "", 1);
-	tableRow.addCell(get_value(param.form, "4.10", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.10", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "4.10", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.10", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("-", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.10", "vatTaxable")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.10", "amount"), "valueAmount", 1);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("4.11", "", 1);
-	tableRow.addCell(get_value(param.form, "4.11", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.11", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "4.11", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.11", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("-", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.11", "vatTaxable")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.11", "amount"), "valueAmount", 1);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("4.12", "", 1);
-	tableRow.addCell(get_value(param.form, "4.12", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.12", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "4.12", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.12", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("-", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.12", "vatTaxable")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.12", "amount"), "valueAmount", 1);
 	
 	//Printing of the total with ID 4.13
 	tableRow = table_1.addRow();
 	tableRow.addCell("4.13", "", 1);
-	tableRow.addCell(get_value(param.form, "4.13", "description"), styleDescription, 4);
+	tableRow.addCell(getValue(form, "4.13", "description"), "description", 4);
 	tableRow.addCell("", "", 1);
-	if (get_value(param.form, "4.13", "vatTaxable") != 0) {
-		tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.13", "vatTaxable")), styleValueTotal, 1);
+	if (getValue(form, "4.13", "amount") != 0) {
+		tableRow.addCell(getValue(form, "4.13", "amount"), "valueTotal", 1);
 	} else {
-		tableRow.addCell("", styleValueTotal, 1);	
+		tableRow.addCell("", "valueTotal", 1);	
 	}
 		
 	tableRow = table_1.addRow();
@@ -412,101 +440,101 @@ function create_vat_report(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("Umsatzsteuer", "description1 horizontalLine", 1);
 	
 	tableRow = table_1.addRow();
-	tableRow.addCell("4.14", "", 1);
-	tableRow.addCell(get_value(param.form, "4.14", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.14", "code"), styleDescription, 1);
+	tableRow.addCell("4.14.1", "", 1);
+	tableRow.addCell(getValue(form, "4.14.1", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.14.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.14", "vatTaxable")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.14.1", "amount"), "valueAmount", 1);
 	tableRow.addCell("", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.14", "vatAmount")), styleValueAmount, 1);
-	
+	tableRow.addCell(getValue(form, "4.14.2", "amount"), "valueAmount", 1);
+
 	tableRow = table_1.addRow();
-	tableRow.addCell("4.15", "", 1);
-	tableRow.addCell(get_value(param.form, "4.15", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.15", "code"), styleDescription, 1);
+	tableRow.addCell("4.15.1", "", 1);
+	tableRow.addCell(getValue(form, "4.15.1", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.15.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.15", "vatTaxable")), styleValueAmount, 1);
-	tableRow.addCell("+", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.15", "vatAmount")), styleValueAmount, 1);
-	
+	tableRow.addCell(getValue(form, "4.15.1", "amount"), "valueAmount", 1);
+	tableRow.addCell("", "", 1);
+	tableRow.addCell(getValue(form, "4.15.2", "amount"), "valueAmount", 1);
+
 	tableRow = table_1.addRow();
-	tableRow.addCell("4.16", "", 1);
-	tableRow.addCell(get_value(param.form, "4.16", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.16", "code"), styleDescription, 1);
+	tableRow.addCell("4.16.1", "", 1);
+	tableRow.addCell(getValue(form, "4.16.1", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.16.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.16", "vatTaxable")), styleValueAmount, 1);
-	tableRow.addCell("+", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.16", "vatAmount")), styleValueAmount, 1);
-	
+	tableRow.addCell(getValue(form, "4.16.1", "amount"), "valueAmount", 1);
+	tableRow.addCell("", "", 1);
+	tableRow.addCell(getValue(form, "4.16.2", "amount"), "valueAmount", 1);
+
 	tableRow = table_1.addRow();
-	tableRow.addCell("4.17", "", 1);
-	tableRow.addCell(get_value(param.form, "4.17", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.17", "code"), styleDescription, 1);
+	tableRow.addCell("4.17.1", "", 1);
+	tableRow.addCell(getValue(form, "4.17.1", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.17.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.17", "vatTaxable")), styleValueAmount, 1);
-	tableRow.addCell("+", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.17", "vatAmount")), styleValueAmount, 1);
-	
+	tableRow.addCell(getValue(form, "4.17.1", "amount"), "valueAmount", 1);
+	tableRow.addCell("", "", 1);
+	tableRow.addCell(getValue(form, "4.17.2", "amount"), "valueAmount", 1);
+
 	tableRow = table_1.addRow();
-	tableRow.addCell("4.18", "", 1);
-	tableRow.addCell(get_value(param.form, "4.18", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.18", "code"), styleDescription, 1);
+	tableRow.addCell("4.18.1", "", 1);
+	tableRow.addCell(getValue(form, "4.18.1", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.18.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.18", "vatTaxable")), styleValueAmount, 1);
-	tableRow.addCell("+", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.18", "vatAmount")), styleValueAmount, 1);
-	
+	tableRow.addCell(getValue(form, "4.18.1", "amount"), "valueAmount", 1);
+	tableRow.addCell("", "", 1);
+	tableRow.addCell(getValue(form, "4.18.2", "amount"), "valueAmount", 1);
+
 	tableRow = table_1.addRow();
-	tableRow.addCell("4.19", "", 1);
-	tableRow.addCell(get_value(param.form, "4.19", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.19", "code"), styleDescription, 1);
+	tableRow.addCell("4.19.1", "", 1);
+	tableRow.addCell(getValue(form, "4.19.1", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.19.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.19", "vatTaxable")), styleValueAmount, 1);
-	tableRow.addCell("+", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.19", "vatAmount")), styleValueAmount, 1);
-	
+	tableRow.addCell(getValue(form, "4.19.1", "amount"), "valueAmount", 1);
+	tableRow.addCell("", "", 1);
+	tableRow.addCell(getValue(form, "4.19.2", "amount"), "valueAmount", 1);
+
 	tableRow = table_1.addRow();
 	tableRow.addCell("Weiters zu versteuern:", "horizontalLine descriptionBold", 7);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("4.20", "", 1);
-	tableRow.addCell(get_value(param.form, "4.20", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.20", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "4.20", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.20", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("+", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.20", "vatAmount")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.20", "amount"), "valueAmount", 1);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("4.21", "", 1);
-	tableRow.addCell(get_value(param.form, "4.21", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.21", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "4.21", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.21", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("+", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.21", "vatAmount")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.21", "amount"), "valueAmount", 1);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("4.22", "", 1);
-	tableRow.addCell(get_value(param.form, "4.22", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.22", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "4.22", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.22", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("+", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.22", "vatAmount")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.22", "amount"), "valueAmount", 1);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("4.23", "", 1);
-	tableRow.addCell(get_value(param.form, "4.23", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.23", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "4.23", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.23", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("+", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.23", "vatAmount")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.23", "amount"), "valueAmount", 1);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("4.24", "", 1);
-	tableRow.addCell(get_value(param.form, "4.24", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.24", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "4.24", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.24", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("+", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.24", "vatAmount")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.24", "amount"), "valueAmount", 1);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("Innergemeinschaftliche Erwerbe:", "horizontalLine descriptionBold", 4);
@@ -515,262 +543,276 @@ function create_vat_report(banDoc, startDate, endDate, isTest) {
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("4.25", "", 1);
-	tableRow.addCell(get_value(param.form, "4.25", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.25", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "4.25", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.25", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.25", "vatTaxable")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.25", "amount"), "valueAmount", 1);
 	tableRow.addCell("", "", 2);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("4.26", "", 1);
-	tableRow.addCell(get_value(param.form, "4.26", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.26", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "4.26", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.26", "gr"), "description", 1);
 	tableRow.addCell("-", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.26", "vatTaxable")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.26", "amount"), "valueAmount", 1);
 	tableRow.addCell("", "", 2);
 	
 	//Printing of the total with ID 4.27
 	tableRow = table_1.addRow();
 	tableRow.addCell("4.27", "", 1);
-	tableRow.addCell(get_value(param.form, "4.27", "description"), styleDescription, 2);
+	tableRow.addCell(getValue(form, "4.27", "description"), "description", 2);
 	tableRow.addCell("", "", 1);
-	if (get_value(param.form, "4.27", "vatTaxable") != 0) {
-		tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.27", "vatTaxable")), styleValueTotal, 1);
+	if (getValue(form, "4.27", "amount") != 0) {
+		tableRow.addCell(getValue(form, "4.27", "amount"), "valueTotal", 1);
 	} else {
-		tableRow.addCell("", styleValueTotal, 1);
+		tableRow.addCell("", "valueTotal", 1);
 	}
 	tableRow.addCell("", "", 2);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("Davon sind zu versteuern mit:", "horizontalLine descriptionBold", 7);
 	
+
 	tableRow = table_1.addRow();
-	tableRow.addCell("4.28", "", 1);
-	tableRow.addCell(get_value(param.form, "4.28", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.28", "code"), styleDescription, 1);
+	tableRow.addCell("4.28.1", "", 1);
+	tableRow.addCell(getValue(form, "4.28.1", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.28.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.28", "vatTaxable")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.28.1", "amount"), "valueAmount", 1);
 	tableRow.addCell("+", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.28", "vatAmount")), styleValueAmount, 1);
-	
+	tableRow.addCell(getValue(form, "4.28.2", "amount"), "valueAmount", 1);
+
 	tableRow = table_1.addRow();
-	tableRow.addCell("4.29", "", 1);
-	tableRow.addCell(get_value(param.form, "4.29", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.29", "code"), styleDescription, 1);
+	tableRow.addCell("4.29.1", "", 1);
+	tableRow.addCell(getValue(form, "4.29.1", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.29.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.29", "vatTaxable")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.29.1", "amount"), "valueAmount", 1);
 	tableRow.addCell("+", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.29", "vatAmount")), styleValueAmount, 1);
-	
+	tableRow.addCell(getValue(form, "4.29.2", "amount"), "valueAmount", 1);
+
 	tableRow = table_1.addRow();
-	tableRow.addCell("4.30", "", 1);
-	tableRow.addCell(get_value(param.form, "4.30", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.30", "code"), styleDescription, 1);
+	tableRow.addCell("4.30.1", "", 1);
+	tableRow.addCell(getValue(form, "4.30.1", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.30.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.30", "vatTaxable")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.30.1", "amount"), "valueAmount", 1);
 	tableRow.addCell("+", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.30", "vatAmount")), styleValueAmount, 1);
-	
+	tableRow.addCell(getValue(form, "4.30.2", "amount"), "valueAmount", 1);
+
 	tableRow = table_1.addRow();
 	tableRow.addCell("Nicht zu versteuernde Erwerbe:", "horizontalLine descriptionBold", 7);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("4.31", "", 1);
-	tableRow.addCell(get_value(param.form, "4.31", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.31", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "4.31", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.31", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.31", "vatTaxable")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.31", "amount"), "valueAmount", 1);
 	tableRow.addCell("", "", 2);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("4.32", "", 1);
-	tableRow.addCell(get_value(param.form, "4.32", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "4.32", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "4.32", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.32", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "4.32", "vatTaxable")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "4.32", "amount"), "valueAmount", 1);
 	tableRow.addCell("", "", 2);
 	
 	//Printing of the objects with ID 5
 	tableRow = table_1.addRow();
-	tableRow.addCell("5.", styleValueTitle, 1);
-	tableRow.addCell("Berechnung der abziehbaren Vorsteuer:", styleValueTitle, 6);
+	tableRow.addCell("5.", "valueTitle", 1);
+	tableRow.addCell("Berechnung der abziehbaren Vorsteuer:", "valueTitle", 6);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("5.1", "", 1);
-	tableRow.addCell(get_value(param.form, "5.1", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "5.1", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "5.1", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "5.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("-", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "5.1", "vatAmount")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "5.1", "amount"), "valueAmount", 1);
 
 	tableRow = table_1.addRow();
 	tableRow.addCell("5.2", "", 1);
-	tableRow.addCell(get_value(param.form, "5.2", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "5.2", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "5.2", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "5.2", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("-", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "5.2", "vatAmount")), styleValueAmount, 1);		
+	tableRow.addCell(getValue(form, "5.2", "amount"), "valueAmount", 1);		
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("5.3", "", 1);
-	tableRow.addCell(get_value(param.form, "5.3", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "5.3", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "5.3", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "5.3", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("-", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "5.3", "vatAmount")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "5.3", "amount"), "valueAmount", 1);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("5.4", "", 1);
-	tableRow.addCell(get_value(param.form, "5.4", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "5.4", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "5.4", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "5.4", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("-", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "5.4", "vatAmount")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "5.4", "amount"), "valueAmount", 1);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("5.5", "", 1);
-	tableRow.addCell(get_value(param.form, "5.5", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "5.5", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "5.5", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "5.5", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("-", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "5.5", "vatAmount")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "5.5", "amount"), "valueAmount", 1);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("5.6", "", 1);
-	tableRow.addCell(get_value(param.form, "5.6", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "5.6", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "5.6", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "5.6", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("-", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "5.6", "vatAmount")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "5.6", "amount"), "valueAmount", 1);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("5.7", "", 1);
-	tableRow.addCell(get_value(param.form, "5.7", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "5.7", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "5.7", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "5.7", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("-", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "5.7", "vatAmount")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "5.7", "amount"), "valueAmount", 1);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("5.8", "", 1);
-	tableRow.addCell(get_value(param.form, "5.8", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "5.8", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "5.8", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "5.8", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("-", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "5.8", "vatAmount")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "5.8", "amount"), "valueAmount", 1);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("5.9", "", 1);
-	tableRow.addCell(get_value(param.form, "5.9", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "5.9", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "5.9", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "5.9", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("-", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "5.9", "vatAmount")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "5.9", "amount"), "valueAmount", 1);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("5.10", "", 1);
-	tableRow.addCell(get_value(param.form, "5.10", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "5.10", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "5.10", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "5.10", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("+", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "5.10", "vatAmount")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "5.10", "amount"), "valueAmount", 1);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("5.11", "", 1);
-	tableRow.addCell(get_value(param.form, "5.11", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "5.11", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "5.11", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "5.11", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("+/-", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "5.11", "vatAmount")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "5.11", "amount"), "valueAmount", 1);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("5.12", "", 1);
-	tableRow.addCell(get_value(param.form, "5.12", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "5.12", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "5.12", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "5.12", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("+/-", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "5.12", "vatAmount")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "5.12", "amount"), "valueAmount", 1);
 	
 	//Printing of the total with ID 5.13
 	tableRow = table_1.addRow();
 	tableRow.addCell("5.13", "", 1);
-	tableRow.addCell(get_value(param.form, "5.13", "description"), styleDescription, 4);
-	if (get_value(param.form, "5.13", "vatAmount") < 0) {
+	tableRow.addCell(getValue(form, "5.13", "description"), "description", 4);
+	if (getValue(form, "5.13", "sign") == -1) { //value < 0
 		tableRow.addCell("-", "", 1);
-		tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "5.13", "vatAmount")*-1), styleValueTotal, 1);
-	} else if (get_value(param.form, "5.13", "vatAmount") > 0) {
+		tableRow.addCell(getValue(form, "5.13", "amount"), "valueTotal", 1);
+	} else if (Banana.SDecimal.sign(getValue(form, "5.13", "amount")) == 1) { //value > 0
 		tableRow.addCell("", "", 1);
-		tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "5.13", "vatAmount")), styleValueTotal, 1);
-	} else {
+		tableRow.addCell(getValue(form, "5.13", "amount"), "valueTotal", 1);
+	} else if (Banana.SDecimal.sign(getValue(form, "5.13", "amount")) == 0) { //value = 0
 		tableRow.addCell("", "", 1);
-		tableRow.addCell("", styleValueTotal, 1);
+		tableRow.addCell("", "valueTotal", 1);
 	}
-	
+
 	//Printing of the objects with ID 6
 	tableRow = table_1.addRow();
-	tableRow.addCell("6.", styleValueTitle, 1);
-	tableRow.addCell("Sonstige Berichtigungen:", styleValueTitle, 6);
+	tableRow.addCell("6.", "valueTitle", 1);
+	tableRow.addCell("Sonstige Berichtigungen:", "valueTitle", 6);
 	
 	tableRow = table_1.addRow();
 	tableRow.addCell("6.1", "", 1);
-	tableRow.addCell(get_value(param.form, "6.1", "description"), styleDescription, 1);
-	tableRow.addCell(get_value(param.form, "6.1", "code"), styleDescription, 1);
+	tableRow.addCell(getValue(form, "6.1", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "6.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
 	tableRow.addCell("+/-", "", 1);
-	tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "6.1", "vatAmount")), styleValueAmount, 1);
+	tableRow.addCell(getValue(form, "6.1", "amount"), "valueAmount", 1);
 	
 	//Printing of the objects with ID 7
 	//We check if the final total value is positive or negative because we have to use different descriptions.
 	//If negative we invert the sign
-	if (get_value(param.form, "7", "vatAmount") > 0) {
+	if (Banana.SDecimal.sign(getValue(form, "7", "amount")) == 1) { //value > 0
 		tableRow = table_1.addRow();
 		tableRow.addCell("7.1", "", 1);
-		tableRow.addCell("Vorauszahlung (Zahllast)", styleDescription, 1);
-		tableRow.addCell(get_value(param.form, "7", "code"), styleDescription, 1);
+		tableRow.addCell("Vorauszahlung (Zahllast)", "description", 1);
+		tableRow.addCell(getValue(form, "7", "gr"), "description", 1);
 		tableRow.addCell("", "", 2);
 		tableRow.addCell("", "", 1);
-		tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "7", "vatAmount")), styleValueTotal, 1);
-	} else if (get_value(param.form, "7", "vatAmount") < 0) {
+		tableRow.addCell(getValue(form, "7", "amount"), "valueTotal", 1);
+	} else if (getValue(form, "7", "sign") == -1) { //value < 0
 		tableRow = table_1.addRow();
 		tableRow.addCell("7.2", "", 1);
-		tableRow.addCell("Überschuss (Gutschrift)", styleDescription, 1);
-		tableRow.addCell(get_value(param.form, "7", "code"), styleDescription, 1);
+		tableRow.addCell("Überschuss (Gutschrift)", "description", 1);
+		tableRow.addCell(getValue(form, "7", "gr"), "description", 1);
 		tableRow.addCell("", "", 2);
 		tableRow.addCell("-", "", 1);
-		tableRow.addCell(Banana.Converter.toLocaleNumberFormat(get_value(param.form, "7", "vatAmount")*-1), styleValueTotal, 1);
-	} else {
+		tableRow.addCell(getValue(form, "7", "amount"), "valueTotal", 1);
+	} else if (Banana.SDecimal.sign(getValue(form, "7", "amount")) == 0) { //value = 0
 		tableRow = table_1.addRow();
 		tableRow.addCell("7.1 / 7.2", "", 1);
-		tableRow.addCell("Vorauszahlung (Zahllast) / Überschuss (Gutschrift)", styleDescription, 1);
-		tableRow.addCell(get_value(param.form, "7", "code"), styleDescription, 1);
+		tableRow.addCell("Vorauszahlung (Zahllast) / Überschuss (Gutschrift)", "description", 1);
+		tableRow.addCell(getValue(form, "7", "gr"), "description", 1);
 		tableRow.addCell("", "", 2);
 		tableRow.addCell("", "", 1);
-		tableRow.addCell("", styleValueTotal, 1);
+		tableRow.addCell("", "valueTotal", 1);
 	}
 	
-	//Verification of some total values
-	check_totals(param.form, "4.13", "4.14;4.15;4.16;4.17;4.18;4.19", report, isTest);
-	check_totals(param.form, "4.27", "4.28;4.29;4.30", report, isTest);
-	
-	//Verification of the balance values
-	check_balance(banDoc, param.form, report, isTest);
-		
+	//Add all the warning messages to the report
+	for (var i = 0; i < form.length; i++) {
+		if (form[i]["warningMessage"]) {
+			report.addParagraph(form[i]["warningMessage"], "warningMsg");
+		}
+	}
+
 	return report;
 }
 
 
 
+//The purpose of this function is to convert all the values from the given list to local format
+function formatValues(fields) {
+	if (param["formatNumber"] === true) {
+		for (i = 0; i < form.length; i++) {
+			var valueObj = getObject(form, form[i].id);
+
+			for (var j = 0; j < fields.length; j++) {
+				valueObj[fields[j]] = Banana.Converter.toLocaleNumberFormat(valueObj[fields[j]]);
+			}
+		}
+	}
+}
+
 
 //The purpose of this function is to verify two sums.
 //Given two lists of values divided by the character ";" the function creates two totals and compares them.
 //It is also possible to compare directly single values, instead of a list of values.
-function check_totals(source, valuesList1, valuesList2, report, isTest) {
+function checkTotals(valuesList1, valuesList2, report, isTest) {
 	//Calculate the first total
 	if (valuesList1) {
 		var total1 = 0;
 		var arr1 = valuesList1.split(";");
 		for (var i = 0; i < arr1.length; i++) {
-			total1 = Banana.SDecimal.add(total1, get_value(source, arr1[i], "vatTaxable"), {'decimals':rounding});
+			total1 = Banana.SDecimal.add(total1, getValue(form, arr1[i], "amount"), {'decimals':param.rounding});
 		}
 	}
 	
@@ -779,7 +821,7 @@ function check_totals(source, valuesList1, valuesList2, report, isTest) {
 		var total2 = 0;
 		var arr2 = valuesList2.split(";");
 		for (var i = 0; i < arr2.length; i++) {
-			total2 = Banana.SDecimal.add(total2, get_value(source, arr2[i], "vatTaxable"), {'decimals':rounding});
+			total2 = Banana.SDecimal.add(total2, getValue(form, arr2[i], "amount"), {'decimals':param.rounding});
 		}
 	}
 	
@@ -792,23 +834,23 @@ function check_totals(source, valuesList1, valuesList2, report, isTest) {
 			">, Total " + valuesList2 + " <" + Banana.Converter.toLocaleNumberFormat(total2) + ">");
 		}
 		
-		//Add a message on the report.
-		report.addParagraph("Warning! Different values: Total " + valuesList1 + " <" + Banana.Converter.toLocaleNumberFormat(total1) + 
-		">, Total " + valuesList2 + " <" + Banana.Converter.toLocaleNumberFormat(total2) + ">", "warningMsg");
+		//Add to the form an object containing a warning message that will be added at the end of the report
+		var warningStringMsg = "Warning! Different values: Total " + valuesList1 + " <" + Banana.Converter.toLocaleNumberFormat(total1) + 
+							">, Total " + valuesList2 + " <" + Banana.Converter.toLocaleNumberFormat(total2) + ">";
+		
+		form.push({"warningMessage" : warningStringMsg});
 	}
 }
 
 
-
-
 //The purpose of this function is to verify if the balance from Banana euquals the report total
-function check_balance(banDoc, form, report, isTest) {
+function checkBalance(banDoc, report, isTest) {
 	//First, we get the total from the report, specifying the correct id total 
-	var totalFromReport = get_value(form, "7", "vatAmount");
+	var totalFromReport = getValue(form, "7", "amount");
 
 	//Second, we get the VAT balance table from Banana using the function Banana.document.vatReport([startDate, endDate]).
 	//The two dates are taken directly from the structure. 
-	var vatReportTable = banDoc.vatReport(get_value(form, "2.2", "openingDate"), get_value(form, "2.2", "closureDate"));
+	var vatReportTable = banDoc.vatReport(getValue(form, "2.2", "startDate"), getValue(form, "2.2", "endDate"));
 	
 	//Now we can read the table rows values
 	for (var i = 0; i < vatReportTable.rowCount; i++) {
@@ -819,8 +861,11 @@ function check_balance(banDoc, form, report, isTest) {
 		//Since we know that the balance is summed in group named "_tot_", we check if that value equals the total from the report
 		if (group === "_tot_") {
 			//Now we can compare the two values using the Banana.SDecimal.compare() function and return a message if they are different.
-			//In order to compare correctly the values we have to invert the sign of the result from Banana, using the Banana.SDecimal.invert() function.
-			if (Banana.SDecimal.compare(totalFromReport, Banana.SDecimal.invert(vatBalance)) !== 0) {
+			//In order to compare correctly the values we don't have to invert the sign of the result from Banana anymore.
+			//This because we invert it with function postProcessAmount() before the calling of checkBalance().
+			
+			//if (Banana.SDecimal.compare(totalFromReport, Banana.SDecimal.invert(vatBalance)) !== 0) {
+			if (Banana.SDecimal.compare(totalFromReport, vatBalance) !== 0) {
 				if (!isTest) {
 					//Add an information dialog
 					Banana.Ui.showInformation("Warning!", "Different values: " + 
@@ -828,10 +873,11 @@ function check_balance(banDoc, form, report, isTest) {
 					">, Total from report <" + Banana.Converter.toLocaleNumberFormat(totalFromReport) + ">");
 				}
 
-				//Add a message on the report
-				report.addParagraph("Warning! Different values: " + 
-				"Total from Banana <" + Banana.Converter.toLocaleNumberFormat(vatBalance) + 
-				">, Total from report <" + Banana.Converter.toLocaleNumberFormat(totalFromReport) + ">", "warningMsg");
+				//Add to the form an object containing a warning message that will be added at the end of the report
+				var warningStringMsg =	"Warning! Different values: " + "Total from Banana <" + Banana.Converter.toLocaleNumberFormat(vatBalance) + 
+										">, Total from report <" + Banana.Converter.toLocaleNumberFormat(totalFromReport) + ">";
+				
+				form.push({"warningMessage" : warningStringMsg});
 			}
 		}
 	}
@@ -839,41 +885,140 @@ function check_balance(banDoc, form, report, isTest) {
 
 
 
+//The main purpose of this function is to create an array with all the values of a given column of the table (codeColumn) belonging to the same group (grText)
+function getColumnListForGr(table, grText, codeColumn, grColumn) {
 
-//The purpose of this function is to calculate the vatTaxable and vatAmount balances, then load these values into the structure
-function load_vat_balances(banDoc, form) {
-
-	var vatCodes = banDoc.table("VatCodes");
-	if (vatCodes === undefined || !vatCodes) {
-		return;
+	if (table === undefined || !table) {
+		return str;
 	}
-	
+
+	if (!grColumn) {
+		grColumn = "Gr1";
+	}
+
+	var str = [];
+
+	//Loop to take the values of each rows of the table
+	for (var i = 0; i < table.rowCount; i++) {
+		var tRow = table.row(i);
+		var grRow = tRow.value(grColumn);
+
+		//If Gr1 column contains other characters (in this case ";") we know there are more values
+		//We have to split them and take all values separately
+		//If there are only alphanumeric characters in Gr1 column we know there is only one value
+		var codeString = grRow;
+		var arrCodeString = codeString.split(";");
+		for (var j = 0; j < arrCodeString.length; j++) {
+			var codeString1 = arrCodeString[j];
+			if (codeString1 === grText) {
+				str.push(tRow.value(codeColumn));
+			}
+		}
+	}
+
+	//Removing duplicates
+	for (var i = 0; i < str.length; i++) {
+		for (var x = i+1; x < str.length; x++) {
+			if (str[x] === str[i]) {
+				str.splice(x,1);
+				--x;
+			}
+		}
+	}
+
+	//Return the array
+	return str;
+}
+
+
+
+//The purpose of this function is to load all the balances and save the values into the form
+function loadBalances() {
+
 	for (var i in form) {
-		//We use the Banana.document.vatCurrentBalance() function to calculate VAT taxable and VAT amount values
-		var objVatCurrentBalance = banDoc.vatCurrentBalance(get_vat_codes(vatCodes, get_object(form, form[i]["id"]).code), get_value(form, "2.2", "openingDate"), get_value(form, "2.2", "closureDate"));
-		var vTaxable = objVatCurrentBalance.vatTaxable;
-		var vAmount = objVatCurrentBalance.vatAmount;
-		
-		//Invert sign if the type is "umsatzsteuer"
-		if (form[i]["type"] === "umsatzsteuer") {
-			vTaxable = Banana.SDecimal.invert(vTaxable);
-			vAmount = Banana.SDecimal.invert(vAmount);
+
+		//Check if there are "vatClass" properties, then load VAT balances
+		if (form[i]["vatClass"]) {
+			if (form[i]["gr"]) {
+				form[i]["amount"] = calculateVatGr1Balance(form[i]["gr"], form[i]["vatClass"], param["grColumn"], param["startDate"], param["endDate"]);
+			}
 		}
 
-		//Save values into the structure (only non-zero values)
-		if (vTaxable != 0) {
-			form[i]["vatTaxable"] = vTaxable;
+		//Check if there are "bClass" properties, then load balances
+		if (form[i]["bClass"]) {
+			if (form[i]["gr"]) {
+				form[i]["amount"] = calculateAccountGr1Balance(form[i]["gr"], form[i]["bClass"], param["grColumn"], param["startDate"], param["endDate"]);
+			}
 		}
+	}
+}
 
-		if (vAmount != 0) {
-			form[i]["vatAmount"] = vAmount;
+
+
+//The purpose of this function is to calculate all the balances of the accounts belonging to the same group (grText)
+function calculateAccountGr1Balance(grText, bClass, grColumn, startDate, endDate) {
+	
+	var accounts = getColumnListForGr(Banana.document.table("Accounts"), grText, "Account", grColumn);
+	accounts = accounts.join("|");
+	
+	//Sum the amounts of opening, debit, credit, total and balance for all transactions for this accounts
+	var currentBal = Banana.document.currentBalance(accounts, startDate, endDate);
+	
+	//The "bClass" decides which value to use
+	if (bClass === "0") {
+		return currentBal.amount;
+	}
+	else if (bClass === "1") {
+		return currentBal.balance;
+	}
+	else if (bClass === "2") {
+		return Banana.SDecimal.invert(currentBal.balance);
+	}
+	else if (bClass === "3") {
+		return currentBal.total;
+	}
+	else if (bClass === "4") {
+		return Banana.SDecimal.invert(currentBal.total);
+	}
+}
+
+
+
+//The purpose of this function is to calculate all the VAT balances of the accounts belonging to the same group (grText)
+function calculateVatGr1Balance(grText, vatClass, grColumn, startDate, endDate) {
+	
+	var grCodes = getColumnListForGr(Banana.document.table("VatCodes"), grText, "VatCode", grColumn);
+	grCodes = grCodes.join("|");
+
+	//Sum the vat amounts for the specified vat code and period
+	var currentBal = Banana.document.vatCurrentBalance(grCodes, startDate, endDate);
+
+	//The "vatClass" decides which value to use
+	if (vatClass === "1") {
+		if (currentBal.vatTaxable != 0) {
+			return currentBal.vatTaxable;
+		}
+	}
+	else if (vatClass === "2") {
+		if (currentBal.vatTaxable != 0) {
+			return Banana.SDecimal.invert(currentBal.vatTaxable);
+		}
+	}
+	else if (vatClass === "3") {
+		if (currentBal.vatPosted != 0) {
+			return currentBal.vatPosted;
+		}
+	}
+	else if (vatClass === "4") {
+		if (currentBal.vatPosted != 0) {
+			return Banana.SDecimal.invert(currentBal.vatPosted);
 		}
 	}
 }
 
 
 //This function return the difference in months between two dates
-function get_month_diff(d1, d2) {	
+function getMonthDiff(d1, d2) {	
 	var months;
     months = (d2.getFullYear() - d1.getFullYear()) * 12;
     //months -= d1.getMonth() + 1;
@@ -888,7 +1033,7 @@ function get_month_diff(d1, d2) {
 
 
 //Function to get the name of the months (German)
-function get_month_name(date) {
+function getMonthName(date) {
 	var month = [];
 	month[0] = "Januar";
 	month[1] = "Februar";
@@ -907,19 +1052,18 @@ function get_month_name(date) {
 }
 
 
-
 //Calculate all totals of the form
-function calc_form_totals(form, fields) {
+function calcFormTotals(fields) {
 	for (var i = 0; i < form.length; i++) {
-		calc_form_total(form, form[i].id, fields);
+		calcTotal(form[i].id, fields);
 	}
 }
 
 
 //Calculate a total of the form
-function calc_form_total(form, id, fields) {
+function calcTotal(id, fields) {
 	
-	var valueObj = get_object(form, id);
+	var valueObj = getObject(form, id);
 	
 	if (valueObj[fields[0]]) { //first field is present
 		return; //calc already done, return
@@ -941,53 +1085,53 @@ function calc_form_total(form, id, fields) {
 			}
 			
 			//Calulate recursively
-			calc_form_total(form, entry, fields);  
+			calcTotal(entry, fields);  
 			
 		    for (var j = 0; j < fields.length; j++) {
 				var fieldName = fields[j];
-				var fieldValue = get_value(form, entry, fieldName);
+				var fieldValue = getValue(form, entry, fieldName);
 				if (fieldValue) {
 					if (isNegative) {
 						//Invert sign
 						fieldValue = Banana.SDecimal.invert(fieldValue);
 					}
-					valueObj[fieldName] = Banana.SDecimal.add(valueObj[fieldName], fieldValue, {'decimals':rounding});
+					valueObj[fieldName] = Banana.SDecimal.add(valueObj[fieldName], fieldValue, {'decimals':param.rounding});
 				}
 			}
 		}
-	} else if (valueObj.code) {
-		//Already calculated in load_form_balances()
+	} else if (valueObj.gr) {
+		//Already calculated in loadForm_balances()
 	}
 }
 
 
 //The purpose of this function is to return a specific field value from the object.
-//When calling this function, it's necessary to speficy the source (the structure), the object ID, and the field (parameter) needed.
-function get_value(source, id, field) {
+//When calling this function, it's necessary to speficy the form (the structure), the object ID, and the field (parameter) needed.
+function getValue(form, id, field) {
 	var searchId = id.trim();
-	for (var i = 0; i < source.length; i++) {
-		if (source[i].id === searchId) {
-			return source[i][field];
+	for (var i = 0; i < form.length; i++) {
+		if (form[i].id === searchId) {
+			return form[i][field];
 		}
 	}
-	throw "Couldn't find object with id:" + id;
+	Banana.document.addMessage("Couldn't find object with id:" + id);
 }
 
 
-//This function is very similar to the get_value() function.
+//This function is very similar to the getValue() function.
 //Instead of returning a specific field from an object, this function return the whole object.
-function get_object(source, id) {
-	for (var i = 0; i < source.length; i++) {
-		if (source[i]["id"] === id) {
-			return source[i];
+function getObject(form, id) {
+	for (var i = 0; i < form.length; i++) {
+		if (form[i]["id"] === id) {
+			return form[i];
 		}
 	}
-	throw "Couldn't find object with id: " + id;
+	Banana.document.addMessage("Couldn't find object with id: " + id);
 }
 
 
 //This function adds a Footer to the report
-function add_footer(report, param) {
+function addFooter(report, param) {
    report.getFooter().addClass("footer");
    var versionLine = report.getFooter().addText(param.bananaVersion + ", " + param.scriptVersion + ", ", "description");
    //versionLine.excludeFromTest();
@@ -998,7 +1142,7 @@ function add_footer(report, param) {
 
 //The main purpose of this function is to allow the user to enter the accounting period desired and saving it for the next time the script is run.
 //Every time the user runs of the script he has the possibility to change the date of the accounting period.
-function get_period_settings() {
+function getPeriodSettings() {
 	
 	//The formeters of the period that we need
 	var scriptform = {
@@ -1048,41 +1192,8 @@ function get_period_settings() {
 }
 
 
-//The main purpose of this function is to get all VAT codes of the same group and create a string with them, using the character "|" as separator
-function get_vat_codes(vatCodesTable, codeStr) {
-
-	var str = [];
-
-	//Loop to take the values of each rows of the table
-	for (var i = 0; i < vatCodesTable.rowCount; i++) {
-		var tRow = vatCodesTable.row(i);
-		var gr1 = tRow.value("Gr1");
-		var vatCode = tRow.value("VatCode");
-
-		//Check if there are Gr1 and VatCode values
-		if (gr1 && vatCode) {
-
-			//If Gr1 column contains other characters (in this case ";") we know there are more values.
-			//We have to split them and take all values separately.
-			//If there are only alphanumeric characters in Gr1 column we know there is only one value and we take it.
-			var vatCodeString = gr1;
-			var arrVatCodeString = vatCodeString.split(";");
-			for (var j = 0; j < arrVatCodeString.length; j++) {
-				var vatCodeString1 = arrVatCodeString[j];
-				if (vatCodeString1 === codeStr) {
-					str.push(vatCode);
-				}
-			}
-		}
-	}
-	//We return the array adding a separator between elements
-	return str.join("|");
-}
-
-
-
 //The main purpose of this function is to create styles for the report print
-function create_styleSheet() {
+function createStylesheet() {
 	var stylesheet = Banana.Report.newStyleSheet();
 
     var pageStyle = stylesheet.addStyle("@page");
