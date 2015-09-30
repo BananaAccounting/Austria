@@ -14,9 +14,9 @@
 //
 // @id = ch.banana.addon.vatreportaustria2015
 // @api = 1.0
-// @pubdate = 2015-09-14
+// @pubdate = 2015-09-30
 // @publisher = Banana.ch SA
-// @description = VAT report Austria 2015 - Development
+// @description = VAT report Austria 2015
 // @task = app.command
 // @doctype = 100.110;100.130
 // @docproperties = austria
@@ -33,7 +33,7 @@ function loadParam(banDoc, startDate, endDate) {
 	param = {
 		"reportName":"VAT report Austria 2015",												//Save the report's name
 		"bananaVersion":"Banana Accounting, v. " + banDoc.info("Base", "ProgramVersion"), 	//Save the version of Banana Accounting used
-		"scriptVersion":"script v. 2015-09-14 (TEST VERSION)", 								//Save the version of the script
+		"scriptVersion":"script v. 2015-09-30 (TEST VERSION)", 								//Save the version of the script
 		"fiscalNumber":banDoc.info("AccountingDataBase","FiscalNumber"),					//Save the fiscal number
 		"startDate":startDate,																//Save the startDate that will be used to specify the accounting period starting date
 		"endDate":endDate, 																	//Save the endDate that will be used to specify the accounting period ending date		
