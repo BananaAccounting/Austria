@@ -26,7 +26,7 @@
 
 
 
-var scriptVersion = "script v. 2015-09-18";
+var scriptVersion = "script v. 2016-07-26";
 
 
 //Main function
@@ -120,7 +120,7 @@ function createReport(banDoc, startDate, endDate) {
 
 	var report = Banana.Report.newReport("VAT list details");
 
-	report.addParagraph("Zusammensende meldung", "heading1");
+	report.addParagraph("Zusammenfassende Meldung", "heading1");
 	report.addParagraph(" ", "");
 	report.addParagraph("Meldezeitraum: " + Banana.Converter.toLocaleDateFormat(startDate) + " bis " + Banana.Converter.toLocaleDateFormat(endDate), "heading3");
 	report.addParagraph(" ");
