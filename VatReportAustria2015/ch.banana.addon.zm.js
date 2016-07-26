@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// @id = ch.banana.addon.vatlistaustria
+// @id = ch.banana.addon.zm
 // @api = 1.0
 // @pubdate = 2015-09-18
 // @publisher = Banana.ch SA
-// @description = VAT List Austria
+// @description = Zusammenfassende Meldung (ZM)
 // @task = app.command
 // @doctype = 100.110
 // @docproperties = austria
