@@ -1,70 +1,75 @@
 #Roadmap 
 
-Zu erstellende Kontenpläne x
+Zu erstellende KontenplÃ¤ne x
 
 Erste Phase
+#USt Voranmeldung
+- USt Tabelle mit allen Codes
+- Beispielbuchungen mit allen VorfÃ¤llen fÃ¼r jeden Steuercode fÃ¼r Test
+- Test des Formulars 
+
 ##Vereine
 ###Allgemeine  Vereine  
-- Gemeinnüthig
+- GemeinnÃ¼thig
 - Einnahme und Ausgabenbuchaltung ohne Umsatzsteuer
-- Kontenplan nach österreiches EKR
+- Kontenplan nach Ã¶sterreiches EKR
 - Bruttowerte
-- Vermögenübersicht
+- VermÃ¶genÃ¼bersicht
   - Bank, Kasse
 - Gebarungsrechung (Einnahmen-Ausgaben-Rechnung)
-  - Vereinseinnahmen Erträge (Mitgliederbeiträgem, usw)
-  - Aufweindunge hinsichtlich Zweckerfüllung
+  - Vereinseinnahmen ErtrÃ¤ge (MitgliederbeitrÃ¤gem, usw)
+  - Aufweindunge hinsichtlich ZweckerfÃ¼llung
   - Eigenes Personal
   - Allgemeine Kosten
-- Kostenstelle 1 für Project
+- Kostenstelle 1 fÃ¼r Project
 - Report Enthalten Zahlungen an Mitglieder (Kostenstelle 2) 
-- Segmente für Einteilung nach Hilfsbetrieben (Komposition)
+- Segmente fÃ¼r Einteilung nach Hilfsbetrieben (Komposition)
   
-###Mittlere und grösse Vereine  
-- Gemeinnüthig 
+###Mittlere und grÃ¶sse Vereine  
+- GemeinnÃ¼thig 
 - Doppelte Buchhaultung ohne Umsatzsteuer
 - Nettowerte
 - Mitglieder un Lieferanten
 - Bilanz 
 - Gebarungsrechung (Einnahmen-Ausgaben-Rechnung)
 - Report Enthalten Zahlungen an Mitglieder (Kostenstelle 2) 
-- Segmente für Einteilung nach Hilfsbetrieben (Komposition)
+- Segmente fÃ¼r Einteilung nach Hilfsbetrieben (Komposition)
 
 ##Unternehmer
 
 ###Einzelunternehmen
-Selbständige, Gewerbetreibende, Freiberufler
+SelbstÃ¤ndige, Gewerbetreibende, Freiberufler
 - Einnahme und Ausgabenbuchaltung ohne Umsatzsteuer
 - Bruttowerte 
-- Vermögenübersicht 
+- VermÃ¶genÃ¼bersicht 
   - Bank, Kasse, Barverrechung 
 - Einnahmen-Ausgaben-Rechnung 
-- Segmente für Einteilung nach Einkünfte (z.B. Ausland) oder Betriebe
-- Bericht Einkommesteuererkärung Netto (Spalte Gr1)
+- Segmente fÃ¼r Einteilung nach EinkÃ¼nfte (z.B. Ausland) oder Betriebe
+- Bericht EinkommesteuererkÃ¤rung Netto (Spalte Gr1)
 
 
 ###Einzelunternehmen
-Selbständige, Gewerbetreibende, Freiberufler
+SelbstÃ¤ndige, Gewerbetreibende, Freiberufler
 - Einnahme und Ausgabenbuchaltung mit Umsatzsteuer
 - Nettowerte
-- Vermögenübersicht 
+- VermÃ¶genÃ¼bersicht 
   - Bank, Kasse, Barverrechung 
 - Einnahmen-Ausgaben-Rechnung 
-- Segmente für Einteilung nach Einkünfte (z.B. Ausland) oder Betriebe
-- Bericht Einkommesteuererkärung Netto (Spalte Gr1)
+- Segmente fÃ¼r Einteilung nach EinkÃ¼nfte (z.B. Ausland) oder Betriebe
+- Bericht EinkommesteuererkÃ¤rung Netto (Spalte Gr1)
 
 
 Zweite  Phase
 ##Vereine
 ###Allgemeine  Vereine  mit Umsatzsteuer
-###Mittlere und grösse Vereine  mit Umsatzsteuer
-###Einzelunternehmen Doppelte Buchhaltung mit USt und Fremdwährungen
+###Mittlere und grÃ¶sse Vereine  mit Umsatzsteuer
+###Einzelunternehmen Doppelte Buchhaltung mit USt und FremdwÃ¤hrungen
 ###Personenunternehmen Einnahmen-Ausgaben-Rechnung ohne USt
 ###Personenunternehmen Einnahmen-Ausgaben-Rechnung mit USt
 
-###Juristichepersonen Doppelte Buchhaltung mit USt und Fremdwährungen
+###Juristichepersonen Doppelte Buchhaltung mit USt und FremdwÃ¤hrungen
 - Bruttowerte
-- Körperschaftsteuer klassifizierung Gr1
+- KÃ¶rperschaftsteuer klassifizierung Gr1
 - Offenlegungfirmenbuch Gr2
   
   
