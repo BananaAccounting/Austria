@@ -1,5 +1,6 @@
 #Roadmap 
-Kontenpläne Accounting plan to be prepared
+Zu erstellende Kontenpläne 
+
 Erste Phase
 ##Vereine
 ###Allgemeine  Vereine  
