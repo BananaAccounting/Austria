@@ -4,7 +4,7 @@ Zu erstellende Kontenpläne x
 
 Erste Phase
 #USt Voranmeldung
-- USt Tabelle mit allen Codes
+- USt Tabelle mit allen Codes (Reverse Charge Code:  Bezugs- und Vorsteuercode)
 - Beispielbuchungen mit allen Vorfällen für jeden Steuercode für Test
 - Test des Formulars 
 
