@@ -137,7 +137,7 @@ function loadForm() {
 	form.push({"id":"5.7", "gr":"087", "vatClass":"3", "description":"Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1b (Sicherungseigentum, Vorbehaltseigentum und Grundstücke im Zwangsversteigerungsverfahren)"});			
 	form.push({"id":"5.8", "gr":"089", "vatClass":"3", "description":"Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe)"});
 	form.push({"id":"5.9", "gr":"064", "vatClass":"3", "description":"Vorsteuern für innergemeinschaftliche Lieferungen neuer Fahrzeuge von Fahrzeuglieferern gemäß Art. 2"});		
-	form.push({"id":"5.10", "gr":"062", "vatClass":"3", "description":"Davon nicht abzugsfähig gemäß § 12 Abs. 3 iVm Abs. 4 und 5"});
+	form.push({"id":"5.10", "gr":"062", "vatClass":"4", "description":"Davon nicht abzugsfähig gemäß § 12 Abs. 3 iVm Abs. 4 und 5"});
 	form.push({"id":"5.11", "gr":"063", "vatClass":"3", "description":"Berichtigung gemäß § 12 Abs. 10 und 11"});
 	form.push({"id":"5.12", "gr":"067", "vatClass":"3", "description":"Berichtigung gemäß § 16"});
 	form.push({"id":"5.13", "description":"Gesamtbetrag der abziehbaren Vorsteuer", "sum":"-5.1;-5.2;-5.3;-5.4;-5.5;-5.6;-5.7;-5.8;-5.9;5.10;-5.11;-5.12"});
