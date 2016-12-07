@@ -14,7 +14,7 @@
 //
 // @id = ch.banana.addon.vatreportaustria2016
 // @api = 1.0
-// @pubdate = 2015-09-30
+// @pubdate = 2016-12-07
 // @publisher = Banana.ch SA
 // @description = VAT report Austria 2016
 // @task = app.command
@@ -37,7 +37,7 @@ function loadParam(banDoc, startDate, endDate) {
 	param = {
 		"reportName":"VAT report Austria 2016",												//Save the report's name
 		"bananaVersion":"Banana Accounting 8", 												//Save the version of Banana Accounting used
-		"scriptVersion":"script v. 2016-02-05",				 								//Save the version of the script
+		"scriptVersion":"script v. 2016-12-07",				 								//Save the version of the script
 		"fiscalNumber":banDoc.info("AccountingDataBase","FiscalNumber"),					//Save the fiscal number
 		"startDate":startDate,																//Save the startDate that will be used to specify the accounting period starting date
 		"endDate":endDate, 																	//Save the endDate that will be used to specify the accounting period ending date		
@@ -70,7 +70,7 @@ function loadForm() {
 
 	form.push({"id":"1.1", "description":"Finanzamtsnummer - Steuernummer"});	
 	form.push({"id":"2.1", "description":"für den Kalendermonat"});		
-	form.push({"id":"2.2", "description":"für das Kalendervierteljahr"});	
+	form.push({"id":"2.2", "description":""});	
 	form.push({"id":"3.1", "description":"BEZEICHNUNG DES UNTERNEHMENS (BLOCKSCHRIFT)"});
 	form.push({"id":"3.2", "description":"STRASSE (BLOCKSCHRIFT)"});
 	form.push({"id":"3.3", "description":"Hausnummer"});
@@ -169,6 +169,7 @@ function exec(string) {
 	//If yes, we can get all the informations we need, process them and finally create the report.
 	//If not, the script execution will be stopped immediately.
 	if (dateform) {
+
 		//Variable by checkTotals() and checkBalance() functions to check if use them to create the "normal-report" or to create the "test-report".
 		//The reports are differents: on test-report we don't want to display any dialog boxes.
 		var isTest = false;
@@ -249,6 +250,9 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("1. Abgabenkontonummer", "valueTitle");
 	tableRow.addCell("2. Zeitraum", "valueTitle", 3);
 
+	//Set the period text
+	setPeriodText(monthsNumber);
+
 	if (monthsNumber == 1) {
 		tableRow = table1.addRow();
 		tableRow.addCell("1.1 " + getValue(form, "1.1", "description"), "description", 1);
@@ -272,7 +276,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	}
 		
 	tableRow = table1.addRow();
-	tableRow.addCell("1.2 Steuernummer noch nicht vorhanden", "description");
+	tableRow.addCell("1.2  [  ]  Steuernummer noch nicht vorhanden", "description");
 	tableRow.addCell("", "", 3);
 	
 	//Printing of the objects with ID 3
@@ -763,7 +767,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell("Sonstige Berichtigungen:", "valueTitle", 6);
 	
 	tableRow = table.addRow();
-	tableRow.addCell("6.1", "", 1);
+	tableRow.addCell("", "", 1);
 	tableRow.addCell(getValue(form, "6.1", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "6.1", "gr"), "description", 1);
 	tableRow.addCell("", "", 2);
@@ -1042,6 +1046,18 @@ function calculateVatGr1Balance(grText, vatClass, grColumn, startDate, endDate) 
 		if (currentBal.vatPosted != 0) {
 			return Banana.SDecimal.invert(currentBal.vatPosted);
 		}
+	}
+}
+
+
+//The purpose of this function is to insert the right period description
+function setPeriodText(numberOfMonths) {
+	if (numberOfMonths == 12) { //year
+		getObject(form, "2.2").description = "Kalenderjahr";
+	} else if (numberOfMonths == 6) { //semester
+		getObject(form, "2.2").description = "Kalenderhalbjahr";
+	} else if (numberOfMonths == 3) { //quarter
+		getObject(form, "2.2").description = "Kalenderquartal";
 	}
 }
 
