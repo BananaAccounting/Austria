@@ -35,7 +35,8 @@ Zu erstellende Kontenpläne x
 - Report Enthalten Zahlungen an Mitglieder (Kostenstelle 2) 
 - Segmente für Einteilung nach Hilfsbetrieben (Komposition)
 
-2. Phase (To Do)
+##2. Phase (To Do)
+
 ##Unternehmer
 
 ###Einzelunternehmen (Bruttowerte)
@@ -61,22 +62,26 @@ Selbständige, Gewerbetreibende, Freiberufler
 - Bericht Einkommesteuererkärung Netto (Spalte Gr1)
 - Buchungen inklusive Beschreibung
 
-3. Phase (To Do)
+##3. Phase (To Do)
+
 ##Kapitalgesellschaften 
 
 ###GmbH mit USt.
 - Doppelte Buchhaltung
+- Umfangreicher Kontenplan
 - Bruttowerte
 - Körperschaftsteuer klassifizierung Gr1
 - Offenlegungfirmenbuch Gr2
 
 ###GmbH ohne USt.
 - Doppelte Buchhaltung
+- Einfacher Kontenplan
 - Bruttowerte
 - Körperschaftsteuer klassifizierung Gr1
 - Offenlegungfirmenbuch Gr2
   
-4. Phase (To Do)
+##4. Phase (To Do)
+
 ##Vereine
 ###Allgemeine  Vereine  mit Umsatzsteuer
 ###Mittlere und grösse Vereine  mit Umsatzsteuer
