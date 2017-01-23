@@ -37,6 +37,7 @@ Zu erstellende Kontenpläne x
 
 2. Phase (To Do)
 ##Unternehmer
+
 ###Einzelunternehmen (Bruttowerte)
 Selbständige, Gewerbetreibende, Freiberufler
 - Einnahme und Ausgabenbuchaltung ohne Umsatzsteuer
@@ -62,11 +63,13 @@ Selbständige, Gewerbetreibende, Freiberufler
 
 3. Phase (To Do)
 ##Kapitalgesellschaften 
+
 ###GmbH mit USt.
 - Doppelte Buchhaltung
 - Bruttowerte
 - Körperschaftsteuer klassifizierung Gr1
 - Offenlegungfirmenbuch Gr2
+
 ###GmbH ohne USt.
 - Doppelte Buchhaltung
 - Bruttowerte
