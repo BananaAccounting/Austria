@@ -1,0 +1,6 @@
+<!DOCTYPE RCC><RCC version="1.0">
+ <qresource>
+     <file>ch.banana.addon.vatreportaustria2017.js</file>
+     <file>ch.banana.addon.zm.js</file>
+ </qresource>
+ </RCC>
