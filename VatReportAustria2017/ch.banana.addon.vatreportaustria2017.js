@@ -18,7 +18,7 @@
 // @publisher = Banana.ch SA
 // @description = VAT report Austria 2017
 // @task = app.command
-// @doctype = 100.110;100.130
+// @doctype = 100.110;100.130;110.*
 // @docproperties = austria
 // @outputformat = none
 // @inputdataform = none
