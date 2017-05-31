@@ -18,7 +18,7 @@
 // @publisher = Banana.ch SA
 // @description = Zusammenfassende Meldung (ZM)
 // @task = app.command
-// @doctype = 100.110
+// @doctype = 100.110;110.*
 // @docproperties = austria
 // @outputformat = none
 // @inputdatasource = none
