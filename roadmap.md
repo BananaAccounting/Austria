@@ -85,6 +85,7 @@ Selbständige, Gewerbetreibende, Freiberufler
 ## Vereine
 ### Allgemeine  Vereine  mit Umsatzsteuer
 ### Mittlere und grösse Vereine  mit Umsatzsteuer
+
 ## Einzelunternehmen und Personengesellschaften
 ### Einzelunternehmen Doppelte Buchhaltung mit USt und Fremdwährungen
 ### Personenunternehmen Einnahmen-Ausgaben-Rechnung ohne USt
