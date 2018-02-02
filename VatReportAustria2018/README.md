@@ -4,7 +4,7 @@
 2. Download github directory BananaAccounting/Austria as a zip file  [https://github.com/BananaAccounting/Austria/archive/master.zip]  
 3. Extract the zip file to a directory in your computer. 
 4. Start Banana Accounting 9
-5. From Menu Apps->Manage Apps add the script "ch.banana.a.app.vatreportaustria2018.js" (file is in the directory Austria/VatReport2018)
+5. From Menu Apps->Manage Apps add the script "ch.banana.a.app.vatreportaustria2018.js" (file is in the directory Austria/VatReportAustria2018)
 6. Open example file: "MusterdateiUSt2018.ac2"
 7. Menu Apps->VAT report Austria 2018
 
