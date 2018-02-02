@@ -1,4 +1,4 @@
-# Vat Report Austria
+# Vat Report Austria 2018
 ## How to use the Vat Report
 1. Install last version of Banana 9 [http://www.banana.ch/de/download_de]
 2. Download github directory BananaAccounting/Austria as a zip file  [https://github.com/BananaAccounting/Austria/archive/master.zip]  
