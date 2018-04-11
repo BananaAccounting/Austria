@@ -1,4 +1,4 @@
-// Copyright [2015] [Banana.ch SA - Lugano Switzerland]
+// Copyright [2018] [Banana.ch SA - Lugano Switzerland]
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 //
 // @id = ch.banana.a.app.vatreportaustria2018
 // @api = 1.0
-// @pubdate = 2018-02-02
+// @pubdate = 2018-04-10
 // @publisher = Banana.ch SA
 // @description = VAT report Austria 2018
 // @task = app.command
@@ -37,7 +37,7 @@ function loadParam(banDoc, startDate, endDate) {
 	param = {
 		"reportName":"VAT report Austria 2018",												//Save the report's name
 		"bananaVersion":"Banana Accounting 8", 												//Save the version of Banana Accounting used
-		"scriptVersion":"script v. 2018-02-02",				 								//Save the version of the script
+		"scriptVersion":"script v. 2018-04-10",				 								//Save the version of the script
 		"fiscalNumber":banDoc.info("AccountingDataBase","FiscalNumber"),					//Save the fiscal number
 		"startDate":startDate,																//Save the startDate that will be used to specify the accounting period starting date
 		"endDate":endDate, 																	//Save the endDate that will be used to specify the accounting period ending date		
@@ -216,7 +216,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	loadForm();
 	
 	/** 2. EXTRACT THE DATA, CALCULATE AND LOAD THE BALANCES */
-	loadBalances();
+	loadBalances(banDoc);
 	
 	/** 3. CALCULATE THE TOTALS */
 	calcFormTotals(["amount"]);
@@ -968,21 +968,21 @@ function getColumnListForGr(table, grText, codeColumn, grColumn) {
 
 
 //The purpose of this function is to load all the balances and save the values into the form
-function loadBalances() {
+function loadBalances(banDoc) {
 
 	for (var i in form) {
 
 		//Check if there are "vatClass" properties, then load VAT balances
 		if (form[i]["vatClass"]) {
 			if (form[i]["gr"]) {
-				form[i]["amount"] = calculateVatGr1Balance(form[i]["gr"], form[i]["vatClass"], param["grColumn"], param["startDate"], param["endDate"]);
+				form[i]["amount"] = calculateVatGr1Balance(banDoc, form[i]["gr"], form[i]["vatClass"], param["grColumn"], param["startDate"], param["endDate"]);
 			}
 		}
 
 		//Check if there are "bClass" properties, then load balances
 		if (form[i]["bClass"]) {
 			if (form[i]["gr"]) {
-				form[i]["amount"] = calculateAccountGr1Balance(form[i]["gr"], form[i]["bClass"], param["grColumn"], param["startDate"], param["endDate"]);
+				form[i]["amount"] = calculateAccountGr1Balance(banDoc, form[i]["gr"], form[i]["bClass"], param["grColumn"], param["startDate"], param["endDate"]);
 			}
 		}
 	}
@@ -990,13 +990,13 @@ function loadBalances() {
 
 
 //The purpose of this function is to calculate all the balances of the accounts belonging to the same group (grText)
-function calculateAccountGr1Balance(grText, bClass, grColumn, startDate, endDate) {
+function calculateAccountGr1Balance(banDoc, grText, bClass, grColumn, startDate, endDate) {
 	
-	var accounts = getColumnListForGr(Banana.document.table("Accounts"), grText, "Account", grColumn);
+	var accounts = getColumnListForGr(banDoc.table("Accounts"), grText, "Account", grColumn);
 	accounts = accounts.join("|");
 	
 	//Sum the amounts of opening, debit, credit, total and balance for all transactions for this accounts
-	var currentBal = Banana.document.currentBalance(accounts, startDate, endDate);
+	var currentBal = banDoc.currentBalance(accounts, startDate, endDate);
 	
 	//The "bClass" decides which value to use
 	if (bClass === "0") {
@@ -1018,13 +1018,13 @@ function calculateAccountGr1Balance(grText, bClass, grColumn, startDate, endDate
 
 
 //The purpose of this function is to calculate all the VAT balances of the accounts belonging to the same group (grText)
-function calculateVatGr1Balance(grText, vatClass, grColumn, startDate, endDate) {
+function calculateVatGr1Balance(banDoc, grText, vatClass, grColumn, startDate, endDate) {
 	
-	var grCodes = getColumnListForGr(Banana.document.table("VatCodes"), grText, "VatCode", grColumn);
+	var grCodes = getColumnListForGr(banDoc.table("VatCodes"), grText, "VatCode", grColumn);
 	grCodes = grCodes.join("|");
 
 	//Sum the vat amounts for the specified vat code and period
-	var currentBal = Banana.document.vatCurrentBalance(grCodes, startDate, endDate);
+	var currentBal = banDoc.vatCurrentBalance(grCodes, startDate, endDate);
 
 	//The "vatClass" decides which value to use
 	if (vatClass === "1") {
