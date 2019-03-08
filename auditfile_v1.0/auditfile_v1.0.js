@@ -14,7 +14,7 @@
 //
 // @id = ch.banana.bananaapp.aut.auditfile
 // @api = 1.0
-// @pubdate = 2015-12-03
+// @pubdate = 2019-03-08
 // @publisher = Banana.ch SA
 // @description = Auditfile-OECD
 // @task = export.file
@@ -229,9 +229,16 @@ function addTransactions(xml) {
 	var tmpXml = createTransactions();
 
 	//transactions
-    var totalDebit = Banana.document.table("Totals").findRowByValue("Group","3").value("Balance");
-    var totalCredit = Banana.document.table("Totals").findRowByValue("Group","4").value("Balance");
+    var totalDebit = Banana.SDecimal.abs(Banana.document.table("Totals").findRowByValue("Group","3").value("Balance"));
+    var totalCredit = Banana.SDecimal.abs(Banana.document.table("Totals").findRowByValue("Group","4").value("Balance"));
     
+    if (!totalDebit) {
+    	totalDebit = 0;
+    }
+    if (!totalCredit) {
+    	totalCredit = 0;
+    }
+
     //journal
 	var journalID = '1';
     var journalDescription = 'Journal 1';
