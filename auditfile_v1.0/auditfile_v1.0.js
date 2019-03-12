@@ -14,7 +14,7 @@
 //
 // @id = ch.banana.bananaapp.aut.auditfile
 // @api = 1.0
-// @pubdate = 2019-03-08
+// @pubdate = 2019-03-12
 // @publisher = Banana.ch SA
 // @description = Auditfile-OECD
 // @task = export.file
@@ -36,47 +36,57 @@ var numberEntries = 0;
 //Main function
 function exec() {
 
+	if (!Banana.document) {
+		return;
+	}
+
+	var xml = createXml(Banana.document);
+	return xml;
+}
+
+
+function createXml(banDoc) {
+
 	var xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
 	xml += '\n' + '<auditfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' 
 
-	xml = addHeader(xml);
-	xml = addGeneralLedger(xml);
-	xml = addCustomerSuppliers(xml);
-	xml = addTransactions(xml);
+	xml = addHeader(banDoc, xml);
+	xml = addGeneralLedger(banDoc, xml);
+	xml = addCustomerSuppliers(banDoc, xml);
+	xml = addTransactions(banDoc, xml);
 	
 	xml += '\n' + '</auditfile>';
 
 	return xml;
 }
 
-
 //Function that creates the <header> element of the xml file
-function addHeader(xml) {
+function addHeader(banDoc, xml) {
 	var auditfileVersion = 'CLAIR2.00.00';
-	var companyID = checkStringLength(Banana.document.info('AccountingDataBase','FiscalNumber'), 20);
-	var taxRegistrationNr = Banana.document.info('AccountingDataBase','VatNumber');
-	var companyName = Banana.document.info('AccountingDataBase','Company');
+	var companyID = checkStringLength(banDoc.info('AccountingDataBase','FiscalNumber'), 20);
+	var taxRegistrationNr = banDoc.info('AccountingDataBase','VatNumber');
+	var companyName = banDoc.info('AccountingDataBase','Company');
 
 	//Address1 and/or Address2
-	if (Banana.document.info('AccountingDataBase','Address1') && !Banana.document.info('AccountingDataBase','Address2')) {
-		var companyAddress = checkStringLength(Banana.document.info('AccountingDataBase','Address1'), 50);
+	if (banDoc.info('AccountingDataBase','Address1') && !banDoc.info('AccountingDataBase','Address2')) {
+		var companyAddress = checkStringLength(banDoc.info('AccountingDataBase','Address1'), 50);
 	}
-	else if (Banana.document.info('AccountingDataBase','Address1') && Banana.document.info('AccountingDataBase','Address2')) {
-		var companyAddress = checkStringLength(Banana.document.info('AccountingDataBase','Address1') + ', ' + Banana.document.info('AccountingDataBase','Address2'), 50);
+	else if (banDoc.info('AccountingDataBase','Address1') && banDoc.info('AccountingDataBase','Address2')) {
+		var companyAddress = checkStringLength(banDoc.info('AccountingDataBase','Address1') + ', ' + banDoc.info('AccountingDataBase','Address2'), 50);
 	}
-	else if (!Banana.document.info('AccountingDataBase','Address1') && Banana.document.info('AccountingDataBase','Address2')) {
-		var companyAddress = checkStringLength(Banana.document.info('AccountingDataBase','Address2'), 50);
+	else if (!banDoc.info('AccountingDataBase','Address1') && banDoc.info('AccountingDataBase','Address2')) {
+		var companyAddress = checkStringLength(banDoc.info('AccountingDataBase','Address2'), 50);
 	}
 
-	var companyCity = Banana.document.info('AccountingDataBase','City');
-	var companyPostalCode = Banana.document.info('AccountingDataBase','Zip');
-	var fiscalYear = Banana.Converter.toDate(Banana.document.info('AccountingDataBase','OpeningDate')).getFullYear();
-	var startDate = Banana.document.info('AccountingDataBase','OpeningDate');
-	var endDate = Banana.document.info('AccountingDataBase','ClosureDate');
-	var currencyCode = Banana.document.info('AccountingDataBase','BasicCurrency');
-	var dateCreated = Banana.document.info('Base','Date');
+	var companyCity = banDoc.info('AccountingDataBase','City');
+	var companyPostalCode = banDoc.info('AccountingDataBase','Zip');
+	var fiscalYear = Banana.Converter.toDate(banDoc.info('AccountingDataBase','OpeningDate')).getFullYear();
+	var startDate = banDoc.info('AccountingDataBase','OpeningDate');
+	var endDate = banDoc.info('AccountingDataBase','ClosureDate');
+	var currencyCode = banDoc.info('AccountingDataBase','BasicCurrency');
+	var dateCreated = banDoc.info('Base','Date');
 	var productID = checkStringLength('Banana Accounting', 50);
-	var productVersion = checkStringLength(Banana.document.info('Base', 'ProgramVersion'), 50);
+	var productVersion = checkStringLength(banDoc.info('Base', 'ProgramVersion'), 50);
 	
 	//Create the <header> element and add it to the final xml file
 	xml +=  '\n' + '\t' + xml_createElement('header',''
@@ -99,9 +109,8 @@ function addHeader(xml) {
 	return xml;
 }
 
-
 //Function that creates the <generalLedger> element of the xml file
-function addGeneralLedger(xml) {
+function addGeneralLedger(banDoc, xml) {
 	
 	var taxonomy = '';
     var accountID = '';
@@ -113,9 +122,9 @@ function addGeneralLedger(xml) {
     var tmpGeneralLedger =  '\n' + '\t' + '\t' + xml_createElement('taxonomy',taxonomy); 
 	
     //Accounts table
-    var accLen = Banana.document.table('Accounts').rowCount;
+    var accLen = banDoc.table('Accounts').rowCount;
 	for (var i = 0; i < accLen; i++) {
-		var tRow = Banana.document.table('Accounts').row(i);
+		var tRow = banDoc.table('Accounts').row(i);
 		
         accountID = tRow.value('Account');
     	accountDesc = checkStringLength(tRow.value('Description'), 50);
@@ -152,10 +161,10 @@ function addGeneralLedger(xml) {
 	}
 
 	//Check if there is the table Categories to take income/expenses accounts
-	if (Banana.document.table('Categories')) {
-		var catLen = Banana.document.table('Categories').rowCount;
+	if (banDoc.table('Categories')) {
+		var catLen = banDoc.table('Categories').rowCount;
 		for (var i = 0; i < catLen; i++) {
-			var tRow = Banana.document.table('Categories').row(i);
+			var tRow = banDoc.table('Categories').row(i);
 
 			accountID = tRow.value('Account');
 	    	accountDesc = checkStringLength(tRow.value('Description'), 50);
@@ -187,26 +196,25 @@ function addGeneralLedger(xml) {
 	return xml;	
 }
 
-
 //Function that creates the <customerSuppliers> element of the xml file
-function addCustomerSuppliers(xml) {
+function addCustomerSuppliers(banDoc, xml) {
 
 	var mapGroup = {};
-	loadMapGroup(mapGroup);
+	loadMapGroup(banDoc, mapGroup);
 
-	var customersGroup = Banana.document.info('AccountingDataBase','CustomersGroup');
-	var suppliersGroup = Banana.document.info('AccountingDataBase','SuppliersGroup');
+	var customersGroup = banDoc.info('AccountingDataBase','CustomersGroup');
+	var suppliersGroup = banDoc.info('AccountingDataBase','SuppliersGroup');
 	
 	//Check if there are customers
 	if (customersGroup) {
-		var tmpXmlCustomers = createCustomers(mapGroup, customersGroup);
+		var tmpXmlCustomers = createCustomers(banDoc, mapGroup, customersGroup);
 	} else {
 		var tmpXmlCustomers = '';	
 	}
 
 	//Check if there are suppliers
 	if (suppliersGroup) {
-		var tmpXmlSuppliers = createSuppliers(mapGroup, suppliersGroup);
+		var tmpXmlSuppliers = createSuppliers(banDoc, mapGroup, suppliersGroup);
 	} else {
 		var tmpXmlSuppliers = '';
 	}
@@ -221,16 +229,15 @@ function addCustomerSuppliers(xml) {
 	return xml;
 }
 
-
 //Function that creates the <transactions> element of the xml file
-function addTransactions(xml) {
+function addTransactions(banDoc, xml) {
 
 	//Function call to create all the <transactions> elements. Each transaction contains <line> elements
-	var tmpXml = createTransactions();
+	var tmpXml = createTransactions(banDoc);
 
 	//transactions
-    var totalDebit = Banana.SDecimal.abs(Banana.document.table("Totals").findRowByValue("Group","3").value("Balance"));
-    var totalCredit = Banana.SDecimal.abs(Banana.document.table("Totals").findRowByValue("Group","4").value("Balance"));
+    var totalDebit = Banana.SDecimal.abs(banDoc.table("Totals").findRowByValue("Group","3").value("Balance"));
+    var totalCredit = Banana.SDecimal.abs(banDoc.table("Totals").findRowByValue("Group","4").value("Balance"));
     
     if (!totalDebit) {
     	totalDebit = 0;
@@ -264,7 +271,6 @@ function addTransactions(xml) {
 	return xml;
 }
 
-
 //This function allows to check the length of a string.
 //If a string is too long we have to cut it
 function checkStringLength(string, maxLength) {
@@ -281,17 +287,16 @@ function checkStringLength(string, maxLength) {
 //** CUSTOMERS/SUPPLIERS functions *******************************************************************************//
 
 //The function creates an array of group values for the given group
-function loadMapGroup(mapGroup) {
-	var len = Banana.document.table('Accounts').rowCount;
+function loadMapGroup(banDoc, mapGroup) {
+	var len = banDoc.table('Accounts').rowCount;
 	for (var i = 0; i < len; i++) {
-		var tRow = Banana.document.table('Accounts').row(i);
+		var tRow = banDoc.table('Accounts').row(i);
 		if (tRow.value('Group')) {
 			//mapGroup[tRow.value('Group')].parent = tRow.value('Gr');
 			mapGroup[tRow.value('Group')] = {'parent' : tRow.value('Gr')}
 		}
 	}
 }
-
 
 //Function that checks the belonging of the groups
 function groupBelongToGroup(mapGroup, current, find, start) {
@@ -319,14 +324,13 @@ function groupBelongToGroup(mapGroup, current, find, start) {
 	return groupBelongToGroup(mapGroup, mapGroup[current].parent, find, start);
 }
 
-
 //Function that creates the customers xml elements
-function createCustomers(mapGroup, customersGroup) {
+function createCustomers(banDoc, mapGroup, customersGroup) {
 	var tmpXmlCustomers = '';
-	var len = Banana.document.table('Accounts').rowCount;
+	var len = banDoc.table('Accounts').rowCount;
 	
 	for (var i = 0; i < len; i++) {		
-		var tRow = Banana.document.table('Accounts').row(i);
+		var tRow = banDoc.table('Accounts').row(i);
 
 		if (tRow.value('Gr') === customersGroup || groupBelongToGroup(mapGroup, tRow.value('Gr'), customersGroup)) {
 
@@ -408,14 +412,13 @@ function createCustomers(mapGroup, customersGroup) {
 	return tmpXmlCustomers;
 }
 
-
 //Function that creates the suppliers xml elements
-function createSuppliers(mapGroup, suppliersGroup) {
+function createSuppliers(banDoc, mapGroup, suppliersGroup) {
 	var tmpXmlSuppliers = '';
-	var len = Banana.document.table('Accounts').rowCount;
+	var len = banDoc.table('Accounts').rowCount;
 	
 	for (var i = 0; i < len; i++) {
-		var tRow = Banana.document.table('Accounts').row(i);
+		var tRow = banDoc.table('Accounts').row(i);
 		
 		if (tRow.value('Gr') === suppliersGroup || groupBelongToGroup(mapGroup, tRow.value('Gr'), suppliersGroup)) {
 
@@ -503,9 +506,9 @@ function createSuppliers(mapGroup, suppliersGroup) {
 //** TRANSACTIONS functions ****************************************************************************************//
 
 //Function that creates all the <transaction> elements
-function createTransactions() {
+function createTransactions(banDoc) {
 
-	var journal = Banana.document.journal(Banana.document.ORIGINTYPE_CURRENT, Banana.document.ACCOUNTTYPE_NORMAL);
+	var journal = banDoc.journal(banDoc.ORIGINTYPE_CURRENT, banDoc.ACCOUNTTYPE_NORMAL);
 	var transXml = '';
 	var lineXml = '';
 	var tmpGroup;
@@ -560,7 +563,7 @@ function createTransactions() {
 			}
 
 			//In every case, independently from the 'If...Else Statements', for each transactions rows we create the <line> element
-			lineXml += createLine(tRow);
+			lineXml += createLine(banDoc, tRow);
 		}
 	}
 
@@ -576,9 +579,8 @@ function createTransactions() {
 	return transXml;
 }
 
-
 //Function that creates the lines of the transactions: <line> elements
-function createLine(tRow) {
+function createLine(banDoc, tRow) {
 	
 	var tmpXml = '';
 	var recordID = tRow.value('JRowOrigin');
@@ -601,7 +603,7 @@ function createLine(tRow) {
     var productDesc = ''; //We don't use it, so we let it empty
     var projectDesc = ''; //We don't use it, so we let it empty
     var vatCode = tRow.value('VatCode');
-    var currencyCode = Banana.document.info('AccountingDataBase','BasicCurrency');
+    var currencyCode = banDoc.info('AccountingDataBase','BasicCurrency');
     
     if (Banana.SDecimal.sign(tRow.value('JAmount')) > 0) {
     	var debitAmount = tRow.value('JAmount');

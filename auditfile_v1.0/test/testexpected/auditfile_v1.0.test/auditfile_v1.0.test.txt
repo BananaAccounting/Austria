@@ -1,0 +1,2228 @@
+%%info_test_name{auditfile_v1.0.test}
+\documentclass{report}
+\usepackage{longtable}
+\usepackage{color}
+\usepackage{listings}
+\usepackage[margin=1cm]{geometry}
+\begin{document}
+\newenvironment{tablevalue}[2]{\textbf{Table: #1}\begin{longtable}[l]{#2}}{\end{longtable}}
+\newenvironment{reportvalue}[1]{\textbf{Report: #1}\\}{}
+\lstnewenvironment{jsonvalue}[1]{\textbf{Json: #1}\lstset{language=Java}}{}
+\lstnewenvironment{xmlvalue}[1]{\textbf{Xml: #1}\lstset{language=Xml}}{}
+\newcommand{\info}[2]{\textit{#1: #2}\\}
+\newcommand{\fatalerror}[1]{\textbf{\textcolor[rgb]{1,0,0}{Fatal error: #1}}\\}
+\newcommand{\keyvalue}[2]{\textbf{Keyvalue: #1} #2\\}
+\newcommand{\textvalue}[1]{#1\\}
+\newcommand{\excltest}[1]{\\Excluded from compare: #1}
+\newcommand{\lognewpage}{\newpage}
+\newenvironment{testcase}[1]{\section*{Test: #1}}{\newpage}
+\newenvironment{test}[1]{\section*{Test case: #1}}{}
+%Begin test data
+%%SCRIPT{/Users/ivan/Documents/GitHub/Austria/auditfile_v1.0/test/auditfile_v1.0.test.js}
+%
+\begin{testcase}{AuditfileAustria}
+\begin{test}{testBananaApp}
+\begin{xmlvalue}{This is a xml value}
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<auditfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<header>
+		<auditfileVersion>CLAIR2.00.00</auditfileVersion>
+		<companyID>031234567</companyID>
+		<taxRegistrationNr>ATU12345678</taxRegistrationNr>
+		<companyName>EinzelunternehmerIn XY</companyName>
+		<companyAddress>Mustergasse</companyAddress>
+		<companyCity>Wien</companyCity>
+		<companyPostalCode>1010</companyPostalCode>
+		<fiscalYear>2016</fiscalYear>
+		<startDate>2016-01-01</startDate>
+		<endDate>2016-12-31</endDate>
+		<currencyCode>EUR</currencyCode>
+		<dateCreated>2019-03-12</dateCreated>
+		<productID>Banana Accounting</productID>
+		<productVersion>9.0.3.190221</productVersion>
+	</header>
+	<generalLedger>
+		<taxonomy/>
+		<ledgerAccount>
+			<accountID>0400</accountID>
+			<accountDesc>Maschinen und maschinelle Anlagen</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>04</leadCode>
+			<leadDescription>Maschinen und maschinelle Anlagen</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>0500</accountID>
+			<accountDesc>Maschinenwerkzeuge</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>04</leadCode>
+			<leadDescription>Maschinenwerkzeuge</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>0510</accountID>
+			<accountDesc>Allgemeine Werkzeuge und Handwerkzeuge</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>04</leadCode>
+			<leadDescription>Allgemeine Werkzeuge und Handwerkzeuge</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>0590</accountID>
+			<accountDesc>Kumulierte Abschreibungen zu technischen Anlage...</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>04</leadCode>
+			<leadDescription>Kumulierte Abschreibungen zu technischen Anlage...</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>0600</accountID>
+			<accountDesc>Betriebs- und Geschäftsausstattung</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>06</leadCode>
+			<leadDescription>Betriebs- und Geschäftsausstattung</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>0610</accountID>
+			<accountDesc>Andere Anlagen</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>06</leadCode>
+			<leadDescription>Andere Anlagen</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>0620</accountID>
+			<accountDesc>Büromaschinen, EDV-Anlagen</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>06</leadCode>
+			<leadDescription>Büromaschinen, EDV-Anlagen</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>0630</accountID>
+			<accountDesc>PKW und Kombis</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>06</leadCode>
+			<leadDescription>PKW und Kombis</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>0640</accountID>
+			<accountDesc>LKW</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>06</leadCode>
+			<leadDescription>LKW</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>0650</accountID>
+			<accountDesc>Andere Beförderungsmittel</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>06</leadCode>
+			<leadDescription>Andere Beförderungsmittel</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>0670</accountID>
+			<accountDesc>Geringwertige Vermögensgegenstände, soweit nich...</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>06</leadCode>
+			<leadDescription>Geringwertige Vermögensgegenstände, soweit nich...</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>0690</accountID>
+			<accountDesc>Kumulierte Abschreibungen zu anderen Anlagen, B...</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>06</leadCode>
+			<leadDescription>Kumulierte Abschreibungen zu anderen Anlagen, B...</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>1300</accountID>
+			<accountDesc>Hilfsstoffe</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>1</leadCode>
+			<leadDescription>Hilfsstoffe</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>1350</accountID>
+			<accountDesc>Betriebsstoffe</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>1</leadCode>
+			<leadDescription>Betriebsstoffe</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>1600</accountID>
+			<accountDesc>Waren</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>1</leadCode>
+			<leadDescription>Waren</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>2500</accountID>
+			<accountDesc>Vorsteuer</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>2</leadCode>
+			<leadDescription>Vorsteuer</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>2510</accountID>
+			<accountDesc>Einfuhrumsatzsteuer</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>2</leadCode>
+			<leadDescription>Einfuhrumsatzsteuer</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>2520</accountID>
+			<accountDesc>Einfuhrumsatzsteuer (auf dem Abgabenkonto verbu...</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>2</leadCode>
+			<leadDescription>Einfuhrumsatzsteuer (auf dem Abgabenkonto verbu...</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>2550</accountID>
+			<accountDesc>Vorsteuer aus innergemeinschaftlichen Erwerb</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>2</leadCode>
+			<leadDescription>Vorsteuer aus innergemeinschaftlichen Erwerb</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>2560</accountID>
+			<accountDesc>Vorsteuern aus Reverse Charge betreffend § 19 A...</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>2</leadCode>
+			<leadDescription>Vorsteuern aus Reverse Charge betreffend § 19 A...</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>2561</accountID>
+			<accountDesc>Vorsteuern aus Reverse Charge betreffend § 19 A...</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>2</leadCode>
+			<leadDescription>Vorsteuern aus Reverse Charge betreffend § 19 A...</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>2562</accountID>
+			<accountDesc>Vorsteuern aus Reverse Charge betreffend § 19 A...</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>2</leadCode>
+			<leadDescription>Vorsteuern aus Reverse Charge betreffend § 19 A...</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>2563</accountID>
+			<accountDesc>Vorsteuern aus Reverse Charge betreffend § 19 A...</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>2</leadCode>
+			<leadDescription>Vorsteuern aus Reverse Charge betreffend § 19 A...</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>2570</accountID>
+			<accountDesc>Vorsteuern aus EU-Ländern</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>2</leadCode>
+			<leadDescription>Vorsteuern aus EU-Ländern</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>2580</accountID>
+			<accountDesc>Vorsteuern für innergemeinschaftliche Lieferung...</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>2</leadCode>
+			<leadDescription>Vorsteuern für innergemeinschaftliche Lieferung...</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>2599</accountID>
+			<accountDesc>Vorsteuern nicht abzugsfähig sowie Vorsteuerber...</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>2</leadCode>
+			<leadDescription>Vorsteuern nicht abzugsfähig sowie Vorsteuerber...</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>2700</accountID>
+			<accountDesc>Kassa</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>2</leadCode>
+			<leadDescription>Kassa</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>2800</accountID>
+			<accountDesc>Bank</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>2</leadCode>
+			<leadDescription>Bank</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>2890</accountID>
+			<accountDesc>Schwebende Geldbewegungen</accountDesc>
+			<accountType>Assets</accountType>
+			<leadCode>2</leadCode>
+			<leadDescription>Schwebende Geldbewegungen</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>9600</accountID>
+			<accountDesc>Privat</accountDesc>
+			<accountType>Liabilities</accountType>
+			<leadCode>9</leadCode>
+			<leadDescription>Privat</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>9610</accountID>
+			<accountDesc>Nettogehalt nichtselbständige Einkünfte</accountDesc>
+			<accountType>Liabilities</accountType>
+			<leadCode>9</leadCode>
+			<leadDescription>Nettogehalt nichtselbständige Einkünfte</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>9601</accountID>
+			<accountDesc>Privatanteile zu KFZ-Kosten</accountDesc>
+			<accountType>Liabilities</accountType>
+			<leadCode>9</leadCode>
+			<leadDescription>Privatanteile zu KFZ-Kosten</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>9602</accountID>
+			<accountDesc>Privatanteile zu Miet- und Pachtaufwand, Leasing</accountDesc>
+			<accountType>Liabilities</accountType>
+			<leadCode>9</leadCode>
+			<leadDescription>Privatanteile zu Miet- und Pachtaufwand, Leasing</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>9603</accountID>
+			<accountDesc>Privatanteile zu Kz 9200 (Besprechungskosten)</accountDesc>
+			<accountType>Liabilities</accountType>
+			<leadCode>9</leadCode>
+			<leadDescription>Privatanteile zu Kz 9200 (Besprechungskosten)</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>9650</accountID>
+			<accountDesc>Verrechnungskonto Einzelunternehmer_in</accountDesc>
+			<accountType>Liabilities</accountType>
+			<leadCode>9</leadCode>
+			<leadDescription>Verrechnungskonto Einzelunternehmer_in</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>9998</accountID>
+			<accountDesc>Ungeklärte Buchungsfälle</accountDesc>
+			<accountType>Liabilities</accountType>
+			<leadCode>9</leadCode>
+			<leadDescription>Ungeklärte Buchungsfälle</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>3500</accountID>
+			<accountDesc>Umsatzsteuer</accountDesc>
+			<accountType>Liabilities</accountType>
+			<leadCode>3</leadCode>
+			<leadDescription>Umsatzsteuer</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>3530</accountID>
+			<accountDesc>Umsatzsteuer-Zahllast</accountDesc>
+			<accountType>Liabilities</accountType>
+			<leadCode>3</leadCode>
+			<leadDescription>Umsatzsteuer-Zahllast</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>3535</accountID>
+			<accountDesc>Verrechnungskonto Finanzamt</accountDesc>
+			<accountType>Liabilities</accountType>
+			<leadCode>3</leadCode>
+			<leadDescription>Verrechnungskonto Finanzamt</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>3550</accountID>
+			<accountDesc>Umsatzsteuer aus innergemeinschaftlichen Erwerb</accountDesc>
+			<accountType>Liabilities</accountType>
+			<leadCode>3</leadCode>
+			<leadDescription>Umsatzsteuer aus innergemeinschaftlichen Erwerb</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>3560</accountID>
+			<accountDesc>Steuerschuld gem. § 19 Abs. 1 (allgemeine Klausel)</accountDesc>
+			<accountType>Liabilities</accountType>
+			<leadCode>3</leadCode>
+			<leadDescription>Steuerschuld gem. § 19 Abs. 1 (allgemeine Klausel)</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>3561</accountID>
+			<accountDesc>Steuerschuld gem. § 19 Abs. 1a (Bauleistungen)</accountDesc>
+			<accountType>Liabilities</accountType>
+			<leadCode>3</leadCode>
+			<leadDescription>Steuerschuld gem. § 19 Abs. 1a (Bauleistungen)</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>3562</accountID>
+			<accountDesc>Steuerschuld gem. § 19 Abs. 1b (Sicherungseigen...</accountDesc>
+			<accountType>Liabilities</accountType>
+			<leadCode>3</leadCode>
+			<leadDescription>Steuerschuld gem. § 19 Abs. 1b (Sicherungseigen...</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>3563</accountID>
+			<accountDesc>Steuerschuld gem. § 19 Abs. 1d (Schrott und Abf...</accountDesc>
+			<accountType>Liabilities</accountType>
+			<leadCode>3</leadCode>
+			<leadDescription>Steuerschuld gem. § 19 Abs. 1d (Schrott und Abf...</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>4000</accountID>
+			<accountDesc>Einnahmen 0% (Umsatzsteuerbefreit)</accountDesc>
+			<accountType>Income</accountType>
+			<leadCode>40</leadCode>
+			<leadDescription>Einnahmen 0% (Umsatzsteuerbefreit)</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>4010</accountID>
+			<accountDesc>Einnahmen 10%</accountDesc>
+			<accountType>Income</accountType>
+			<leadCode>40</leadCode>
+			<leadDescription>Einnahmen 10%</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>4013</accountID>
+			<accountDesc>Einnahmen 13%</accountDesc>
+			<accountType>Income</accountType>
+			<leadCode>40</leadCode>
+			<leadDescription>Einnahmen 13%</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>4020</accountID>
+			<accountDesc>Einnahmen 20%</accountDesc>
+			<accountType>Income</accountType>
+			<leadCode>40</leadCode>
+			<leadDescription>Einnahmen 20%</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>4050</accountID>
+			<accountDesc>Einnahmen aus innergemeinschaftlichen Lieferungen</accountDesc>
+			<accountType>Income</accountType>
+			<leadCode>40</leadCode>
+			<leadDescription>Einnahmen aus innergemeinschaftlichen Lieferungen</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>4057</accountID>
+			<accountDesc>Einnahmen aus innergemeinschaftlichen Leistungen</accountDesc>
+			<accountType>Income</accountType>
+			<leadCode>40</leadCode>
+			<leadDescription>Einnahmen aus innergemeinschaftlichen Leistungen</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>4060</accountID>
+			<accountDesc>Einnahmen 0% (Ausfuhrlieferungen)</accountDesc>
+			<accountType>Income</accountType>
+			<leadCode>40</leadCode>
+			<leadDescription>Einnahmen 0% (Ausfuhrlieferungen)</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>4065</accountID>
+			<accountDesc>Einnahmen mit Leistungsort in Drittländern (nic...</accountDesc>
+			<accountType>Income</accountType>
+			<leadCode>40</leadCode>
+			<leadDescription>Einnahmen mit Leistungsort in Drittländern (nic...</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>4109</accountID>
+			<accountDesc>Einnahmen im Rahmen einer Mitteilung nach §109a...</accountDesc>
+			<accountType>Income</accountType>
+			<leadCode>41</leadCode>
+			<leadDescription>Einnahmen im Rahmen einer Mitteilung nach §109a...</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>4200</accountID>
+			<accountDesc>Einnahmen Bauleistungen</accountDesc>
+			<accountType>Income</accountType>
+			<leadCode>42</leadCode>
+			<leadDescription>Einnahmen Bauleistungen</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>4600</accountID>
+			<accountDesc>Erlöse aus dem Abgang aus dem Anlagenvermögen</accountDesc>
+			<accountType>Income</accountType>
+			<leadCode>46</leadCode>
+			<leadDescription>Erlöse aus dem Abgang aus dem Anlagenvermögen</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>4800</accountID>
+			<accountDesc>Übrige sonstige betriebliche Erträge</accountDesc>
+			<accountType>Income</accountType>
+			<leadCode>48</leadCode>
+			<leadDescription>Übrige sonstige betriebliche Erträge</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>4950</accountID>
+			<accountDesc>Umsatzsteuer Gutschriften Vorjahre (USt-Bruttos...</accountDesc>
+			<accountType>Income</accountType>
+			<leadCode>48</leadCode>
+			<leadDescription>Umsatzsteuer Gutschriften Vorjahre (USt-Bruttos...</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>4960</accountID>
+			<accountDesc>Umsatzsteuer Gutschriften laufendes Jahr (USt-B...</accountDesc>
+			<accountType>Income</accountType>
+			<leadCode>48</leadCode>
+			<leadDescription>Umsatzsteuer Gutschriften laufendes Jahr (USt-B...</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>5000</accountID>
+			<accountDesc>Wareneinsatz</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>50</leadCode>
+			<leadDescription>Wareneinsatz</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>5300</accountID>
+			<accountDesc>Verbrauch von Hilsfstoffen</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>50</leadCode>
+			<leadDescription>Verbrauch von Hilsfstoffen</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>5700</accountID>
+			<accountDesc>Bezogene Herstellungsleistungen</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>50</leadCode>
+			<leadDescription>Bezogene Herstellungsleistungen</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>5800</accountID>
+			<accountDesc>Skontoerträge auf Materialaufwand</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>50</leadCode>
+			<leadDescription>Skontoerträge auf Materialaufwand</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>5810</accountID>
+			<accountDesc>Skontoerträge auf bezogene Herstellungsleistungen</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>50</leadCode>
+			<leadDescription>Skontoerträge auf bezogene Herstellungsleistungen</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>6200</accountID>
+			<accountDesc>Gehälter (Netto)</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>6</leadCode>
+			<leadDescription>Gehälter (Netto)</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>6500</accountID>
+			<accountDesc>Gesetzlicher Sozialaufwand</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>6</leadCode>
+			<leadDescription>Gesetzlicher Sozialaufwand</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>6610</accountID>
+			<accountDesc>Kommunalsteuer</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>6</leadCode>
+			<leadDescription>Kommunalsteuer</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>6620</accountID>
+			<accountDesc>Lohnsteuer, DB/DZ</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>6</leadCode>
+			<leadDescription>Lohnsteuer, DB/DZ</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>6700</accountID>
+			<accountDesc>Sonstige Sozialaufwendungen</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>6</leadCode>
+			<leadDescription>Sonstige Sozialaufwendungen</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7000</accountID>
+			<accountDesc>Abschreibung auf das Anlagenvermögen (gem. § 7 ...</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>70</leadCode>
+			<leadDescription>Abschreibung auf das Anlagenvermögen (gem. § 7 ...</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7060</accountID>
+			<accountDesc>Sofortabschreibung geringwertiger Vermögensgege...</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>70</leadCode>
+			<leadDescription>Sofortabschreibung geringwertiger Vermögensgege...</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7100</accountID>
+			<accountDesc>Sonstige Steuern, Gebühren</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>71</leadCode>
+			<leadDescription>Sonstige Steuern, Gebühren</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7200</accountID>
+			<accountDesc>Instandhaltung und Betriebskosten</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>72</leadCode>
+			<leadDescription>Instandhaltung und Betriebskosten</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7210</accountID>
+			<accountDesc>Reinigung durch Dritte</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>72</leadCode>
+			<leadDescription>Reinigung durch Dritte</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7220</accountID>
+			<accountDesc>Entsorgung</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>72</leadCode>
+			<leadDescription>Entsorgung</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7230</accountID>
+			<accountDesc>Strom, Heizung, Gas, Energie</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>72</leadCode>
+			<leadDescription>Strom, Heizung, Gas, Energie</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7300</accountID>
+			<accountDesc>Transporte durch Dritte</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>73</leadCode>
+			<leadDescription>Transporte durch Dritte</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7320</accountID>
+			<accountDesc>Kfz-Aufwand (PKW und Kombis)</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>73</leadCode>
+			<leadDescription>Kfz-Aufwand (PKW und Kombis)</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7330</accountID>
+			<accountDesc>Kfz-Aufwand (LKW)</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>73</leadCode>
+			<leadDescription>Kfz-Aufwand (LKW)</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7340</accountID>
+			<accountDesc>Kilometergelder KFZ</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>73</leadCode>
+			<leadDescription>Kilometergelder KFZ</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7345</accountID>
+			<accountDesc>Kilometergelder Fahrrad</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>73</leadCode>
+			<leadDescription>Kilometergelder Fahrrad</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7350</accountID>
+			<accountDesc>Reise- und Fahrtaufwand Inland</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>73</leadCode>
+			<leadDescription>Reise- und Fahrtaufwand Inland</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7355</accountID>
+			<accountDesc>Reise- und Fahrtaufwand Ausland</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>73</leadCode>
+			<leadDescription>Reise- und Fahrtaufwand Ausland</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7360</accountID>
+			<accountDesc>Tag- und Nächtigungsgelder Inland</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>73</leadCode>
+			<leadDescription>Tag- und Nächtigungsgelder Inland</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7365</accountID>
+			<accountDesc>Tag- und Nächtigungsgelder Ausland</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>73</leadCode>
+			<leadDescription>Tag- und Nächtigungsgelder Ausland</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7380</accountID>
+			<accountDesc>Nachrichtenaufwand</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>73</leadCode>
+			<leadDescription>Nachrichtenaufwand</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7400</accountID>
+			<accountDesc>Miet- und Pachtaufwand</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>74A</leadCode>
+			<leadDescription>Miet- und Pachtaufwand</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7440</accountID>
+			<accountDesc>Leasingaufwand</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>74A</leadCode>
+			<leadDescription>Leasingaufwand</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7450</accountID>
+			<accountDesc>Provisionen an Dritte</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>74B</leadCode>
+			<leadDescription>Provisionen an Dritte</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7480</accountID>
+			<accountDesc>Lizenzaufwand</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>74B</leadCode>
+			<leadDescription>Lizenzaufwand</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7500</accountID>
+			<accountDesc>Aufwand für beigestelltes Personal (Werkverträge)</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>75</leadCode>
+			<leadDescription>Aufwand für beigestelltes Personal (Werkverträge)</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7510</accountID>
+			<accountDesc>Fremdleistungen</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>75</leadCode>
+			<leadDescription>Fremdleistungen</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7520</accountID>
+			<accountDesc>Freie Dienstverträge</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>75</leadCode>
+			<leadDescription>Freie Dienstverträge</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7525</accountID>
+			<accountDesc>Sozialversicherung Freie Dienstverträge</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>75</leadCode>
+			<leadDescription>Sozialversicherung Freie Dienstverträge</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7600</accountID>
+			<accountDesc>Büromaterial und Drucksorten</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>76</leadCode>
+			<leadDescription>Büromaterial und Drucksorten</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7605</accountID>
+			<accountDesc>Portogebühren</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>76</leadCode>
+			<leadDescription>Portogebühren</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7610</accountID>
+			<accountDesc>Druckerzeugnisse und Vervielfältigungen</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>76</leadCode>
+			<leadDescription>Druckerzeugnisse und Vervielfältigungen</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7630</accountID>
+			<accountDesc>Fachliteratur und Zeitungen</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>76</leadCode>
+			<leadDescription>Fachliteratur und Zeitungen</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7650</accountID>
+			<accountDesc>Werbeaufwendungen, Inserate</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>76</leadCode>
+			<leadDescription>Werbeaufwendungen, Inserate</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7655</accountID>
+			<accountDesc>Werbeähnliche Aufwendungen</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>76</leadCode>
+			<leadDescription>Werbeähnliche Aufwendungen</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7657</accountID>
+			<accountDesc>Besprechungskosten 10%</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>76</leadCode>
+			<leadDescription>Besprechungskosten 10%</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7658</accountID>
+			<accountDesc>Besprechungskosten 20%</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>76</leadCode>
+			<leadDescription>Besprechungskosten 20%</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7680</accountID>
+			<accountDesc>Spenden und Trinkgelder</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>76</leadCode>
+			<leadDescription>Spenden und Trinkgelder</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7700</accountID>
+			<accountDesc>Pflichtversicherungsbeiträge</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>77</leadCode>
+			<leadDescription>Pflichtversicherungsbeiträge</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7710</accountID>
+			<accountDesc>Betriebliche Versicherungen</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>77</leadCode>
+			<leadDescription>Betriebliche Versicherungen</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7750</accountID>
+			<accountDesc>Recht- und Beratungsaufwand</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>77</leadCode>
+			<leadDescription>Recht- und Beratungsaufwand</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7770</accountID>
+			<accountDesc>Fortbildungskosten</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>77</leadCode>
+			<leadDescription>Fortbildungskosten</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7780</accountID>
+			<accountDesc>Mitgliedsbeiträge, Kammerumlage</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>77</leadCode>
+			<leadDescription>Mitgliedsbeiträge, Kammerumlage</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7790</accountID>
+			<accountDesc>Spesen des Geldverkehrs</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>77</leadCode>
+			<leadDescription>Spesen des Geldverkehrs</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7791</accountID>
+			<accountDesc>Säumniszuschläge</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>77</leadCode>
+			<leadDescription>Säumniszuschläge</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7820</accountID>
+			<accountDesc>Restbuchwert abgegangener Anlagen</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>78</leadCode>
+			<leadDescription>Restbuchwert abgegangener Anlagen</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7840</accountID>
+			<accountDesc>Sonstiger betrieblicher Aufwand</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>78</leadCode>
+			<leadDescription>Sonstiger betrieblicher Aufwand</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7850</accountID>
+			<accountDesc>Umsatzsteuer Zahlungen Vorjahre (USt-Bruttosystem)</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>78</leadCode>
+			<leadDescription>Umsatzsteuer Zahlungen Vorjahre (USt-Bruttosystem)</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7860</accountID>
+			<accountDesc>Umsatzsteuer Zahlungen laufendes Jahr (USt-Brut...</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>78</leadCode>
+			<leadDescription>Umsatzsteuer Zahlungen laufendes Jahr (USt-Brut...</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>7870</accountID>
+			<accountDesc>Vorsteuern nicht abzugsfähig sowie Vorsteuerber...</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>78</leadCode>
+			<leadDescription>Vorsteuern nicht abzugsfähig sowie Vorsteuerber...</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>8310</accountID>
+			<accountDesc>Zinsen und ähnliche Aufwendungen (andere) -  ni...</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode>80</leadCode>
+			<leadDescription>Zinsen und ähnliche Aufwendungen (andere) -  ni...</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>:</accountID>
+			<accountDesc>Projekte</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode/>
+			<leadDescription>Projekte</leadDescription>
+		</ledgerAccount>
+		<ledgerAccount>
+			<accountID>:FFF</accountID>
+			<accountDesc>Test</accountDesc>
+			<accountType>Expenses</accountType>
+			<leadCode/>
+			<leadDescription>Test</leadDescription>
+		</ledgerAccount>
+	</generalLedger>
+	<customerSuppliers>
+	</customerSuppliers>
+	<transactions>
+		<numberEntries>18</numberEntries>
+		<totalDebit>3174.32</totalDebit>
+		<totalCredit>22795.00</totalCredit>
+		<journal>
+			<journalID>1</journalID>
+			<description>Journal 1</description>
+			<type>Transactions</type>
+			<transaction>
+				<transactionID>0</transactionID>
+				<description>Vermietung von Notenmaterial</description>
+				<period>2016</period>
+				<transactionDate>2016-01-01</transactionDate>
+				<sourceID/>
+				<line>
+					<recordID>0</recordID>
+					<accountID>2800</accountID>
+					<custSupID/>
+					<documentID>AR01</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Vermietung von Notenmaterial</description>
+					<debitAmount>4400.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>U10</vatCode>
+						<vatPercentage>-10.00</vatPercentage>
+						<vatAmount>-400.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>4400.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>0</recordID>
+					<accountID>4010</accountID>
+					<custSupID/>
+					<documentID>AR01</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Vermietung von Notenmaterial</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-4000.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>U10</vatCode>
+						<vatPercentage>-10.00</vatPercentage>
+						<vatAmount>-400.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>4000.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>0</recordID>
+					<accountID>3500</accountID>
+					<custSupID/>
+					<documentID>AR01</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>[MwSt/USt] Vermietung von Notenmaterial</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-400.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>U10</vatCode>
+						<vatPercentage>-10.00</vatPercentage>
+						<vatAmount>-400.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>400.00</currencyCreditAmount>
+					</currency>
+				</line>
+			</transaction>
+			<transaction>
+				<transactionID>1</transactionID>
+				<description>Tontechnik für Konzertauftritt von XY</description>
+				<period>2016</period>
+				<transactionDate>2016-01-01</transactionDate>
+				<sourceID/>
+				<line>
+					<recordID>1</recordID>
+					<accountID>2800</accountID>
+					<custSupID/>
+					<documentID>AR02</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Tontechnik für Konzertauftritt von XY</description>
+					<debitAmount>6000.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>U20</vatCode>
+						<vatPercentage>-20.00</vatPercentage>
+						<vatAmount>-1000.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>6000.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>1</recordID>
+					<accountID>4020</accountID>
+					<custSupID/>
+					<documentID>AR02</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Tontechnik für Konzertauftritt von XY</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-5000.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>U20</vatCode>
+						<vatPercentage>-20.00</vatPercentage>
+						<vatAmount>-1000.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>5000.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>1</recordID>
+					<accountID>3500</accountID>
+					<custSupID/>
+					<documentID>AR02</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>[MwSt/USt] Tontechnik für Konzertauftritt von XY</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-1000.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>U20</vatCode>
+						<vatPercentage>-20.00</vatPercentage>
+						<vatAmount>-1000.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>1000.00</currencyCreditAmount>
+					</currency>
+				</line>
+			</transaction>
+			<transaction>
+				<transactionID>2</transactionID>
+				<description>Künstlerischer Auftritt bei Fest XY</description>
+				<period>2016</period>
+				<transactionDate>2016-01-01</transactionDate>
+				<sourceID/>
+				<line>
+					<recordID>2</recordID>
+					<accountID>2800</accountID>
+					<custSupID/>
+					<documentID>AR03</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Künstlerischer Auftritt bei Fest XY</description>
+					<debitAmount>3390.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>U13</vatCode>
+						<vatPercentage>-13.00</vatPercentage>
+						<vatAmount>-390.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>3390.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>2</recordID>
+					<accountID>4013</accountID>
+					<custSupID/>
+					<documentID>AR03</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Künstlerischer Auftritt bei Fest XY</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-3000.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>U13</vatCode>
+						<vatPercentage>-13.00</vatPercentage>
+						<vatAmount>-390.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>3000.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>2</recordID>
+					<accountID>3500</accountID>
+					<custSupID/>
+					<documentID>AR03</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>[MwSt/USt] Künstlerischer Auftritt bei Fest XY</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-390.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>U13</vatCode>
+						<vatPercentage>-13.00</vatPercentage>
+						<vatAmount>-390.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>390.00</currencyCreditAmount>
+					</currency>
+				</line>
+			</transaction>
+			<transaction>
+				<transactionID>3</transactionID>
+				<description>Bildhauerische Tätigkeit (Bauleistung)</description>
+				<period>2016</period>
+				<transactionDate>2016-01-01</transactionDate>
+				<sourceID/>
+				<line>
+					<recordID>3</recordID>
+					<accountID>2800</accountID>
+					<custSupID/>
+					<documentID>AR05</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Bildhauerische Tätigkeit (Bauleistung)</description>
+					<debitAmount>2500.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>U-§19</vatCode>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>0.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>2500.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>3</recordID>
+					<accountID>4200</accountID>
+					<custSupID/>
+					<documentID>AR05</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Bildhauerische Tätigkeit (Bauleistung)</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-2500.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>U-§19</vatCode>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>0.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>2500.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>3</recordID>
+					<accountID>3500</accountID>
+					<custSupID/>
+					<documentID>AR05</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>[MwSt/USt] Bildhauerische Tätigkeit (Bauleistung)</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>U-§19</vatCode>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>0.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+			</transaction>
+			<transaction>
+				<transactionID>4</transactionID>
+				<description>Verkauf Gitarre nach USA</description>
+				<period>2016</period>
+				<transactionDate>2016-01-01</transactionDate>
+				<sourceID/>
+				<line>
+					<recordID>4</recordID>
+					<accountID>2800</accountID>
+					<custSupID/>
+					<documentID>AR06</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Verkauf Gitarre nach USA</description>
+					<debitAmount>1500.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>U-AUSF</vatCode>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>0.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>1500.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>4</recordID>
+					<accountID>4060</accountID>
+					<custSupID/>
+					<documentID>AR06</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Verkauf Gitarre nach USA</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-1500.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>U-AUSF</vatCode>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>0.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>1500.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>4</recordID>
+					<accountID>3500</accountID>
+					<custSupID/>
+					<documentID>AR06</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>[MwSt/USt] Verkauf Gitarre nach USA</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>U-AUSF</vatCode>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>0.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+			</transaction>
+			<transaction>
+				<transactionID>5</transactionID>
+				<description>Gitarrenverkauf nach Deutschland</description>
+				<period>2016</period>
+				<transactionDate>2016-01-01</transactionDate>
+				<sourceID/>
+				<line>
+					<recordID>5</recordID>
+					<accountID>2800</accountID>
+					<custSupID/>
+					<documentID>AR10</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Gitarrenverkauf nach Deutschland</description>
+					<debitAmount>2000.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>IG-LIEF</vatCode>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>0.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>2000.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>5</recordID>
+					<accountID>4050</accountID>
+					<custSupID/>
+					<documentID>AR10</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Gitarrenverkauf nach Deutschland</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-2000.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>IG-LIEF</vatCode>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>0.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>2000.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>5</recordID>
+					<accountID>3500</accountID>
+					<custSupID/>
+					<documentID>AR10</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>[MwSt/USt] Gitarrenverkauf nach Deutschland</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>IG-LIEF</vatCode>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>0.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+			</transaction>
+			<transaction>
+				<transactionID>6</transactionID>
+				<description>Gitarrenverkauf nach Deutschland</description>
+				<period>2016</period>
+				<transactionDate>2016-01-01</transactionDate>
+				<sourceID/>
+				<line>
+					<recordID>6</recordID>
+					<accountID>2800</accountID>
+					<custSupID/>
+					<documentID>AR11</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Gitarrenverkauf nach Deutschland</description>
+					<debitAmount>1500.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>IG-LIEF</vatCode>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>0.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>1500.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>6</recordID>
+					<accountID>4050</accountID>
+					<custSupID/>
+					<documentID>AR11</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Gitarrenverkauf nach Deutschland</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-1500.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>IG-LIEF</vatCode>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>0.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>1500.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>6</recordID>
+					<accountID>3500</accountID>
+					<custSupID/>
+					<documentID>AR11</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>[MwSt/USt] Gitarrenverkauf nach Deutschland</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>IG-LIEF</vatCode>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>0.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+			</transaction>
+			<transaction>
+				<transactionID>7</transactionID>
+				<description>Vortragstätigkeit in der Erwachsenenbildung</description>
+				<period>2016</period>
+				<transactionDate>2016-01-01</transactionDate>
+				<sourceID/>
+				<line>
+					<recordID>7</recordID>
+					<accountID>2800</accountID>
+					<custSupID/>
+					<documentID>AR14</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Vortragstätigkeit in der Erwachsenenbildung</description>
+					<debitAmount>1295.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>U-00</vatCode>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>0.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>1295.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>7</recordID>
+					<accountID>4000</accountID>
+					<custSupID/>
+					<documentID>AR14</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Vortragstätigkeit in der Erwachsenenbildung</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-1295.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>U-00</vatCode>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>0.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>1295.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>7</recordID>
+					<accountID>3500</accountID>
+					<custSupID/>
+					<documentID>AR14</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>[MwSt/USt] Vortragstätigkeit in der Erwachsenen...</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>U-00</vatCode>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>0.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+			</transaction>
+			<transaction>
+				<transactionID>8</transactionID>
+				<description>Tonbearbeitung für Film AG Hamburg</description>
+				<period>2016</period>
+				<transactionDate>2016-01-01</transactionDate>
+				<sourceID/>
+				<line>
+					<recordID>8</recordID>
+					<accountID>2800</accountID>
+					<custSupID/>
+					<documentID>AR20</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Tonbearbeitung für Film AG Hamburg</description>
+					<debitAmount>2000.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>IG-LEIS</vatCode>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>0.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>2000.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>8</recordID>
+					<accountID>4057</accountID>
+					<custSupID/>
+					<documentID>AR20</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Tonbearbeitung für Film AG Hamburg</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-2000.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>IG-LEIS</vatCode>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>0.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>2000.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>8</recordID>
+					<accountID>3500</accountID>
+					<custSupID/>
+					<documentID>AR20</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>[MwSt/USt] Tonbearbeitung für Film AG Hamburg</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>IG-LEIS</vatCode>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>0.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+			</transaction>
+			<transaction>
+				<transactionID>9</transactionID>
+				<description>Tontechnikassistenz (deutscher Tontechniker)</description>
+				<period>2016</period>
+				<transactionDate>2016-01-01</transactionDate>
+				<sourceID/>
+				<line>
+					<recordID>9</recordID>
+					<accountID>2800</accountID>
+					<custSupID/>
+					<documentID>ER03</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Tontechnikassistenz (deutscher Tontechniker)</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-1000.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>RC-U20</vatCode>
+						<vatPercentage>-20.00</vatPercentage>
+						<vatAmount>-200.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>1000.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>9</recordID>
+					<accountID>3560</accountID>
+					<custSupID/>
+					<documentID>ER03</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>[MwSt/USt] Tontechnikassistenz (deutscher Tonte...</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-200.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>RC-U20</vatCode>
+						<vatPercentage>-20.00</vatPercentage>
+						<vatAmount>-200.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>200.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>10</recordID>
+					<accountID>7500</accountID>
+					<custSupID/>
+					<documentID>ER03</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Tontechnikassistenz (deutscher Tontechniker)</description>
+					<debitAmount>1000.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>RC-V20</vatCode>
+						<vatPercentage>20.00</vatPercentage>
+						<vatAmount>200.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>1000.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>10</recordID>
+					<accountID>2560</accountID>
+					<custSupID/>
+					<documentID>ER03</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>[MwSt/USt] Tontechnikassistenz (deutscher Tonte...</description>
+					<debitAmount>200.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>RC-V20</vatCode>
+						<vatPercentage>20.00</vatPercentage>
+						<vatAmount>200.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>200.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+			</transaction>
+			<transaction>
+				<transactionID>11</transactionID>
+				<description>Zubehör für Verstärker</description>
+				<period>2016</period>
+				<transactionDate>2016-01-01</transactionDate>
+				<sourceID/>
+				<line>
+					<recordID>11</recordID>
+					<accountID>2800</accountID>
+					<custSupID/>
+					<documentID>ER09</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Zubehör für Verstärker</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-230.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>IGE-U20</vatCode>
+						<vatPercentage>-20.00</vatPercentage>
+						<vatAmount>-46.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>230.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>11</recordID>
+					<accountID>3550</accountID>
+					<custSupID/>
+					<documentID>ER09</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>[MwSt/USt] Zubehör für Verstärker</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-46.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>IGE-U20</vatCode>
+						<vatPercentage>-20.00</vatPercentage>
+						<vatAmount>-46.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>46.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>12</recordID>
+					<accountID>5000</accountID>
+					<custSupID/>
+					<documentID>ER09</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Zubehör für Verstärker</description>
+					<debitAmount>230.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>IGE-V20</vatCode>
+						<vatPercentage>20.00</vatPercentage>
+						<vatAmount>46.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>230.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>12</recordID>
+					<accountID>2550</accountID>
+					<custSupID/>
+					<documentID>ER09</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>[MwSt/USt] Zubehör für Verstärker</description>
+					<debitAmount>46.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>IGE-V20</vatCode>
+						<vatPercentage>20.00</vatPercentage>
+						<vatAmount>46.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>46.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+			</transaction>
+			<transaction>
+				<transactionID>13</transactionID>
+				<description>Einkauf Antiquariat (Noten)</description>
+				<period>2016</period>
+				<transactionDate>2016-01-01</transactionDate>
+				<sourceID/>
+				<line>
+					<recordID>13</recordID>
+					<accountID>5000</accountID>
+					<custSupID/>
+					<documentID>ER13</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Einkauf Antiquariat (Noten)</description>
+					<debitAmount>136.36</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>V10</vatCode>
+						<vatPercentage>10.00</vatPercentage>
+						<vatAmount>13.64</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>136.36</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>13</recordID>
+					<accountID>2800</accountID>
+					<custSupID/>
+					<documentID>ER13</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Einkauf Antiquariat (Noten)</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-150.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>V10</vatCode>
+						<vatPercentage>10.00</vatPercentage>
+						<vatAmount>13.64</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>150.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>13</recordID>
+					<accountID>2500</accountID>
+					<custSupID/>
+					<documentID>ER13</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>[MwSt/USt] Einkauf Antiquariat (Noten)</description>
+					<debitAmount>13.64</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>V10</vatCode>
+						<vatPercentage>10.00</vatPercentage>
+						<vatAmount>13.64</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>13.64</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+			</transaction>
+			<transaction>
+				<transactionID>14</transactionID>
+				<description>Subhonorar Musiker</description>
+				<period>2016</period>
+				<transactionDate>2016-01-01</transactionDate>
+				<sourceID/>
+				<line>
+					<recordID>14</recordID>
+					<accountID>5000</accountID>
+					<custSupID/>
+					<documentID>ER14</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Subhonorar Musiker</description>
+					<debitAmount>707.96</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>V13</vatCode>
+						<vatPercentage>13.00</vatPercentage>
+						<vatAmount>92.04</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>707.96</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>14</recordID>
+					<accountID>2800</accountID>
+					<custSupID/>
+					<documentID>ER14</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Subhonorar Musiker</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-800.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>V13</vatCode>
+						<vatPercentage>13.00</vatPercentage>
+						<vatAmount>92.04</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>800.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>14</recordID>
+					<accountID>2500</accountID>
+					<custSupID/>
+					<documentID>ER14</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>[MwSt/USt] Subhonorar Musiker</description>
+					<debitAmount>92.04</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>V13</vatCode>
+						<vatPercentage>13.00</vatPercentage>
+						<vatAmount>92.04</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>92.04</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+			</transaction>
+			<transaction>
+				<transactionID>15</transactionID>
+				<description>Subhonorar Tontechnik</description>
+				<period>2016</period>
+				<transactionDate>2016-01-01</transactionDate>
+				<sourceID/>
+				<line>
+					<recordID>15</recordID>
+					<accountID>5000</accountID>
+					<custSupID/>
+					<documentID>ER15</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Subhonorar Tontechnik</description>
+					<debitAmount>500.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>V20</vatCode>
+						<vatPercentage>20.00</vatPercentage>
+						<vatAmount>100.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>500.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>15</recordID>
+					<accountID>2800</accountID>
+					<custSupID/>
+					<documentID>ER15</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Subhonorar Tontechnik</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-600.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>V20</vatCode>
+						<vatPercentage>20.00</vatPercentage>
+						<vatAmount>100.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>600.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>15</recordID>
+					<accountID>2500</accountID>
+					<custSupID/>
+					<documentID>ER15</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>[MwSt/USt] Subhonorar Tontechnik</description>
+					<debitAmount>100.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>V20</vatCode>
+						<vatPercentage>20.00</vatPercentage>
+						<vatAmount>100.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>100.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+			</transaction>
+			<transaction>
+				<transactionID>16</transactionID>
+				<description>Einfuhrumsatzsteuer für Gitarre (Import aus Aus...</description>
+				<period>2016</period>
+				<transactionDate>2016-01-01</transactionDate>
+				<sourceID/>
+				<line>
+					<recordID>16</recordID>
+					<accountID>2800</accountID>
+					<custSupID/>
+					<documentID>ER16</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Einfuhrumsatzsteuer für Gitarre (Import aus Aus...</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-400.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>EUST</vatCode>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>400.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>400.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>16</recordID>
+					<accountID>2510</accountID>
+					<custSupID/>
+					<documentID>ER16</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>[MwSt/USt] Einfuhrumsatzsteuer für Gitarre (Imp...</description>
+					<debitAmount>400.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>EUST</vatCode>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>400.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>400.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+			</transaction>
+			<transaction>
+				<transactionID>17</transactionID>
+				<description>Einfuhrumsatzsteuer für Gitarre aus USA mit EOR...</description>
+				<period>2016</period>
+				<transactionDate>2016-01-01</transactionDate>
+				<sourceID/>
+				<line>
+					<recordID>17</recordID>
+					<accountID>3535</accountID>
+					<custSupID/>
+					<documentID>ER17</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>Einfuhrumsatzsteuer für Gitarre aus USA mit EOR...</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-900.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>EUST-FA</vatCode>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>900.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>900.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>17</recordID>
+					<accountID>2520</accountID>
+					<custSupID/>
+					<documentID>ER17</documentID>
+					<effectiveDate>2016-01-01</effectiveDate>
+					<description>[MwSt/USt] Einfuhrumsatzsteuer für Gitarre aus ...</description>
+					<debitAmount>900.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>EUST-FA</vatCode>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>900.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>900.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+			</transaction>
+			<transaction>
+				<transactionID>18</transactionID>
+				<description>AfA Tontechnikanlage</description>
+				<period>2016</period>
+				<transactionDate>2016-12-31</transactionDate>
+				<sourceID/>
+				<line>
+					<recordID>18</recordID>
+					<accountID>7000</accountID>
+					<custSupID/>
+					<documentID>AB</documentID>
+					<effectiveDate>2016-12-31</effectiveDate>
+					<description>AfA Tontechnikanlage</description>
+					<debitAmount>800.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode/>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>0.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>800.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>18</recordID>
+					<accountID>0600</accountID>
+					<custSupID/>
+					<documentID>AB</documentID>
+					<effectiveDate>2016-12-31</effectiveDate>
+					<description>AfA Tontechnikanlage</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-800.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode/>
+						<vatPercentage>0.00</vatPercentage>
+						<vatAmount>0.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>800.00</currencyCreditAmount>
+					</currency>
+				</line>
+			</transaction>
+			<transaction>
+				<transactionID>19</transactionID>
+				<description>Verwendung Tontechnik eigenes Geburtstagsfest </description>
+				<period>2016</period>
+				<transactionDate>2016-12-31</transactionDate>
+				<sourceID/>
+				<line>
+					<recordID>19</recordID>
+					<accountID>9650</accountID>
+					<custSupID/>
+					<documentID>AB</documentID>
+					<effectiveDate>2016-12-31</effectiveDate>
+					<description>Verwendung Tontechnik eigenes Geburtstagsfest </description>
+					<debitAmount>240.00</debitAmount>
+					<creditAmount>0.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>U-EV20</vatCode>
+						<vatPercentage>-20.00</vatPercentage>
+						<vatAmount>-40.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>240.00</currencyDebitAmount>
+						<currencyCreditAmount>0.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>19</recordID>
+					<accountID>7000</accountID>
+					<custSupID/>
+					<documentID>AB</documentID>
+					<effectiveDate>2016-12-31</effectiveDate>
+					<description>Verwendung Tontechnik eigenes Geburtstagsfest </description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-200.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>U-EV20</vatCode>
+						<vatPercentage>-20.00</vatPercentage>
+						<vatAmount>-40.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>200.00</currencyCreditAmount>
+					</currency>
+				</line>
+				<line>
+					<recordID>19</recordID>
+					<accountID>3500</accountID>
+					<custSupID/>
+					<documentID>AB</documentID>
+					<effectiveDate>2016-12-31</effectiveDate>
+					<description>[MwSt/USt] Verwendung Tontechnik eigenes Geburt...</description>
+					<debitAmount>0.00</debitAmount>
+					<creditAmount>-40.00</creditAmount>
+					<costDesc/>
+					<productDesc/>
+					<projectDesc/>
+					<vat>
+						<vatCode>U-EV20</vatCode>
+						<vatPercentage>-20.00</vatPercentage>
+						<vatAmount>-40.00</vatAmount>
+					</vat>
+					<currency>
+						<currencyCode>EUR</currencyCode>
+						<currencyDebitAmount>0.00</currencyDebitAmount>
+						<currencyCreditAmount>40.00</currencyCreditAmount>
+					</currency>
+				</line>
+			</transaction>
+		</journal>
+	</transactions>
+</auditfile>\end{xmlvalue}
+\textvalue{Validation result => Xml document is valid against ../auditfile.xsd}\\
+\keyvalue{Result}{Passed}
+\end{test}
+\end{testcase}
+\end{document}
