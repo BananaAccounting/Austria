@@ -1,0 +1,49 @@
+Test Banana Apps
+----------------
+
+Date:        2019-03-12 14:36:31.668
+Duration:    00:00:01.465
+Application: BananaExpm90 9.0.3.190221
+OS:          macOS Mojave (10.14)
+Qt:          5.12.1
+
+Test summary
+------------
+
+Test failed
+
+> Fatal errors:  2
+> Differences:   1
+> Added:         8
+> Deleted:       0
+> Identical:     0
+> Total results: 9
+> Total files:   1
+
+Differences Summary
+-------------------
+
+> Files with fatal errors
+>> testresults/auditfile_v1.0.test/auditfile_v1.0.test.txt
+
+> Files with differences
+>> testresults/auditfile_v1.0.test/auditfile_v1.0.test.txt
+
+> Files with results only in current
+>> testresults/auditfile_v1.0.test/auditfile_v1.0.test.txt
+
+Differences Details
+-------------------
+
+>> testresults/auditfile_v1.0.test/auditfile_v1.0.test.txt
+			1  + \begin{document}
+			2  + \begin{testcase}{AuditfileAustria}
+			3  + \begin{test}{testBananaApp}
+			4  + \keyvalue{Result}{Failed}
+			5  + \fatalerror{TypeError: Cannot call method 'info' of null}
+			6  + \end{test}
+			7  + \fatalerror{Error: One or more tests failed}
+			8  + \end{testcase}
+			9  + \end{document}
+			 1 - 
+

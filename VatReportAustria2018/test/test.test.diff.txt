@@ -1,0 +1,39 @@
+Test Banana Apps
+----------------
+
+Date:        2018-04-11 11:41:08.442
+Duration:    00:00:00.019
+Application: Banana90 9.0.3
+OS:          macOS Sierra (10.12)
+Qt:          5.9.0
+
+Test summary
+------------
+
+Test failed
+
+> Fatal errors:  0
+> Differences:   1
+> Added:         1
+> Deleted:       0
+> Identical:     0
+> Total results: 2
+> Total files:   1
+
+Differences Summary
+-------------------
+
+> Files with differences
+>> ./testresults/ch.banana.addon.vatreportaustria2018.test/ch.banana.addon.vatreportaustria2018.test.txt
+
+> Files with results only in current
+>> ./testresults/ch.banana.addon.vatreportaustria2018.test/ch.banana.addon.vatreportaustria2018.test.txt
+
+Differences Details
+-------------------
+
+>> ./testresults/ch.banana.addon.vatreportaustria2018.test/ch.banana.addon.vatreportaustria2018.test.txt
+			1  + \documentclass{report}
+			2  + \begin{document}
+			 1 - 
+
