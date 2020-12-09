@@ -1,7 +1,7 @@
 # Vat Report Austria 2020
 ## How to use the Vat Report
-1. Install last version of [Banana Accounting 9](http://www.banana.ch/de/download_de)
-2. Start Banana Accounting 9
+1. Install last version of [Banana Accounting](http://www.banana.ch/de/download_de)
+2. Start Banana Accounting
 3. From Menu Extensions->Manage extensions select Online and insert "Austria" as country and "de" as language.
 4. Select the "Vat Report Austria 2020" Banana extensions and click on "Install". 
 5. Open example file: "MusterdateiUSt2020.ac2"
