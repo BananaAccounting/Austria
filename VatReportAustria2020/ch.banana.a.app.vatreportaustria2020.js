@@ -14,7 +14,7 @@
 //
 // @id = ch.banana.a.app.vatreportaustria2020
 // @api = 1.0
-// @pubdate = 2020-02-04
+// @pubdate = 2020-12-09
 // @publisher = Banana.ch SA
 // @description = VAT report Austria 2020
 // @task = app.command
@@ -36,8 +36,8 @@ var param = {};
 function loadParam(banDoc, startDate, endDate) {
 	param = {
 		"reportName":"VAT report Austria 2020",												//Save the report's name
-		"bananaVersion":"Banana Accounting 9", 												//Save the version of Banana Accounting used
-		"scriptVersion":"script v. 2020-02-04",				 								//Save the version of the script
+		"bananaVersion":"Banana Accounting", 												//Save the version of Banana Accounting used
+		"scriptVersion":"script v. 2020-12-09",				 								//Save the version of the script
 		"fiscalNumber":banDoc.info("AccountingDataBase","FiscalNumber"),					//Save the fiscal number
 		"startDate":startDate,																//Save the startDate that will be used to specify the accounting period starting date
 		"endDate":endDate, 																	//Save the endDate that will be used to specify the accounting period ending date		
@@ -107,26 +107,29 @@ function loadForm() {
 	form.push({"id":"4.18.2", "gr":"052", "vatClass":"4", "description":"10% Zusatzsteuer für pauschalierte land- und forstwirtschaftliche Betriebe"});
 	form.push({"id":"4.19.1", "gr":"007", "vatClass":"2", "description":"7% Zusatzsteuer für pauschalierte land- und forstwirtschaftliche Betriebe"});
 	form.push({"id":"4.19.2", "gr":"007", "vatClass":"4", "description":"7% Zusatzsteuer für pauschalierte land- und forstwirtschaftliche Betriebe"});
-	form.push({"id":"4.20", "gr":"056", "vatClass":"4", "description":"Steuerschuld gemäß § 11 Abs. 12 und 14, § 16 Abs. 2 sowie gemäß Art. 7 Abs. 4"});
-	form.push({"id":"4.21", "gr":"057", "vatClass":"4", "description":"Steuerschuld gemäß § 19 Abs. 1 zweiter Satz, § 19 Abs. 1c, 1e sowie gemäß Art. 25 Abs. 5"});		
-	form.push({"id":"4.22", "gr":"048", "vatClass":"4", "description":"Steuerschuld gemäß § 19 Abs. 1a (Bauleistungen)"});			
-	form.push({"id":"4.23", "gr":"044", "vatClass":"4", "description":"Steuerschuld gemäß § 19 Abs. 1b (Sicherungseigentum, Vorbehaltseigentum und Grundstücke im Zwangsversteigerungsverfahren)"});			
-	form.push({"id":"4.24", "gr":"032", "vatClass":"4", "description":"Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe)"});			
-	form.push({"id":"4.25", "gr":"070", "vatClass":"2", "description":"Gesamtbetrag der Bemessungsgrundlagen für innergemeinschaftliche Erwerbe"});
-	form.push({"id":"4.26", "gr":"071", "vatClass":"2", "description":"Davon steuerfrei gemäß Art. 6 Abs. 2"});
-	form.push({"id":"4.27", "description":"Gesamtbetrag der steuerpflichtigen innergemeinschaftlichen Erwerbe", "sum":"4.25;-4.26"});		
+	form.push({"id":"4.20.1", "gr":"009", "vatClass":"2", "description":"5% für Umsätze gemäß § 28 Abs. 52 Z 1 vom 1.7.2020 bis zum 31.12.2020"});
+	form.push({"id":"4.20.2", "gr":"009", "vatClass":"4", "description":"5% für Umsätze gemäß § 28 Abs. 52 Z 1 vom 1.7.2020 bis zum 31.12.2020"});
+	form.push({"id":"4.21", "gr":"056", "vatClass":"4", "description":"Steuerschuld gemäß § 11 Abs. 12 und 14, § 16 Abs. 2 sowie gemäß Art. 7 Abs. 4"});
+	form.push({"id":"4.22", "gr":"057", "vatClass":"4", "description":"Steuerschuld gemäß § 19 Abs. 1 zweiter Satz, § 19 Abs. 1c, 1e sowie gemäß Art. 25 Abs. 5"});		
+	form.push({"id":"4.23", "gr":"048", "vatClass":"4", "description":"Steuerschuld gemäß § 19 Abs. 1a (Bauleistungen)"});			
+	form.push({"id":"4.24", "gr":"044", "vatClass":"4", "description":"Steuerschuld gemäß § 19 Abs. 1b (Sicherungseigentum, Vorbehaltseigentum und Grundstücke im Zwangsversteigerungsverfahren)"});			
+	form.push({"id":"4.25", "gr":"032", "vatClass":"4", "description":"Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe)"});			
+	form.push({"id":"4.26", "gr":"070", "vatClass":"2", "description":"Gesamtbetrag der Bemessungsgrundlagen für innergemeinschaftliche Erwerbe"});
+	form.push({"id":"4.27", "gr":"071", "vatClass":"2", "description":"Davon steuerfrei gemäß Art. 6 Abs. 2"});
+	form.push({"id":"4.28", "description":"Gesamtbetrag der steuerpflichtigen innergemeinschaftlichen Erwerbe", "sum":"4.26;-4.27"});		
 	
-	form.push({"id":"4.28.1", "gr":"072", "vatClass":"2", "description":"20% Normalsteuersatz"});
-	form.push({"id":"4.28.2", "gr":"072", "vatClass":"4", "description":"20% Normalsteuersatz"});
-	form.push({"id":"4.29.1", "gr":"073", "vatClass":"2", "description":"10% ermäßigter Steuersatz"});
-	form.push({"id":"4.29.2", "gr":"073", "vatClass":"4", "description":"10% ermäßigter Steuersatz"});
-	form.push({"id":"4.30.1", "gr":"008", "vatClass":"2", "description":"13% ermäßigter Steuersatz"});
-	form.push({"id":"4.30.2", "gr":"008", "vatClass":"4", "description":"13% ermäßigter Steuersatz"});
-	form.push({"id":"4.31.1", "gr":"088", "vatClass":"2", "description":"19% für Jungholz und Mittelberg"});
-	form.push({"id":"4.31.2", "gr":"088", "vatClass":"4", "description":"19% für Jungholz und Mittelberg"});
-
-	form.push({"id":"4.32", "gr":"076", "vatClass":"2", "description":"Erwerbe gemäß Art. 3 Abs. 8 zweiter Satz, die im Mitgliedstaat des Bestimmungslandes besteuert worden sind"});			
-	form.push({"id":"4.33", "gr":"077", "vatClass":"2", "description":"Erwerbe gemäß Art. 3 Abs. 8 zweiter Satz, die gemäß Art. 25 Abs. 2 im Inland als besteuert gelten"});
+	form.push({"id":"4.29.1", "gr":"072", "vatClass":"2", "description":"20% Normalsteuersatz"});
+	form.push({"id":"4.29.2", "gr":"072", "vatClass":"4", "description":"20% Normalsteuersatz"});
+	form.push({"id":"4.30.1", "gr":"073", "vatClass":"2", "description":"10% ermäßigter Steuersatz"});
+	form.push({"id":"4.30.2", "gr":"073", "vatClass":"4", "description":"10% ermäßigter Steuersatz"});
+	form.push({"id":"4.31.1", "gr":"008", "vatClass":"2", "description":"13% ermäßigter Steuersatz"});
+	form.push({"id":"4.31.2", "gr":"008", "vatClass":"4", "description":"13% ermäßigter Steuersatz"});
+	form.push({"id":"4.32.1", "gr":"088", "vatClass":"2", "description":"19% für Jungholz und Mittelberg"});
+	form.push({"id":"4.32.2", "gr":"088", "vatClass":"4", "description":"19% für Jungholz und Mittelberg"});
+	form.push({"id":"4.33.1", "gr":"010", "vatClass":"2", "description":"5% für Umsätze gemäß § 28 Abs. 52 Z 1 vom 1.7.2020 bis zum 31.12.2020"});
+	form.push({"id":"4.33.2", "gr":"010", "vatClass":"4", "description":"5% für Umsätze gemäß § 28 Abs. 52 Z 1 vom 1.7.2020 bis zum 31.12.2020"});
+	form.push({"id":"4.34", "gr":"076", "vatClass":"2", "description":"Erwerbe gemäß Art. 3 Abs. 8 zweiter Satz, die im Mitgliedstaat des Bestimmungslandes besteuert worden sind"});			
+	form.push({"id":"4.35", "gr":"077", "vatClass":"2", "description":"Erwerbe gemäß Art. 3 Abs. 8 zweiter Satz, die gemäß Art. 25 Abs. 2 im Inland als besteuert gelten"});
 	
 	form.push({"id":"5.1", "gr":"060", "vatClass":"3", "description":"Gesamtbetrag der Vorsteuern (ohne die nachstehend gesondert anzuführenden Beträge)"});
 	form.push({"id":"5.2", "gr":"061", "vatClass":"3", "description":"Vorsteuern betreffend die entrichtete Einfuhrumsatzsteuer (§ 12 Abs. 1 Z 2 lit. a)"});
@@ -143,7 +146,7 @@ function loadForm() {
 	form.push({"id":"5.13", "description":"Gesamtbetrag der abziehbaren Vorsteuer", "sum":"-5.1;-5.2;-5.3;-5.4;-5.5;-5.6;-5.7;-5.8;-5.9;5.10;-5.11;-5.12"});
 	
 	form.push({"id":"6.1", "gr":"090", "vatClass":"3", "description":""});
-	form.push({"id":"7", "gr":"095", "description":"", "sum":"4.14.2;4.15.2;4.16.2;4.17.2;4.18.2;4.19.2;4.20;4.21;4.22;4.23;4.24;4.28.2;4.29.2;4.30.2;4.31.2;5.13;6.1"});
+	form.push({"id":"7", "gr":"095", "description":"", "sum":"4.14.2;4.15.2;4.16.2;4.17.2;4.18.2;4.19.2;4.20.2;4.21;4.22;4.23;4.24;4.25;4.29.2;4.30.2;4.31.2;4.32.2;4.33.2;5.13;6.1"});
 }
 
 
@@ -200,8 +203,8 @@ function postProcessAmounts(banDoc, isTest) {
 	}
 
 	//Verification of some total values
-	checkTotals("4.13", "4.14.1;4.15.1;4.16.1;4.17.1;4.18.1;4.19.1", isTest);
-	checkTotals("4.27", "4.28.1;4.29.1;4.30.1;4.31.1", isTest);
+	checkTotals("4.13", "4.14.1;4.15.1;4.16.1;4.17.1;4.18.1;4.19.1;4.20.1", isTest);
+	checkTotals("4.28", "4.29.1;4.30.1;4.31.1;4.32.1;4.33.1", isTest);
 	
 	//Verification of the balance values
 	checkBalance(banDoc, isTest);
@@ -509,15 +512,16 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell(getValue(form, "4.19.2", "amount"), "valueAmount", 1);
 
 	tableRow = table.addRow();
-	tableRow.addCell("Weiters zu versteuern:", "horizontalLine descriptionBold", 7);
-	
-	tableRow = table.addRow();
 	tableRow.addCell("4.20", "", 1);
-	tableRow.addCell(getValue(form, "4.20", "description"), "description", 1);
-	tableRow.addCell(getValue(form, "4.20", "gr"), "description", 1);
-	tableRow.addCell("", "", 2);
+	tableRow.addCell(getValue(form, "4.20.1", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.20.1", "gr"), "description", 1);
+	tableRow.addCell("", "", 1);
+	tableRow.addCell(getValue(form, "4.20.1", "amount"), "valueAmount", 1);
 	tableRow.addCell("+", "", 1);
-	tableRow.addCell(getValue(form, "4.20", "amount"), "valueAmount", 1);
+	tableRow.addCell(getValue(form, "4.20.2", "amount"), "valueAmount", 1);
+
+	tableRow = table.addRow();
+	tableRow.addCell("Weiters zu versteuern:", "horizontalLine descriptionBold", 7);
 	
 	tableRow = table.addRow();
 	tableRow.addCell("4.21", "", 1);
@@ -552,33 +556,41 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell(getValue(form, "4.24", "amount"), "valueAmount", 1);
 	
 	tableRow = table.addRow();
+	tableRow.addCell("4.25", "", 1);
+	tableRow.addCell(getValue(form, "4.25", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.25", "gr"), "description", 1);
+	tableRow.addCell("", "", 2);
+	tableRow.addCell("+", "", 1);
+	tableRow.addCell(getValue(form, "4.25", "amount"), "valueAmount", 1);
+	
+	tableRow = table.addRow();
 	tableRow.addCell("Innergemeinschaftliche Erwerbe:", "horizontalLine descriptionBold", 4);
 	tableRow.addCell("Bemessungsgrundlage", "description1 horizontalLine", 1);
 	tableRow.addCell("", "horizontalLine", 2);
 	
 	tableRow = table.addRow();
-	tableRow.addCell("4.25", "", 1);
-	tableRow.addCell(getValue(form, "4.25", "description"), "description", 1);
-	tableRow.addCell(getValue(form, "4.25", "gr"), "description", 1);
-	tableRow.addCell("", "", 1);
-	tableRow.addCell(getValue(form, "4.25", "amount"), "valueAmount", 1);
-	tableRow.addCell("", "", 2);
-	
-	tableRow = table.addRow();
 	tableRow.addCell("4.26", "", 1);
 	tableRow.addCell(getValue(form, "4.26", "description"), "description", 1);
 	tableRow.addCell(getValue(form, "4.26", "gr"), "description", 1);
-	tableRow.addCell("-", "", 1);
+	tableRow.addCell("", "", 1);
 	tableRow.addCell(getValue(form, "4.26", "amount"), "valueAmount", 1);
 	tableRow.addCell("", "", 2);
 	
-	//Printing of the total with ID 4.27
 	tableRow = table.addRow();
 	tableRow.addCell("4.27", "", 1);
-	tableRow.addCell(getValue(form, "4.27", "description"), "description", 2);
+	tableRow.addCell(getValue(form, "4.27", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.27", "gr"), "description", 1);
+	tableRow.addCell("-", "", 1);
+	tableRow.addCell(getValue(form, "4.27", "amount"), "valueAmount", 1);
+	tableRow.addCell("", "", 2);
+	
+	//Printing of the total with ID 4.28
+	tableRow = table.addRow();
+	tableRow.addCell("4.28", "", 1);
+	tableRow.addCell(getValue(form, "4.28", "description"), "description", 2);
 	tableRow.addCell("", "", 1);
-	if (getValue(form, "4.27", "amount") != 0) {
-		tableRow.addCell(getValue(form, "4.27", "amount"), "valueTotal", 1);
+	if (getValue(form, "4.28", "amount") != 0) {
+		tableRow.addCell(getValue(form, "4.28", "amount"), "valueTotal", 1);
 	} else {
 		tableRow.addCell("", "valueTotal", 1);
 	}
@@ -587,15 +599,6 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow = table.addRow();
 	tableRow.addCell("Davon sind zu versteuern mit:", "horizontalLine descriptionBold", 7);
 	
-	tableRow = table.addRow();
-	tableRow.addCell("4.28", "", 1);
-	tableRow.addCell(getValue(form, "4.28.1", "description"), "description", 1);
-	tableRow.addCell(getValue(form, "4.28.1", "gr"), "description", 1);
-	tableRow.addCell("", "", 1);
-	tableRow.addCell(getValue(form, "4.28.1", "amount"), "valueAmount", 1);
-	tableRow.addCell("+", "", 1);
-	tableRow.addCell(getValue(form, "4.28.2", "amount"), "valueAmount", 1);
-
 	tableRow = table.addRow();
 	tableRow.addCell("4.29", "", 1);
 	tableRow.addCell(getValue(form, "4.29.1", "description"), "description", 1);
@@ -624,22 +627,40 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	tableRow.addCell(getValue(form, "4.31.2", "amount"), "valueAmount", 1);
 
 	tableRow = table.addRow();
+	tableRow.addCell("4.32", "", 1);
+	tableRow.addCell(getValue(form, "4.32.1", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.32.1", "gr"), "description", 1);
+	tableRow.addCell("", "", 1);
+	tableRow.addCell(getValue(form, "4.32.1", "amount"), "valueAmount", 1);
+	tableRow.addCell("+", "", 1);
+	tableRow.addCell(getValue(form, "4.32.2", "amount"), "valueAmount", 1);
+
+	tableRow = table.addRow();
+	tableRow.addCell("4.33", "", 1);
+	tableRow.addCell(getValue(form, "4.33.1", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.33.1", "gr"), "description", 1);
+	tableRow.addCell("", "", 1);
+	tableRow.addCell(getValue(form, "4.33.1", "amount"), "valueAmount", 1);
+	tableRow.addCell("+", "", 1);
+	tableRow.addCell(getValue(form, "4.33.2", "amount"), "valueAmount", 1);
+
+	tableRow = table.addRow();
 	tableRow.addCell("Nicht zu versteuernde Erwerbe:", "horizontalLine descriptionBold", 7);
 	
 	tableRow = table.addRow();
-	tableRow.addCell("4.32", "", 1);
-	tableRow.addCell(getValue(form, "4.32", "description"), "description", 1);
-	tableRow.addCell(getValue(form, "4.32", "gr"), "description", 1);
+	tableRow.addCell("4.34", "", 1);
+	tableRow.addCell(getValue(form, "4.34", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.34", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
-	tableRow.addCell(getValue(form, "4.32", "amount"), "valueAmount", 1);
+	tableRow.addCell(getValue(form, "4.34", "amount"), "valueAmount", 1);
 	tableRow.addCell("", "", 2);
 	
 	tableRow = table.addRow();
-	tableRow.addCell("4.33", "", 1);
-	tableRow.addCell(getValue(form, "4.33", "description"), "description", 1);
-	tableRow.addCell(getValue(form, "4.33", "gr"), "description", 1);
+	tableRow.addCell("4.35", "", 1);
+	tableRow.addCell(getValue(form, "4.35", "description"), "description", 1);
+	tableRow.addCell(getValue(form, "4.35", "gr"), "description", 1);
 	tableRow.addCell("", "", 1);
-	tableRow.addCell(getValue(form, "4.33", "amount"), "valueAmount", 1);
+	tableRow.addCell(getValue(form, "4.35", "amount"), "valueAmount", 1);
 	tableRow.addCell("", "", 2);
 	
 	//Printing of the objects with ID 5
@@ -1187,7 +1208,7 @@ function getPeriodSettings() {
 	};
 
 	//Read script settings
-	var data = Banana.document.scriptReadSettings();
+	var data = Banana.document.getScriptSettings();
 	
 	//Check if there are previously saved settings and read them
 	if (data.length > 0) {
@@ -1218,7 +1239,7 @@ function getPeriodSettings() {
 
 		//Save script settings
 		var formToString = JSON.stringify(scriptform);
-		var value = Banana.document.scriptSaveSettings(formToString);		
+		var value = Banana.document.setScriptSettings(formToString);		
     } else {
 		//User clicked cancel
 		return;
@@ -1229,11 +1250,16 @@ function getPeriodSettings() {
 
 //This function adds a Footer to the report
 function addFooter(report, param) {
+   // report.getFooter().addClass("footer");
+   // var versionLine = report.getFooter().addText(param.bananaVersion + ", " + param.scriptVersion + ", ", "description");
+   // //versionLine.excludeFromTest();
+   // report.getFooter().addText(param.pageCounterText + " ", "description");
+   // report.getFooter().addFieldPageNr();
+   
    report.getFooter().addClass("footer");
-   var versionLine = report.getFooter().addText(param.bananaVersion + ", " + param.scriptVersion + ", ", "description");
-   //versionLine.excludeFromTest();
-   report.getFooter().addText(param.pageCounterText + " ", "description");
+   report.getFooter().addText("-", "");
    report.getFooter().addFieldPageNr();
+   report.getFooter().addText("-", "");
 }
 
 
@@ -1242,11 +1268,11 @@ function createStylesheet() {
 	var stylesheet = Banana.Report.newStyleSheet();
 
     var pageStyle = stylesheet.addStyle("@page");
-    pageStyle.setAttribute("margin", "10mm 20mm 10mm 20mm");
+    pageStyle.setAttribute("margin", "12mm 20mm 10mm 20mm");
 
 	var style = stylesheet.addStyle(".description");
 	style.setAttribute("font-size", "8px");
-	
+
 	style = stylesheet.addStyle(".description1");
 	style.setAttribute("font-size", "7px");
 	style.setAttribute("text-align", "center");
@@ -1256,7 +1282,7 @@ function createStylesheet() {
 	style.setAttribute("font-weight", "bold");
 
 	style = stylesheet.addStyle(".footer");
-	style.setAttribute("text-align", "right");
+	style.setAttribute("text-align", "center");
 	style.setAttribute("font-size", "8px");
 	style.setAttribute("font-family", "Courier New");
 
