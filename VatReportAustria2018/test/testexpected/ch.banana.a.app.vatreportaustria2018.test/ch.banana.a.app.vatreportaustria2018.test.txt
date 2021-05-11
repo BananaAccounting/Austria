@@ -18,7 +18,7 @@
 \newenvironment{testcase}[1]{\section*{Test: #1}}{\newpage}
 \newenvironment{test}[1]{\section*{Test case: #1}}{}
 %Begin test data
-%%SCRIPT{/Users/lorenzo/Programmazione/GitHub/BananaAccounting/Austria/VatReportAustria2018/test/ch.banana.a.app.vatreportaustria2018.test.js}
+%%SCRIPT{/Users/ivan/Documents/GitHub/Austria/VatReportAustria2018/test/ch.banana.a.app.vatreportaustria2018.test.js}
 %
 \begin{testcase}{TestVatReport2018}
 \begin{test}{testExample1}
@@ -102,8 +102,7 @@
  &  & 090  & \multicolumn{2}{l}{} & +/-  & \\
 7.1  & Vorauszahlung (Zahllast)  & 095  & \multicolumn{2}{l}{} &  & 324.32 \\
 \end{longtable}
-Banana Accounting 8, script v. 2018-04-10,  Seite  \\
-\end{reportvalue}
+Banana Accounting 8, script v. 2018-04-10,  Seite  \#page-nr \end{reportvalue}
 \begin{reportvalue}{Second trimester report}
 [  ] Umsatzsteuervoranmeldung 2018 \\
 [  ] Berichtige Umsatzsteuervoranmeldung 2018 \\
@@ -186,8 +185,7 @@ Banana Accounting 8, script v. 2018-04-10,  Seite  \\
 \end{longtable}
 Warning! Different values: Total 4.27 <230.00>, Total 4.28.1;4.29.1;4.30.1;4.31.1 <0.00> \\
 Warning! Different values: Total from Banana <0.00>, Total from report <324.32> \\
-Banana Accounting 8, script v. 2018-04-10,  Seite  \\
-\end{reportvalue}
+Banana Accounting 8, script v. 2018-04-10,  Seite  \#page-nr \end{reportvalue}
 \begin{reportvalue}{January report}
 [  ] Umsatzsteuervoranmeldung 2018 \\
 [  ] Berichtige Umsatzsteuervoranmeldung 2018 \\
@@ -272,8 +270,7 @@ Warning! Different values: Total 4.27 <230.00>, Total 4.28.1;4.29.1;4.30.1;4.31.
 Warning! Different values: Total from Banana <0.00>, Total from report <324.32> \\
 Warning! Different values: Total 4.13 <0.00>, Total 4.14.1;4.15.1;4.16.1;4.17.1;4.18.1;4.19.1 <12'000.00> \\
 Warning! Different values: Total from Banana <284.32>, Total from report <324.32> \\
-Banana Accounting 8, script v. 2018-04-10,  Seite  \\
-\end{reportvalue}
+Banana Accounting 8, script v. 2018-04-10,  Seite  \#page-nr \end{reportvalue}
 \begin{tablevalue}{Vat codes table}{ l  l  l  l  l  l  l  l  l  l }
 Group & VatCode & Description & Gr & Gr1 & IsDue & AmountType & VatRate & VatRateOnGross & VatAccount\\
  &  & UMSATZSTEUER &  &  &  &  &  &  & \\
