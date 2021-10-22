@@ -69,6 +69,8 @@ AuditfileAustria.prototype.testBananaApp = function() {
 AuditfileAustria.prototype.xml_test = function(banDoc) {
   
   var xml = createXml(banDoc);
+  xml = xml.replace(/<dateCreated>[\s\S]*?<\/dateCreated>/, '<dateCreated>' + '2019-03-12' + '<\/dateCreated>');
+  xml = xml.replace(/<productVersion>[\s\S]*?<\/productVersion>/, '<productVersion>' + '#lastVersion' + '<\/productVersion>');
   Test.logger.addXml("This is a xml value", xml);
 
   this.xml_validate_test(xml, '../auditfile.xsd');
