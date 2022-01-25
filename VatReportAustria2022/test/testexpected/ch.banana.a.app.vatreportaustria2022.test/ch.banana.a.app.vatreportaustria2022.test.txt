@@ -1,0 +1,355 @@
+%%info_test_name{ch.banana.a.app.vatreportaustria2022.test}
+\documentclass{report}
+\usepackage{longtable}
+\usepackage{color}
+\usepackage{listings}
+\usepackage[margin=1cm]{geometry}
+\begin{document}
+\newenvironment{tablevalue}[2]{\textbf{Table: #1}\begin{longtable}[l]{#2}}{\end{longtable}}
+\newenvironment{reportvalue}[1]{\textbf{Report: #1}\\}{}
+\lstnewenvironment{jsonvalue}[1]{\textbf{Json: #1}\lstset{language=Java}}{}
+\lstnewenvironment{xmlvalue}[1]{\textbf{Xml: #1}\lstset{language=Xml}}{}
+\newcommand{\info}[2]{\textit{#1: #2}\\}
+\newcommand{\fatalerror}[1]{\textbf{\textcolor[rgb]{1,0,0}{Fatal error: #1}}\\}
+\newcommand{\keyvalue}[2]{\textbf{Keyvalue: #1} #2\\}
+\newcommand{\textvalue}[1]{#1\\}
+\newcommand{\excltest}[1]{\\Excluded from compare: #1}
+\newcommand{\lognewpage}{\newpage}
+\newenvironment{testcase}[1]{\section*{Test: #1}}{\newpage}
+\newenvironment{test}[1]{\section*{Test case: #1}}{}
+%Begin test data
+%%SCRIPT{/Users/ivan/Documents/GitHub/BananaAccounting/Austria/VatReportAustria2022/test/ch.banana.a.app.vatreportaustria2022.test.js}
+%
+\begin{testcase}{TestVatReport2022}
+\begin{test}{testExample1}
+\begin{reportvalue}{Whole year report}
+[  ] Umsatzsteuervoranmeldung 2022 \\
+[  ] Berichtige Umsatzsteuervoranmeldung 2022 \\
+\begin{longtable}[l]{ l  l  l  l }
+1. Abgabenkontonummer  & \multicolumn{3}{l}{2. Zeitraum }\\
+1.1 Finanzamtsnummer - Steuernummer  & \multicolumn{3}{l}{2.2 Kalenderjahr }\\
+031234567  & 01.01.2022  & bis   & 31.12.2022 \\
+1.2  [  ]  Steuernummer noch nicht vorhanden  & \multicolumn{3}{l}{}\\
+\multicolumn{4}{l}{3. Angaben zum Unternehmen }\\
+\multicolumn{4}{l}{3.1 BEZEICHNUNG DES UNTERNEHMENS (BLOCKSCHRIFT) }\\
+\multicolumn{4}{l}{EINZELUNTERNEHMERIN XY }\\
+\multicolumn{3}{l}{3.2 STRASSE (BLOCKSCHRIFT) } & 3.3 Hausnummer \\
+\multicolumn{3}{l}{MUSTERGASSE } & \\
+3.4 Stiege  & 3.5 Türnummer  & 3.6 Land  & 3.7 Telefonnummer \\
+ &  &  & \\
+3.8 Postleitzahl  & \multicolumn{3}{l}{3.9 ORT (BLOCKSCHRIFT) }\\
+1010  & \multicolumn{3}{l}{WIEN }\\
+\end{longtable}
+\begin{longtable}[l]{ l  l  l  l  l  l  l }
+\multicolumn{7}{l}{}\\
+4.  & \multicolumn{5}{l}{Berechnung der Umsatzsteuer: } & Bemessungsgrundlage \\
+\multicolumn{7}{l}{Lieferungen, sonstige Leistungen und Eigenverbrauch: }\\
+4.1  & Gesamtbetrag der Bemessungsgrundlage für Lieferungen und sonstige Leistungen (ohne den nachstehend angeführten Eigenverbrauch) einschließlich Anzahlungen (jeweils ohne Umsatzsteuer)  & 000  & \multicolumn{2}{l}{} &  & 20'795.00 \\
+4.2  & zuzüglich Eigenverbrauch (§ 1 Abs. 1 Z 2, § 3 Abs. 2 und § 3a Abs. 1a)  & 001  & \multicolumn{2}{l}{} & +  & 200.00 \\
+4.3  & abzüglich Umsätze, für die die Steuerschuld gemäß § 19 Abs. 1 zweiter Satz sowie gemäß § 19 Abs. 1a, 1b, 1c, 1d und 1e auf den Leistungsempfänger übergegangen ist.  & 021  & \multicolumn{2}{l}{} & -  & 2'500.00 \\
+4.4  & \multicolumn{4}{l}{SUMME } &  & 18'495.00 \\
+\multicolumn{7}{l}{Davon steuerfrei MIT Vorsteuerabzug gemäß }\\
+4.5  & § 6 Abs. 1 Z 1 iVm § 7 (Ausfuhrlieferungen)  & 011  & \multicolumn{2}{l}{} & -  & 1'500.00 \\
+4.6  & § 6 Abs. 1 Z 1 iVm § 8 (Lohnveredelungen)  & 012  & \multicolumn{2}{l}{} & -  & \\
+4.7  & § 6 Abs. 1 Z 2 bis 6 sowie § 23 Abs. 5 (Seeschifffahrt, Luftfahrt, grenzüberschreitende Personenbeförderung, Diplomaten, Reisevorleistungen im Drittlandsgebiet usw.).  & 015  & \multicolumn{2}{l}{} & -  & \\
+4.8  & Art. 6 Abs. 1 (innergemeinschaftliche Lieferungen ohne die nachstehend gesondert anzuführenden Fahrzeuglieferungen)  & 017  & \multicolumn{2}{l}{} & -  & 3'500.00 \\
+4.9  & Art. 6 Abs. 1, sofern Lieferungen neuer Fahrzeuge an Abnehmer ohne UID-Nummer bzw. durch Fahrzeuglieferer gemäß Art. 2 erfolgten.  & 018  & \multicolumn{2}{l}{} & -  & \\
+\multicolumn{7}{l}{Davon steuerfrei OHNE Vorsteuerabzug gemäß }\\
+4.10  & § 6 Abs. 1 Z 9 lit. a (Grundstücksumsätze)  & 019  & \multicolumn{2}{l}{} & -  & \\
+4.11  & § 6 Abs. 1 Z 27 (Kleinunternehmer)  & 016  & \multicolumn{2}{l}{} & -  & \\
+4.12  & § 6 Abs. 1 Z (übrige steuerfreie Umsätze ohne Vorsteuerabzug)  & 020  & \multicolumn{2}{l}{} & -  & 1'295.00 \\
+4.13  & \multicolumn{4}{l}{Gesamtbetrag der steuerpflichtigen Lieferungen, sonstigen Leistungen und Eigenverbrauch (einschließlich steuerpflichtiger Anzahlungen) } &  & 12'200.00 \\
+\multicolumn{4}{l}{Davon sind zu versteuern mit: } & Bemessungsgrundlage  &  & Umsatzsteuer \\
+4.14  & 20\% Normalsteuersatz  & 022  &  & 5'200.00  &  & 1'040.00 \\
+4.15  & 10\% ermäßigter Steuersatz  & 029  &  & 4'000.00  & +  & 400.00 \\
+4.16  & 13\% ermäßigter Steuersatz  & 006  &  & 3'000.00  & +  & 390.00 \\
+4.17  & 19\% für Jungholz und Mittelberg  & 037  &  &  & +  & \\
+4.18  & 10\% Zusatzsteuer für pauschalierte land- und forstwirtschaftliche Betriebe  & 052  &  &  & +  & \\
+4.19  & 7\% Zusatzsteuer für pauschalierte land- und forstwirtschaftliche Betriebe  & 007  &  &  & +  & \\
+\multicolumn{7}{l}{Weiters zu versteuern: }\\
+4.20  & Steuerschuld gemäß § 11 Abs. 12 und 14, § 16 Abs. 2 sowie gemäß Art. 7 Abs. 4  & 056  & \multicolumn{2}{l}{} & +  & \\
+4.21  & Steuerschuld gemäß § 19 Abs. 1 zweiter Satz, § 19 Abs. 1c, 1e sowie gemäß Art. 25 Abs. 5  & 057  & \multicolumn{2}{l}{} & +  & 200.00 \\
+4.22  & Steuerschuld gemäß § 19 Abs. 1a (Bauleistungen)  & 048  & \multicolumn{2}{l}{} & +  & \\
+4.23  & Steuerschuld gemäß § 19 Abs. 1b (Sicherungseigentum, Vorbehaltseigentum und Grundstücke im Zwangsversteigerungsverfahren)  & 044  & \multicolumn{2}{l}{} & +  & \\
+4.24  & Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe)  & 032  & \multicolumn{2}{l}{} & +  & \\
+\multicolumn{4}{l}{Innergemeinschaftliche Erwerbe: } & Bemessungsgrundlage  & \multicolumn{2}{l}{}\\
+4.25  & Gesamtbetrag der Bemessungsgrundlagen für innergemeinschaftliche Erwerbe  & 070  &  & 230.00  & \multicolumn{2}{l}{}\\
+4.26  & Davon steuerfrei gemäß Art. 6 Abs. 2  & 071  & -  &  & \multicolumn{2}{l}{}\\
+4.27  & \multicolumn{2}{l}{Gesamtbetrag der steuerpflichtigen innergemeinschaftlichen Erwerbe } &  & 230.00  & \multicolumn{2}{l}{}\\
+\multicolumn{7}{l}{Davon sind zu versteuern mit: }\\
+4.28  & 20\% Normalsteuersatz  & 072  &  & 230.00  & +  & 46.00 \\
+4.29  & 10\% ermäßigter Steuersatz  & 073  &  &  & +  & \\
+4.30  & 13\% ermäßigter Steuersatz  & 008  &  &  & +  & \\
+4.31  & 19\% für Jungholz und Mittelberg  & 088  &  &  & +  & \\
+\multicolumn{7}{l}{Nicht zu versteuernde Erwerbe: }\\
+4.32  & Erwerbe gemäß Art. 3 Abs. 8 zweiter Satz, die im Mitgliedstaat des Bestimmungslandes besteuert worden sind  & 076  &  &  & \multicolumn{2}{l}{}\\
+4.33  & Erwerbe gemäß Art. 3 Abs. 8 zweiter Satz, die gemäß Art. 25 Abs. 2 im Inland als besteuert gelten  & 077  &  &  & \multicolumn{2}{l}{}\\
+5.  & \multicolumn{6}{l}{Berechnung der abziehbaren Vorsteuer: }\\
+5.1  & Gesamtbetrag der Vorsteuern (ohne die nachstehend gesondert anzuführenden Beträge)  & 060  & \multicolumn{2}{l}{} & -  & 205.68 \\
+5.2  & Vorsteuern betreffend die entrichtete Einfuhrumsatzsteuer (§ 12 Abs. 1 Z 2 lit. a)  & 061  & \multicolumn{2}{l}{} & -  & 400.00 \\
+5.3  & Vorsteuern betreffend die geschuldete, auf dem Abgabenkonto verbuchte Einfuhrumsatzsteuer (§ 12 Abs. 1 Z 2 lit. b)  & 083  & \multicolumn{2}{l}{} & -  & 900.00 \\
+5.4  & Vorsteuern aus dem innergemeinschaftlichen Erwerb  & 065  & \multicolumn{2}{l}{} & -  & 46.00 \\
+5.5  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1 zweiter Satz, § 19 Abs. 1c, 1e sowie gemäß Art. 25 Abs. 5  & 066  & \multicolumn{2}{l}{} & -  & 200.00 \\
+5.6  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1a (Bauleistungen)  & 082  & \multicolumn{2}{l}{} & -  & \\
+5.7  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1b (Sicherungseigentum, Vorbehaltseigentum und Grundstücke im Zwangsversteigerungsverfahren)  & 087  & \multicolumn{2}{l}{} & -  & \\
+5.8  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe)  & 089  & \multicolumn{2}{l}{} & -  & \\
+5.9  & Vorsteuern für innergemeinschaftliche Lieferungen neuer Fahrzeuge von Fahrzeuglieferern gemäß Art. 2  & 064  & \multicolumn{2}{l}{} & -  & \\
+5.10  & Davon nicht abzugsfähig gemäß § 12 Abs. 3 iVm Abs. 4 und 5  & 062  & \multicolumn{2}{l}{} & +  & \\
+5.11  & Berichtigung gemäß § 12 Abs. 10 und 11  & 063  & \multicolumn{2}{l}{} & +/-  & \\
+5.12  & Berichtigung gemäß § 16  & 067  & \multicolumn{2}{l}{} & +/-  & \\
+5.13  & \multicolumn{4}{l}{Gesamtbetrag der abziehbaren Vorsteuer } & -  & 1'751.68 \\
+6.  & \multicolumn{6}{l}{Sonstige Berichtigungen: }\\
+ &  & 090  & \multicolumn{2}{l}{} & +/-  & \\
+7.1  & Vorauszahlung (Zahllast)  & 095  & \multicolumn{2}{l}{} &  & 324.32 \\
+\end{longtable}
+- \#page-nr - \\
+\end{reportvalue}
+\begin{reportvalue}{Second trimester report}
+[  ] Umsatzsteuervoranmeldung 2022 \\
+[  ] Berichtige Umsatzsteuervoranmeldung 2022 \\
+\begin{longtable}[l]{ l  l  l  l }
+1. Abgabenkontonummer  & \multicolumn{3}{l}{2. Zeitraum }\\
+1.1 Finanzamtsnummer - Steuernummer  & \multicolumn{3}{l}{2.2 Kalenderquartal }\\
+031234567  & 01.04.2022  & bis   & 30.06.2022 \\
+1.2  [  ]  Steuernummer noch nicht vorhanden  & \multicolumn{3}{l}{}\\
+\multicolumn{4}{l}{3. Angaben zum Unternehmen }\\
+\multicolumn{4}{l}{3.1 BEZEICHNUNG DES UNTERNEHMENS (BLOCKSCHRIFT) }\\
+\multicolumn{4}{l}{EINZELUNTERNEHMERIN XY }\\
+\multicolumn{3}{l}{3.2 STRASSE (BLOCKSCHRIFT) } & 3.3 Hausnummer \\
+\multicolumn{3}{l}{MUSTERGASSE } & \\
+3.4 Stiege  & 3.5 Türnummer  & 3.6 Land  & 3.7 Telefonnummer \\
+ &  &  & \\
+3.8 Postleitzahl  & \multicolumn{3}{l}{3.9 ORT (BLOCKSCHRIFT) }\\
+1010  & \multicolumn{3}{l}{WIEN }\\
+\end{longtable}
+\begin{longtable}[l]{ l  l  l  l  l  l  l }
+\multicolumn{7}{l}{}\\
+4.  & \multicolumn{5}{l}{Berechnung der Umsatzsteuer: } & Bemessungsgrundlage \\
+\multicolumn{7}{l}{Lieferungen, sonstige Leistungen und Eigenverbrauch: }\\
+4.1  & Gesamtbetrag der Bemessungsgrundlage für Lieferungen und sonstige Leistungen (ohne den nachstehend angeführten Eigenverbrauch) einschließlich Anzahlungen (jeweils ohne Umsatzsteuer)  & 000  & \multicolumn{2}{l}{} &  & 0.00 \\
+4.2  & zuzüglich Eigenverbrauch (§ 1 Abs. 1 Z 2, § 3 Abs. 2 und § 3a Abs. 1a)  & 001  & \multicolumn{2}{l}{} & +  & 0.00 \\
+4.3  & abzüglich Umsätze, für die die Steuerschuld gemäß § 19 Abs. 1 zweiter Satz sowie gemäß § 19 Abs. 1a, 1b, 1c, 1d und 1e auf den Leistungsempfänger übergegangen ist.  & 021  & \multicolumn{2}{l}{} & -  & 0.00 \\
+4.4  & \multicolumn{4}{l}{SUMME } &  & 0.00 \\
+\multicolumn{7}{l}{Davon steuerfrei MIT Vorsteuerabzug gemäß }\\
+4.5  & § 6 Abs. 1 Z 1 iVm § 7 (Ausfuhrlieferungen)  & 011  & \multicolumn{2}{l}{} & -  & 0.00 \\
+4.6  & § 6 Abs. 1 Z 1 iVm § 8 (Lohnveredelungen)  & 012  & \multicolumn{2}{l}{} & -  & 0.00 \\
+4.7  & § 6 Abs. 1 Z 2 bis 6 sowie § 23 Abs. 5 (Seeschifffahrt, Luftfahrt, grenzüberschreitende Personenbeförderung, Diplomaten, Reisevorleistungen im Drittlandsgebiet usw.).  & 015  & \multicolumn{2}{l}{} & -  & 0.00 \\
+4.8  & Art. 6 Abs. 1 (innergemeinschaftliche Lieferungen ohne die nachstehend gesondert anzuführenden Fahrzeuglieferungen)  & 017  & \multicolumn{2}{l}{} & -  & 0.00 \\
+4.9  & Art. 6 Abs. 1, sofern Lieferungen neuer Fahrzeuge an Abnehmer ohne UID-Nummer bzw. durch Fahrzeuglieferer gemäß Art. 2 erfolgten.  & 018  & \multicolumn{2}{l}{} & -  & 0.00 \\
+\multicolumn{7}{l}{Davon steuerfrei OHNE Vorsteuerabzug gemäß }\\
+4.10  & § 6 Abs. 1 Z 9 lit. a (Grundstücksumsätze)  & 019  & \multicolumn{2}{l}{} & -  & 0.00 \\
+4.11  & § 6 Abs. 1 Z 27 (Kleinunternehmer)  & 016  & \multicolumn{2}{l}{} & -  & 0.00 \\
+4.12  & § 6 Abs. 1 Z (übrige steuerfreie Umsätze ohne Vorsteuerabzug)  & 020  & \multicolumn{2}{l}{} & -  & 0.00 \\
+4.13  & \multicolumn{4}{l}{Gesamtbetrag der steuerpflichtigen Lieferungen, sonstigen Leistungen und Eigenverbrauch (einschließlich steuerpflichtiger Anzahlungen) } &  & \\
+\multicolumn{4}{l}{Davon sind zu versteuern mit: } & Bemessungsgrundlage  &  & Umsatzsteuer \\
+4.14  & 20\% Normalsteuersatz  & 022  &  & 0.00  &  & 0.00 \\
+4.15  & 10\% ermäßigter Steuersatz  & 029  &  & 0.00  & +  & 0.00 \\
+4.16  & 13\% ermäßigter Steuersatz  & 006  &  & 0.00  & +  & 0.00 \\
+4.17  & 19\% für Jungholz und Mittelberg  & 037  &  & 0.00  & +  & 0.00 \\
+4.18  & 10\% Zusatzsteuer für pauschalierte land- und forstwirtschaftliche Betriebe  & 052  &  & 0.00  & +  & 0.00 \\
+4.19  & 7\% Zusatzsteuer für pauschalierte land- und forstwirtschaftliche Betriebe  & 007  &  & 0.00  & +  & 0.00 \\
+\multicolumn{7}{l}{Weiters zu versteuern: }\\
+4.20  & Steuerschuld gemäß § 11 Abs. 12 und 14, § 16 Abs. 2 sowie gemäß Art. 7 Abs. 4  & 056  & \multicolumn{2}{l}{} & +  & 0.00 \\
+4.21  & Steuerschuld gemäß § 19 Abs. 1 zweiter Satz, § 19 Abs. 1c, 1e sowie gemäß Art. 25 Abs. 5  & 057  & \multicolumn{2}{l}{} & +  & 0.00 \\
+4.22  & Steuerschuld gemäß § 19 Abs. 1a (Bauleistungen)  & 048  & \multicolumn{2}{l}{} & +  & 0.00 \\
+4.23  & Steuerschuld gemäß § 19 Abs. 1b (Sicherungseigentum, Vorbehaltseigentum und Grundstücke im Zwangsversteigerungsverfahren)  & 044  & \multicolumn{2}{l}{} & +  & 0.00 \\
+4.24  & Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe)  & 032  & \multicolumn{2}{l}{} & +  & 0.00 \\
+\multicolumn{4}{l}{Innergemeinschaftliche Erwerbe: } & Bemessungsgrundlage  & \multicolumn{2}{l}{}\\
+4.25  & Gesamtbetrag der Bemessungsgrundlagen für innergemeinschaftliche Erwerbe  & 070  &  & 0.00  & \multicolumn{2}{l}{}\\
+4.26  & Davon steuerfrei gemäß Art. 6 Abs. 2  & 071  & -  & 0.00  & \multicolumn{2}{l}{}\\
+4.27  & \multicolumn{2}{l}{Gesamtbetrag der steuerpflichtigen innergemeinschaftlichen Erwerbe } &  & 230.00  & \multicolumn{2}{l}{}\\
+\multicolumn{7}{l}{Davon sind zu versteuern mit: }\\
+4.28  & 20\% Normalsteuersatz  & 072  &  & 0.00  & +  & 0.00 \\
+4.29  & 10\% ermäßigter Steuersatz  & 073  &  & 0.00  & +  & 0.00 \\
+4.30  & 13\% ermäßigter Steuersatz  & 008  &  & 0.00  & +  & 0.00 \\
+4.31  & 19\% für Jungholz und Mittelberg  & 088  &  & 0.00  & +  & 0.00 \\
+\multicolumn{7}{l}{Nicht zu versteuernde Erwerbe: }\\
+4.32  & Erwerbe gemäß Art. 3 Abs. 8 zweiter Satz, die im Mitgliedstaat des Bestimmungslandes besteuert worden sind  & 076  &  & 0.00  & \multicolumn{2}{l}{}\\
+4.33  & Erwerbe gemäß Art. 3 Abs. 8 zweiter Satz, die gemäß Art. 25 Abs. 2 im Inland als besteuert gelten  & 077  &  & 0.00  & \multicolumn{2}{l}{}\\
+5.  & \multicolumn{6}{l}{Berechnung der abziehbaren Vorsteuer: }\\
+5.1  & Gesamtbetrag der Vorsteuern (ohne die nachstehend gesondert anzuführenden Beträge)  & 060  & \multicolumn{2}{l}{} & -  & 0.00 \\
+5.2  & Vorsteuern betreffend die entrichtete Einfuhrumsatzsteuer (§ 12 Abs. 1 Z 2 lit. a)  & 061  & \multicolumn{2}{l}{} & -  & 0.00 \\
+5.3  & Vorsteuern betreffend die geschuldete, auf dem Abgabenkonto verbuchte Einfuhrumsatzsteuer (§ 12 Abs. 1 Z 2 lit. b)  & 083  & \multicolumn{2}{l}{} & -  & 0.00 \\
+5.4  & Vorsteuern aus dem innergemeinschaftlichen Erwerb  & 065  & \multicolumn{2}{l}{} & -  & 0.00 \\
+5.5  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1 zweiter Satz, § 19 Abs. 1c, 1e sowie gemäß Art. 25 Abs. 5  & 066  & \multicolumn{2}{l}{} & -  & 0.00 \\
+5.6  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1a (Bauleistungen)  & 082  & \multicolumn{2}{l}{} & -  & 0.00 \\
+5.7  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1b (Sicherungseigentum, Vorbehaltseigentum und Grundstücke im Zwangsversteigerungsverfahren)  & 087  & \multicolumn{2}{l}{} & -  & 0.00 \\
+5.8  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe)  & 089  & \multicolumn{2}{l}{} & -  & 0.00 \\
+5.9  & Vorsteuern für innergemeinschaftliche Lieferungen neuer Fahrzeuge von Fahrzeuglieferern gemäß Art. 2  & 064  & \multicolumn{2}{l}{} & -  & 0.00 \\
+5.10  & Davon nicht abzugsfähig gemäß § 12 Abs. 3 iVm Abs. 4 und 5  & 062  & \multicolumn{2}{l}{} & +  & 0.00 \\
+5.11  & Berichtigung gemäß § 12 Abs. 10 und 11  & 063  & \multicolumn{2}{l}{} & +/-  & 0.00 \\
+5.12  & Berichtigung gemäß § 16  & 067  & \multicolumn{2}{l}{} & +/-  & 0.00 \\
+5.13  & \multicolumn{4}{l}{Gesamtbetrag der abziehbaren Vorsteuer } & -  & 0.00 \\
+6.  & \multicolumn{6}{l}{Sonstige Berichtigungen: }\\
+ &  & 090  & \multicolumn{2}{l}{} & +/-  & 0.00 \\
+7.1  & Vorauszahlung (Zahllast)  & 095  & \multicolumn{2}{l}{} &  & 324.32 \\
+\end{longtable}
+Warning! Different values: Total 4.27 <230.00>, Total 4.28.1;4.29.1;4.30.1;4.31.1 <0.00> \\
+Warning! Different values: Total from Banana <0.00>, Total from report <324.32> \\
+- \#page-nr - \\
+\end{reportvalue}
+\begin{reportvalue}{January report}
+[  ] Umsatzsteuervoranmeldung 2022 \\
+[  ] Berichtige Umsatzsteuervoranmeldung 2022 \\
+\begin{longtable}[l]{ l  l  l  l }
+1. Abgabenkontonummer  & \multicolumn{3}{l}{2. Zeitraum }\\
+1.1 Finanzamtsnummer - Steuernummer  & \multicolumn{3}{l}{2.1 für den Kalendermonat }\\
+031234567  & Januar  & 2022  &   \\
+1.2  [  ]  Steuernummer noch nicht vorhanden  & \multicolumn{3}{l}{}\\
+\multicolumn{4}{l}{3. Angaben zum Unternehmen }\\
+\multicolumn{4}{l}{3.1 BEZEICHNUNG DES UNTERNEHMENS (BLOCKSCHRIFT) }\\
+\multicolumn{4}{l}{EINZELUNTERNEHMERIN XY }\\
+\multicolumn{3}{l}{3.2 STRASSE (BLOCKSCHRIFT) } & 3.3 Hausnummer \\
+\multicolumn{3}{l}{MUSTERGASSE } & \\
+3.4 Stiege  & 3.5 Türnummer  & 3.6 Land  & 3.7 Telefonnummer \\
+ &  &  & \\
+3.8 Postleitzahl  & \multicolumn{3}{l}{3.9 ORT (BLOCKSCHRIFT) }\\
+1010  & \multicolumn{3}{l}{WIEN }\\
+\end{longtable}
+\begin{longtable}[l]{ l  l  l  l  l  l  l }
+\multicolumn{7}{l}{}\\
+4.  & \multicolumn{5}{l}{Berechnung der Umsatzsteuer: } & Bemessungsgrundlage \\
+\multicolumn{7}{l}{Lieferungen, sonstige Leistungen und Eigenverbrauch: }\\
+4.1  & Gesamtbetrag der Bemessungsgrundlage für Lieferungen und sonstige Leistungen (ohne den nachstehend angeführten Eigenverbrauch) einschließlich Anzahlungen (jeweils ohne Umsatzsteuer)  & 000  & \multicolumn{2}{l}{} &  & 0.00 \\
+4.2  & zuzüglich Eigenverbrauch (§ 1 Abs. 1 Z 2, § 3 Abs. 2 und § 3a Abs. 1a)  & 001  & \multicolumn{2}{l}{} & +  & 0.00 \\
+4.3  & abzüglich Umsätze, für die die Steuerschuld gemäß § 19 Abs. 1 zweiter Satz sowie gemäß § 19 Abs. 1a, 1b, 1c, 1d und 1e auf den Leistungsempfänger übergegangen ist.  & 021  & \multicolumn{2}{l}{} & -  & 0.00 \\
+4.4  & \multicolumn{4}{l}{SUMME } &  & 0.00 \\
+\multicolumn{7}{l}{Davon steuerfrei MIT Vorsteuerabzug gemäß }\\
+4.5  & § 6 Abs. 1 Z 1 iVm § 7 (Ausfuhrlieferungen)  & 011  & \multicolumn{2}{l}{} & -  & 0.00 \\
+4.6  & § 6 Abs. 1 Z 1 iVm § 8 (Lohnveredelungen)  & 012  & \multicolumn{2}{l}{} & -  & 0.00 \\
+4.7  & § 6 Abs. 1 Z 2 bis 6 sowie § 23 Abs. 5 (Seeschifffahrt, Luftfahrt, grenzüberschreitende Personenbeförderung, Diplomaten, Reisevorleistungen im Drittlandsgebiet usw.).  & 015  & \multicolumn{2}{l}{} & -  & 0.00 \\
+4.8  & Art. 6 Abs. 1 (innergemeinschaftliche Lieferungen ohne die nachstehend gesondert anzuführenden Fahrzeuglieferungen)  & 017  & \multicolumn{2}{l}{} & -  & 0.00 \\
+4.9  & Art. 6 Abs. 1, sofern Lieferungen neuer Fahrzeuge an Abnehmer ohne UID-Nummer bzw. durch Fahrzeuglieferer gemäß Art. 2 erfolgten.  & 018  & \multicolumn{2}{l}{} & -  & 0.00 \\
+\multicolumn{7}{l}{Davon steuerfrei OHNE Vorsteuerabzug gemäß }\\
+4.10  & § 6 Abs. 1 Z 9 lit. a (Grundstücksumsätze)  & 019  & \multicolumn{2}{l}{} & -  & 0.00 \\
+4.11  & § 6 Abs. 1 Z 27 (Kleinunternehmer)  & 016  & \multicolumn{2}{l}{} & -  & 0.00 \\
+4.12  & § 6 Abs. 1 Z (übrige steuerfreie Umsätze ohne Vorsteuerabzug)  & 020  & \multicolumn{2}{l}{} & -  & 0.00 \\
+4.13  & \multicolumn{4}{l}{Gesamtbetrag der steuerpflichtigen Lieferungen, sonstigen Leistungen und Eigenverbrauch (einschließlich steuerpflichtiger Anzahlungen) } &  & \\
+\multicolumn{4}{l}{Davon sind zu versteuern mit: } & Bemessungsgrundlage  &  & Umsatzsteuer \\
+4.14  & 20\% Normalsteuersatz  & 022  &  & 0.00  &  & 0.00 \\
+4.15  & 10\% ermäßigter Steuersatz  & 029  &  & 0.00  & +  & 400.00 \\
+4.16  & 13\% ermäßigter Steuersatz  & 006  &  & 0.00  & +  & 390.00 \\
+4.17  & 19\% für Jungholz und Mittelberg  & 037  &  & 0.00  & +  & 0.00 \\
+4.18  & 10\% Zusatzsteuer für pauschalierte land- und forstwirtschaftliche Betriebe  & 052  &  & 0.00  & +  & 0.00 \\
+4.19  & 7\% Zusatzsteuer für pauschalierte land- und forstwirtschaftliche Betriebe  & 007  &  & 0.00  & +  & 0.00 \\
+\multicolumn{7}{l}{Weiters zu versteuern: }\\
+4.20  & Steuerschuld gemäß § 11 Abs. 12 und 14, § 16 Abs. 2 sowie gemäß Art. 7 Abs. 4  & 056  & \multicolumn{2}{l}{} & +  & 0.00 \\
+4.21  & Steuerschuld gemäß § 19 Abs. 1 zweiter Satz, § 19 Abs. 1c, 1e sowie gemäß Art. 25 Abs. 5  & 057  & \multicolumn{2}{l}{} & +  & 200.00 \\
+4.22  & Steuerschuld gemäß § 19 Abs. 1a (Bauleistungen)  & 048  & \multicolumn{2}{l}{} & +  & 0.00 \\
+4.23  & Steuerschuld gemäß § 19 Abs. 1b (Sicherungseigentum, Vorbehaltseigentum und Grundstücke im Zwangsversteigerungsverfahren)  & 044  & \multicolumn{2}{l}{} & +  & 0.00 \\
+4.24  & Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe)  & 032  & \multicolumn{2}{l}{} & +  & 0.00 \\
+\multicolumn{4}{l}{Innergemeinschaftliche Erwerbe: } & Bemessungsgrundlage  & \multicolumn{2}{l}{}\\
+4.25  & Gesamtbetrag der Bemessungsgrundlagen für innergemeinschaftliche Erwerbe  & 070  &  & 230.00  & \multicolumn{2}{l}{}\\
+4.26  & Davon steuerfrei gemäß Art. 6 Abs. 2  & 071  & -  & 0.00  & \multicolumn{2}{l}{}\\
+4.27  & \multicolumn{2}{l}{Gesamtbetrag der steuerpflichtigen innergemeinschaftlichen Erwerbe } &  & 230.00  & \multicolumn{2}{l}{}\\
+\multicolumn{7}{l}{Davon sind zu versteuern mit: }\\
+4.28  & 20\% Normalsteuersatz  & 072  &  & 230.00  & +  & 46.00 \\
+4.29  & 10\% ermäßigter Steuersatz  & 073  &  & 0.00  & +  & 0.00 \\
+4.30  & 13\% ermäßigter Steuersatz  & 008  &  & 0.00  & +  & 0.00 \\
+4.31  & 19\% für Jungholz und Mittelberg  & 088  &  & 0.00  & +  & 0.00 \\
+\multicolumn{7}{l}{Nicht zu versteuernde Erwerbe: }\\
+4.32  & Erwerbe gemäß Art. 3 Abs. 8 zweiter Satz, die im Mitgliedstaat des Bestimmungslandes besteuert worden sind  & 076  &  & 0.00  & \multicolumn{2}{l}{}\\
+4.33  & Erwerbe gemäß Art. 3 Abs. 8 zweiter Satz, die gemäß Art. 25 Abs. 2 im Inland als besteuert gelten  & 077  &  & 0.00  & \multicolumn{2}{l}{}\\
+5.  & \multicolumn{6}{l}{Berechnung der abziehbaren Vorsteuer: }\\
+5.1  & Gesamtbetrag der Vorsteuern (ohne die nachstehend gesondert anzuführenden Beträge)  & 060  & \multicolumn{2}{l}{} & -  & 205.68 \\
+5.2  & Vorsteuern betreffend die entrichtete Einfuhrumsatzsteuer (§ 12 Abs. 1 Z 2 lit. a)  & 061  & \multicolumn{2}{l}{} & -  & 400.00 \\
+5.3  & Vorsteuern betreffend die geschuldete, auf dem Abgabenkonto verbuchte Einfuhrumsatzsteuer (§ 12 Abs. 1 Z 2 lit. b)  & 083  & \multicolumn{2}{l}{} & -  & 900.00 \\
+5.4  & Vorsteuern aus dem innergemeinschaftlichen Erwerb  & 065  & \multicolumn{2}{l}{} & -  & 46.00 \\
+5.5  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1 zweiter Satz, § 19 Abs. 1c, 1e sowie gemäß Art. 25 Abs. 5  & 066  & \multicolumn{2}{l}{} & -  & 200.00 \\
+5.6  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1a (Bauleistungen)  & 082  & \multicolumn{2}{l}{} & -  & 0.00 \\
+5.7  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1b (Sicherungseigentum, Vorbehaltseigentum und Grundstücke im Zwangsversteigerungsverfahren)  & 087  & \multicolumn{2}{l}{} & -  & 0.00 \\
+5.8  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe)  & 089  & \multicolumn{2}{l}{} & -  & 0.00 \\
+5.9  & Vorsteuern für innergemeinschaftliche Lieferungen neuer Fahrzeuge von Fahrzeuglieferern gemäß Art. 2  & 064  & \multicolumn{2}{l}{} & -  & 0.00 \\
+5.10  & Davon nicht abzugsfähig gemäß § 12 Abs. 3 iVm Abs. 4 und 5  & 062  & \multicolumn{2}{l}{} & +  & 0.00 \\
+5.11  & Berichtigung gemäß § 12 Abs. 10 und 11  & 063  & \multicolumn{2}{l}{} & +/-  & 0.00 \\
+5.12  & Berichtigung gemäß § 16  & 067  & \multicolumn{2}{l}{} & +/-  & 0.00 \\
+5.13  & \multicolumn{4}{l}{Gesamtbetrag der abziehbaren Vorsteuer } & -  & 0.00 \\
+6.  & \multicolumn{6}{l}{Sonstige Berichtigungen: }\\
+ &  & 090  & \multicolumn{2}{l}{} & +/-  & 0.00 \\
+7.1  & Vorauszahlung (Zahllast)  & 095  & \multicolumn{2}{l}{} &  & 324.32 \\
+\end{longtable}
+Warning! Different values: Total 4.27 <230.00>, Total 4.28.1;4.29.1;4.30.1;4.31.1 <0.00> \\
+Warning! Different values: Total from Banana <0.00>, Total from report <324.32> \\
+Warning! Different values: Total 4.13 <0.00>, Total 4.14.1;4.15.1;4.16.1;4.17.1;4.18.1;4.19.1 <12'000.00> \\
+Warning! Different values: Total from Banana <284.32>, Total from report <324.32> \\
+- \#page-nr - \\
+\end{reportvalue}
+\begin{tablevalue}{Vat codes table}{ l  l  l  l  l  l  l  l  l  l }
+Group & VatCode & Description & Gr & Gr1 & IsDue & AmountType & VatRate & VatRateOnGross & VatAccount\\
+ &  & UMSATZSTEUER &  &  &  &  &  &  & \\
+ & U-EV10 & Eigenverbrauch, welcher 10\% USt unterliegt & 1 & 001;029 & 1 & 1 & 10.00 &  & \\
+ & U-EV13 & Eigenverbrauch, welcher 13\% USt unterliegt & 1 & 001;006 & 1 & 1 & 13.00 &  & \\
+ & U-EV20 & Eigenverbrauch, welcher 20\% USt unterliegt & 1 & 001;022 & 1 & 1 & 20.00 &  & \\
+ & U-§19 & Umsätze mit Übergang der Steuerschuld (Reverse Charge) & 1 & 000;021 & 1 & 1 &  &  & \\
+ &  & Davon umsatzsteuerbefreit MIT Vorsteuerabzug &  &  &  &  &  &  & \\
+ & U-AUSF & Ausfuhrlieferungen in Drittländer (non-EU) & 1 & 000;011 & 1 &  &  &  & \\
+ & U-LOHN & Lohnveredelungen & 1 & 000;012 & 1 &  &  &  & \\
+ & U-SONST & Sonstige umsatzsteuerbefreite mit Vorsteuerabzug & 1 & 000;015 & 1 &  &  &  & \\
+ & IG-LIEF & Innergemeinschaftliche Lieferungen & 1 & 000;017 & 1 &  &  &  & \\
+ & U-FZGL & Fahrzeuglieferungen & 1 & 000;018 & 1 &  &  &  & \\
+ &  & Davon umsatzsteuerbefreit OHNE Vorsteuerabzug &  &  &  &  &  &  & \\
+ & U-GRST & Grundstücksumsätze & 1 & 000;019 & 1 & 1 &  &  & \\
+ & U-KLEIN & Kleinunternehmer & 1 & 000;016 & 1 & 1 &  &  & \\
+ & U-00 & übrige steuerfreie Umsätze ohne Vorsteuerabzug & 1 & 000;020 & 1 & 1 &  &  & \\
+ &  & Davon sind zu versteuern mit: &  &  &  &  &  &  & \\
+ & U20 & Umsatzsteuer 20 \% & 1 & 000;022 & 1 &  & 20.00 &  & \\
+ & U10 & Umsatzsteuer 10 \% & 1 & 000;029 & 1 &  & 10.00 &  & \\
+ & U13 & Umsatzsteuer 13\% & 1 & 000;006 & 1 &  & 13.00 &  & \\
+ & U19 & Umsatzsteuer 19\% & 1 & 000;037 & 1 &  & 19.00 &  & \\
+ & U10-L\&F & Zusatzsteuer 10 \% & 1 & 000;052 & 1 &  & 10.00 &  & \\
+ & U07-L\&F & Zusatzsteuer 7 \% & 1 & 000;007 & 1 &  & 7.00 &  & \\
+ &  & Weiters zu versteuern: &  &  &  &  &  &  & \\
+ & U-§11 & inbes. Steuerschuld kraft Rechnung (§11 Abs. 12) u.a. & 1 & 056 & 1 & 2 &  &  & \\
+ & RC-U10 & Steuerschuld gem. § 19 Abs. 1 (Reverse Charge) 10\% & 1 & 057 & 1 & 1 & 10.00 &  & 3560\\
+ & RC-U13 & Steuerschuld gem. § 19 Abs. 1 (Reverse Charge) 13\% & 1 & 057 & 1 & 1 & 13.00 &  & 3560\\
+ & RC-U20 & Steuerschuld gem. § 19 Abs. 1 (Reverse Charge) 20\% & 1 & 057 & 1 & 1 & 20.00 &  & 3560\\
+ & RC-U-BAUL & Steuerschuld gem. § 19 Abs. 1a (Bauleistungen) & 1 & 048 & 1 & 1 & 20.00 &  & 3561\\
+ & RC-U-SICH & Steuerschuld gem. § 19 Abs. 1b & 1 & 044 & 1 & 1 & 20.00 &  & 3562\\
+ & RC-U-SCHR & Steuerschuld gem. § 19 Abs. 1d (Schrott und Abfallstoffe etc.) & 1 & 032 & 1 & 1 & 20.00 &  & 3563\\
+ &  & Innergemeinschaftliche Erwerbe &  &  &  &  &  &  & \\
+ & IGE-00 & Innergemeinschaftlicher Erwerb (im Inland steuerbefreit) & 1 & 070;071 & 1 &  &  &  & \\
+ & IGE-U10 & Innergemeinschaftlicher Erwerb 10\% & 1 & 070;073 & 1 & 1 & 10.00 &  & 3550\\
+ & IGE-U13 & Innergemeinschaftlicher Erwerb 13\% & 1 & 070;008 & 1 & 1 & 13.00 &  & 3550\\
+ & IGE-U20 & Innergemeinschaftlicher Erwerb 20\% & 1 & 070;072 & 1 & 1 & 20.00 &  & 3550\\
+ & IGE-U19 & Innergemeinschaftlicher Erwerb 19\% für Jungholz und Mittelberg & 1 & 070;088 & 1 & 1 & 19.00 &  & 3550\\
+ &  & Nicht zu versteuernde Erwerbe &  &  &  &  &  &  & \\
+ & IGE-NZV-EU & Innergemeinschaftlicher Erwerb, nicht zu versteuern &  & 076 & 1 &  &  &  & \\
+ & IGE-NZV-IL & Innergemeinschaftlicher Erwerb, nicht zu versteuern &  & 077 & 1 &  &  &  & \\
+ &  & Innergemeinschaftliche Leistungen &  &  &  &  &  &  & \\
+ & IG-LEIS & Innergemeinschaftliche Leistungen (nicht ustbar) & 1 & ZM &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  & \\
+1 &  & Total Umsatzsteuer & T &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  & \\
+ &  & VORSTEUER &  &  &  &  &  &  & \\
+ & V10 & Vorsteuer 10\% & 2 & 060 &  &  & 10.00 &  & 2500\\
+ & V13 & Vorsteuer 13\% & 2 & 060 &  &  & 13.00 &  & 2500\\
+ & V20 & Vorsteuer 20\% & 2 & 060 &  &  & 20.00 &  & 2500\\
+ & EUST & Einfuhrumsatzsteuer & 2 & 061 &  & 2 &  &  & 2510\\
+ & EUST-FA & Einfuhrumsatzsteuer (auf dem Abgabenkonto verbuchte) & 2 & 083 &  & 2 &  &  & 2520\\
+ & IGE-V10 & Vorsteuern aus dem innergemeinschaftlichen Erwerb & 2 & 065 &  & 1 & 10.00 &  & 2550\\
+ & IGE-V13 & Vorsteuern aus dem innergemeinschaftlichen Erwerb & 2 & 065 &  & 1 & 13.00 &  & 2550\\
+ & IGE-V20 & Vorsteuern aus dem innergemeinschaftlichen Erwerb & 2 & 065 &  & 1 & 20.00 &  & 2550\\
+ & IGE-V19 & Vorsteuern aus dem innergemeinschaftlichen Erwerb & 2 & 065 &  & 1 & 19.00 &  & 2550\\
+ & RC-V10 & Vorsteuern gem. § 19 Abs. 1 (Reverse Charge) 10\% & 2 & 066 &  & 1 & 10.00 &  & 2560\\
+ & RC-V13 & Vorsteuern gem. § 19 Abs. 1 (Reverse Charge) 13\% & 2 & 066 &  & 1 & 13.00 &  & 2560\\
+ & RC-V20 & Vorsteuern gem. § 19 Abs. 1 (Reverse Charge) 20\% & 2 & 066 &  & 1 & 20.00 &  & 2560\\
+ & RC-V-BAUL & Vorsteuern gem. § 19 Abs. 1a (Bauleistungen) & 2 & 082 &  & 1 & 20.00 &  & 2561\\
+ & RC-V-SICH & Vorsteuern gem. § 19 Abs. 1b & 2 & 087 &  & 1 & 20.00 &  & 2562\\
+ & RC-V-SCHR & Vorsteuern gem. § 19 Abs. 1d (Schrott und Abfallstoffe etc.) & 2 & 089 &  & 1 & 20.00 &  & 2563\\
+ & V-FZG & Vorsteuern für innergemeinschaftliche Fahrzeuglieferungen & 2 & 064 &  & 1 & 20.00 &  & 2580\\
+ & V-NABZ & Vorsteuer nicht abzugsfähig & 2 & 062 & 1 & 2 &  &  & 2599\\
+ & KORR§12 & Vorsteuern zu berichtigen nach § 12 & 2 & 063 & 1 & 2 &  &  & 2599\\
+ & KORR§16 & Vorsteuern zu berichtigen nach § 16 & 2 & 067 & 1 & 2 &  &  & 2599\\
+ &  &  &  &  &  &  &  &  & \\
+2 &  & Total Vorsteuer & T &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  & \\
+T &  & TOTAL &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  & \\
+ &  &  &  &  &  &  &  &  & \\
+\end{tablevalue}
+\keyvalue{Result}{Passed}
+\end{test}
+\end{testcase}
+\end{document}
