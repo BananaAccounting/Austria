@@ -1,4 +1,4 @@
-// @id = ch.banana.switzerland.import.rbm
+// @id = ch.banana.austria.import.rbm
 // @api = 1.0
 // @pubdate = 2023-06-16
 // @publisher = Banana.ch SA
