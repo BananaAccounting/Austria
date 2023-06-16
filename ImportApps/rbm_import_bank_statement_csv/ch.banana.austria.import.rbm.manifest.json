@@ -1,0 +1,19 @@
+{
+    "category": "import",
+    "country": "austria",
+    "countryCode": "at",
+    "description": "Raiffeisenbank Burgenland Mitte - Import bank account statement .csv (Banana+ Advanced)",
+    "description.en": "Raiffeisenbank Burgenland Mitte - Import bank account statement .csv (Banana+ Advanced)",
+    "description.de": "Raiffeisenbank Burgenland Mitte - Kontoauszug importieren .csv (Banana+ Advanced)",
+    "description.fr": "Raiffeisenbank Burgenland Mitte - Importer un relevé de compte bancaire .csv (Banana+ Advanced)",
+    "description.it": "Raiffeisenbank Burgenland Mitte - Importa movimenti estratto conto bancario .csv (Banana+ Advanced)",
+    "id": "ch.banana.austria.import.rbm",
+    "language": "en",
+    "publisher": "Banana.ch",
+    "title": "Raiffeisenbank Burgenland Mitte - Import bank account statement .csv (Banana+ Advanced)",
+    "title.en": "Raiffeisenbank Burgenland Mitte - Import bank account statement .csv (Banana+ Advanced)",
+    "title.de": "Raiffeisenbank Burgenland Mitte - Kontoauszug importieren .csv (Banana+ Advanced)",
+    "title.fr": "Raiffeisenbank Burgenland Mitte - Importer un relevé de compte bancaire .csv (Banana+ Advanced)",
+    "title.it": "Raiffeisenbank Burgenland Mitte - Importa movimenti estratto conto bancario .csv (Banana+ Advanced)",
+    "version": "1.0"
+}
