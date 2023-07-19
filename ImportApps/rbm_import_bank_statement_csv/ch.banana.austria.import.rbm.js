@@ -2,11 +2,11 @@
 // @api = 1.0
 // @pubdate = 2023-06-16
 // @publisher = Banana.ch SA
-// @description = Raiffeisenbank Burgenland Mitte - Import bank account statement .csv (Banana+ Advanced)
-// @description.en = Raiffeisenbank Burgenland Mitte - Import bank account statement .csv (Banana+ Advanced)
-// @description.de = Raiffeisenbank Burgenland Mitte - Kontoauszug importieren .csv (Banana+ Advanced)
-// @description.fr = Raiffeisenbank Burgenland Mitte - Importer un relevé de compte bancaire .csv (Banana+ Advanced)
-// @description.it = Raiffeisenbank Burgenland Mitte - Importa movimenti estratto conto bancario .csv (Banana+ Advanced)
+// @description = Raiffeisenbank Burgenland Mitte - Import account statement .csv (Banana+ Advanced)
+// @description.en = Raiffeisenbank Burgenland Mitte - Import account statement .csv (Banana+ Advanced)
+// @description.de = Raiffeisenbank Burgenland Mitte - Bewegungen importieren .csv (Banana+ Advanced)
+// @description.fr = Raiffeisenbank Burgenland Mitte - Importer mouvements .csv (Banana+ Advanced)
+// @description.it = Raiffeisenbank Burgenland Mitte - Importa movimenti .csv (Banana+ Advanced)
 // @doctype = *
 // @docproperties =
 // @task = import.transactions
