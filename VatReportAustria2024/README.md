@@ -1,7 +1,7 @@
 # Vat Report Austria 2024  
 
 ## Prerequisites
-Banana Accounting Plus with Professional Plan.  
+Banana Accounting Plus.  
 
 ## How to use the Vat Report
 1. Install last version of Banana Accounting Plus [https://www.banana.ch/de/download]
