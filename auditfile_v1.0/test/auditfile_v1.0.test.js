@@ -1,4 +1,4 @@
-// Copyright [2018] [Banana.ch SA - Lugano Switzerland]
+// Copyright [2024] [Banana.ch SA - Lugano Switzerland]
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 // @id = ch.banana.bananaapp.aut.auditfile.test
 // @api = 1.0
-// @pubdate = 2019-03-12
+// @pubdate = 2024-04-15
 // @publisher = Banana.ch SA
 // @description = <TEST ch.banana.bananaapp.aut.auditfile.js>
 // @task = app.command
@@ -61,6 +61,10 @@ AuditfileAustria.prototype.cleanup = function() {
 AuditfileAustria.prototype.testBananaApp = function() {
 
   var banDoc = Banana.application.openDocument("file:script/../test/testcases/company_2016.ac2");
+  Test.assert(banDoc);
+  this.xml_test(banDoc);
+
+  var banDoc = Banana.application.openDocument("file:script/../test/testcases/company_2024.ac2");
   Test.assert(banDoc);
   this.xml_test(banDoc);
 

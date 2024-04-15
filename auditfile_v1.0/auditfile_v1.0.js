@@ -1,4 +1,4 @@
-// Copyright [2015] [Banana.ch SA - Lugano Switzerland]
+// Copyright [2024] [Banana.ch SA - Lugano Switzerland]
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 //
 // @id = ch.banana.bananaapp.aut.auditfile
 // @api = 1.0
-// @pubdate = 2019-03-12
+// @pubdate = 2024-04-15
 // @publisher = Banana.ch SA
 // @description = Auditfile-OECD
 // @task = export.file
@@ -65,7 +65,7 @@ function addHeader(banDoc, xml) {
 	var auditfileVersion = 'CLAIR2.00.00';
 	var companyID = checkStringLength(banDoc.info('AccountingDataBase','FiscalNumber'), 20);
 	var taxRegistrationNr = banDoc.info('AccountingDataBase','VatNumber');
-	var companyName = banDoc.info('AccountingDataBase','Company');
+	var companyName =  ecommercialeConverter(banDoc.info('AccountingDataBase','Company'));
 
 	//Address1 and/or Address2
 	if (banDoc.info('AccountingDataBase','Address1') && !banDoc.info('AccountingDataBase','Address2')) {
@@ -277,10 +277,15 @@ function checkStringLength(string, maxLength) {
    	if (string.length > maxLength) {
 	    string = string.substring(0,maxLength-3) + "...";
 	}
+	string = ecommercialeConverter(string);
 	return string;
 }
 
-
+//This function converts the "&" into "&amp;" to avoid errors in XML.
+function ecommercialeConverter(text) {
+	var res = text.replace(/&/g,"&amp;");
+	return res;
+}
 
 
 
@@ -365,8 +370,8 @@ function createCustomers(banDoc, mapGroup, customersGroup) {
 
 		    var telephone = tRow.value('PhoneMain');
 		    var fax = tRow.value('Fax');
-		    var eMail = tRow.value('EmailWork');
-		    var website = tRow.value('Website');
+		    var eMail = ecommercialeConverter(tRow.value('EmailWork'));
+		    var website = ecommercialeConverter(tRow.value('Website'));
 
 		    var address = checkStringLength(tRow.value('Street'), 50);
 	        var property = '';
@@ -453,8 +458,8 @@ function createSuppliers(banDoc, mapGroup, suppliersGroup) {
 
 		    var telephone = tRow.value('PhoneMain');
 		    var fax = tRow.value('Fax');
-		    var eMail = tRow.value('EmailWork');
-		    var website = tRow.value('Website');
+		    var eMail = ecommercialeConverter(tRow.value('EmailWork'));
+		    var website = ecommercialeConverter(tRow.value('Website'));
 
 		    var address = checkStringLength(tRow.value('Street'), 50);
 	        var property = '';
