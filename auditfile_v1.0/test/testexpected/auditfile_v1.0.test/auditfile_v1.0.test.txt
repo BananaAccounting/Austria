@@ -18,7 +18,7 @@
 \newenvironment{testcase}[1]{\section*{Test: #1}}{\newpage}
 \newenvironment{test}[1]{\section*{Test case: #1}}{}
 %Begin test data
-%%SCRIPT{/Users/ivan/GitHub/BananaAccounting/Austria/auditfile_v1.0/test/auditfile_v1.0.test.js}
+%%SCRIPT{C:/p/GitHub/BananaAccounting/Austria/auditfile_v1.0/test/auditfile_v1.0.test.js}
 %
 \begin{testcase}{AuditfileAustria}
 \begin{test}{testBananaApp}
@@ -931,7 +931,7 @@
 					<custSupID/>
 					<documentID>AR01</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Vermietung von Notenmaterial</description>
+					<description>[MWST/USt] Vermietung von Notenmaterial</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>-400.00</creditAmount>
 					<costDesc/>
@@ -1007,7 +1007,7 @@
 					<custSupID/>
 					<documentID>AR02</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Tontechnik für Konzertauftritt von XY</description>
+					<description>[MWST/USt] Tontechnik für Konzertauftritt von XY</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>-1000.00</creditAmount>
 					<costDesc/>
@@ -1083,7 +1083,7 @@
 					<custSupID/>
 					<documentID>AR03</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Künstlerischer Auftritt bei Fest XY</description>
+					<description>[MWST/USt] Künstlerischer Auftritt bei Fest XY</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>-390.00</creditAmount>
 					<costDesc/>
@@ -1159,7 +1159,7 @@
 					<custSupID/>
 					<documentID>AR05</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Bildhauerische Tätigkeit (Bauleistung)</description>
+					<description>[MWST/USt] Bildhauerische Tätigkeit (Bauleistung)</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -1235,7 +1235,7 @@
 					<custSupID/>
 					<documentID>AR06</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Verkauf Gitarre nach USA</description>
+					<description>[MWST/USt] Verkauf Gitarre nach USA</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -1311,7 +1311,7 @@
 					<custSupID/>
 					<documentID>AR10</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Gitarrenverkauf nach Deutschland</description>
+					<description>[MWST/USt] Gitarrenverkauf nach Deutschland</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -1387,7 +1387,7 @@
 					<custSupID/>
 					<documentID>AR11</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Gitarrenverkauf nach Deutschland</description>
+					<description>[MWST/USt] Gitarrenverkauf nach Deutschland</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -1463,7 +1463,7 @@
 					<custSupID/>
 					<documentID>AR14</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Vortragstätigkeit in der Erwachsenen...</description>
+					<description>[MWST/USt] Vortragstätigkeit in der Erwachsenen...</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -1539,7 +1539,7 @@
 					<custSupID/>
 					<documentID>AR20</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Tonbearbeitung für Film AG Hamburg</description>
+					<description>[MWST/USt] Tonbearbeitung für Film AG Hamburg</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -1592,7 +1592,7 @@
 					<custSupID/>
 					<documentID>ER03</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Tontechnikassistenz (deutscher Tonte...</description>
+					<description>[MWST/USt] Tontechnikassistenz (deutscher Tonte...</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>-200.00</creditAmount>
 					<costDesc/>
@@ -1638,7 +1638,7 @@
 					<custSupID/>
 					<documentID>ER03</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Tontechnikassistenz (deutscher Tonte...</description>
+					<description>[MWST/USt] Tontechnikassistenz (deutscher Tonte...</description>
 					<debitAmount>200.00</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -1691,7 +1691,7 @@
 					<custSupID/>
 					<documentID>ER09</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Zubehör für Verstärker</description>
+					<description>[MWST/USt] Zubehör für Verstärker</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>-46.00</creditAmount>
 					<costDesc/>
@@ -1737,7 +1737,7 @@
 					<custSupID/>
 					<documentID>ER09</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Zubehör für Verstärker</description>
+					<description>[MWST/USt] Zubehör für Verstärker</description>
 					<debitAmount>46.00</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -1813,7 +1813,7 @@
 					<custSupID/>
 					<documentID>ER13</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Einkauf Antiquariat (Noten)</description>
+					<description>[MWST/USt] Einkauf Antiquariat (Noten)</description>
 					<debitAmount>13.64</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -1889,7 +1889,7 @@
 					<custSupID/>
 					<documentID>ER14</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Subhonorar Musiker</description>
+					<description>[MWST/USt] Subhonorar Musiker</description>
 					<debitAmount>92.04</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -1965,7 +1965,7 @@
 					<custSupID/>
 					<documentID>ER15</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Subhonorar Tontechnik</description>
+					<description>[MWST/USt] Subhonorar Tontechnik</description>
 					<debitAmount>100.00</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -2018,7 +2018,7 @@
 					<custSupID/>
 					<documentID>ER16</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Einfuhrumsatzsteuer für Gitarre (Imp...</description>
+					<description>[MWST/USt] Einfuhrumsatzsteuer für Gitarre (Imp...</description>
 					<debitAmount>400.00</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -2071,7 +2071,7 @@
 					<custSupID/>
 					<documentID>ER17</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Einfuhrumsatzsteuer für Gitarre aus ...</description>
+					<description>[MWST/USt] Einfuhrumsatzsteuer für Gitarre aus ...</description>
 					<debitAmount>900.00</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -2200,7 +2200,7 @@
 					<custSupID/>
 					<documentID>AB</documentID>
 					<effectiveDate>2016-12-31</effectiveDate>
-					<description>[MwSt/USt] Verwendung Tontechnik eigenes Geburt...</description>
+					<description>[MWST/USt] Verwendung Tontechnik eigenes Geburt...</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>-40.00</creditAmount>
 					<costDesc/>
@@ -3131,7 +3131,7 @@
 					<custSupID/>
 					<documentID>AR01</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Vermietung von Notenmaterial</description>
+					<description>[MWST/USt] Vermietung von Notenmaterial</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>-400.00</creditAmount>
 					<costDesc/>
@@ -3207,7 +3207,7 @@
 					<custSupID/>
 					<documentID>AR02</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Tontechnik für Konzertauftritt von XY</description>
+					<description>[MWST/USt] Tontechnik für Konzertauftritt von XY</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>-1000.00</creditAmount>
 					<costDesc/>
@@ -3283,7 +3283,7 @@
 					<custSupID/>
 					<documentID>AR03</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Künstlerischer Auftritt bei Fest XY</description>
+					<description>[MWST/USt] Künstlerischer Auftritt bei Fest XY</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>-390.00</creditAmount>
 					<costDesc/>
@@ -3359,7 +3359,7 @@
 					<custSupID/>
 					<documentID>AR05</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Bildhauerische Tätigkeit (Bauleistung)</description>
+					<description>[MWST/USt] Bildhauerische Tätigkeit (Bauleistung)</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -3435,7 +3435,7 @@
 					<custSupID/>
 					<documentID>AR06</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Verkauf Gitarre nach USA</description>
+					<description>[MWST/USt] Verkauf Gitarre nach USA</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -3511,7 +3511,7 @@
 					<custSupID/>
 					<documentID>AR10</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Gitarrenverkauf nach Deutschland</description>
+					<description>[MWST/USt] Gitarrenverkauf nach Deutschland</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -3587,7 +3587,7 @@
 					<custSupID/>
 					<documentID>AR11</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Gitarrenverkauf nach Deutschland</description>
+					<description>[MWST/USt] Gitarrenverkauf nach Deutschland</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -3663,7 +3663,7 @@
 					<custSupID/>
 					<documentID>AR14</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Vortragstätigkeit in der Erwachsenen...</description>
+					<description>[MWST/USt] Vortragstätigkeit in der Erwachsenen...</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -3739,7 +3739,7 @@
 					<custSupID/>
 					<documentID>AR20</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Tonbearbeitung für Film AG Hamburg</description>
+					<description>[MWST/USt] Tonbearbeitung für Film AG Hamburg</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -3792,7 +3792,7 @@
 					<custSupID/>
 					<documentID>ER03</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Tontechnikassistenz (deutscher Tonte...</description>
+					<description>[MWST/USt] Tontechnikassistenz (deutscher Tonte...</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>-200.00</creditAmount>
 					<costDesc/>
@@ -3838,7 +3838,7 @@
 					<custSupID/>
 					<documentID>ER03</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Tontechnikassistenz (deutscher Tonte...</description>
+					<description>[MWST/USt] Tontechnikassistenz (deutscher Tonte...</description>
 					<debitAmount>200.00</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -3891,7 +3891,7 @@
 					<custSupID/>
 					<documentID>ER09</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Zubehör für Verstärker</description>
+					<description>[MWST/USt] Zubehör für Verstärker</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>-46.00</creditAmount>
 					<costDesc/>
@@ -3937,7 +3937,7 @@
 					<custSupID/>
 					<documentID>ER09</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Zubehör für Verstärker</description>
+					<description>[MWST/USt] Zubehör für Verstärker</description>
 					<debitAmount>46.00</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -4013,7 +4013,7 @@
 					<custSupID/>
 					<documentID>ER13</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Einkauf Antiquariat (Noten)</description>
+					<description>[MWST/USt] Einkauf Antiquariat (Noten)</description>
 					<debitAmount>13.64</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -4089,7 +4089,7 @@
 					<custSupID/>
 					<documentID>ER14</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Subhonorar Musiker</description>
+					<description>[MWST/USt] Subhonorar Musiker</description>
 					<debitAmount>92.04</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -4165,7 +4165,7 @@
 					<custSupID/>
 					<documentID>ER15</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Subhonorar Tontechnik</description>
+					<description>[MWST/USt] Subhonorar Tontechnik</description>
 					<debitAmount>100.00</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -4218,7 +4218,7 @@
 					<custSupID/>
 					<documentID>ER16</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Einfuhrumsatzsteuer für Gitarre (Imp...</description>
+					<description>[MWST/USt] Einfuhrumsatzsteuer für Gitarre (Imp...</description>
 					<debitAmount>400.00</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -4271,7 +4271,7 @@
 					<custSupID/>
 					<documentID>ER17</documentID>
 					<effectiveDate>2016-01-01</effectiveDate>
-					<description>[MwSt/USt] Einfuhrumsatzsteuer für Gitarre aus ...</description>
+					<description>[MWST/USt] Einfuhrumsatzsteuer für Gitarre aus ...</description>
 					<debitAmount>900.00</debitAmount>
 					<creditAmount>0.00</creditAmount>
 					<costDesc/>
@@ -4400,7 +4400,7 @@
 					<custSupID/>
 					<documentID>AB</documentID>
 					<effectiveDate>2016-12-31</effectiveDate>
-					<description>[MwSt/USt] Verwendung Tontechnik eigenes Geburt...</description>
+					<description>[MWST/USt] Verwendung Tontechnik eigenes Geburt...</description>
 					<debitAmount>0.00</debitAmount>
 					<creditAmount>-40.00</creditAmount>
 					<costDesc/>
