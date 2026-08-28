@@ -14,7 +14,7 @@
 //
 // @id = ch.banana.a.app.vatreportaustria2026
 // @api = 1.0
-// @pubdate = 2026-08-25
+// @pubdate = 2026-08-28
 // @publisher = Banana.ch SA
 // @description = VAT report Austria 2026
 // @task = app.command
@@ -37,7 +37,7 @@ function loadParam(banDoc, startDate, endDate) {
 	param = {
 		"reportName":"VAT report Austria 2026",												//Save the report's name
 		"bananaVersion":"Banana Accounting Plus", 											//Save the version of Banana Accounting used
-		"scriptVersion":"script v. 2026-08-25",				 								//Save the version of the script
+		"scriptVersion":"script v. 2026-08-28",				 								//Save the version of the script
 		"fiscalNumber":banDoc.info("AccountingDataBase","FiscalNumber"),					//Save the fiscal number
 		"startDate":startDate,																//Save the startDate that will be used to specify the accounting period starting date
 		"endDate":endDate, 																	//Save the endDate that will be used to specify the accounting period ending date		
@@ -113,7 +113,7 @@ function loadForm() {
 	form.push({"id":"4.22", "gr":"057", "vatClass":"4", "description":"Steuerschuld gemäß § 19 Abs. 1 zweiter Satz, § 19 Abs. 1c, 1e sowie gemäß Art. 25 Abs. 5"});		
 	form.push({"id":"4.23", "gr":"048", "vatClass":"4", "description":"Steuerschuld gemäß § 19 Abs. 1a (Bauleistungen)"});			
 	form.push({"id":"4.24", "gr":"044", "vatClass":"4", "description":"Steuerschuld gemäß § 19 Abs. 1b (Sicherungseigentum, Vorbehaltseigentum und Grundstücke im Zwangsversteigerungsverfahren)"});			
-	form.push({"id":"4.25", "gr":"032", "vatClass":"4", "description":"Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe)"});			
+	form.push({"id":"4.25", "gr":"032", "vatClass":"4", "description":"Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe, Verordnung BGBl. II Nr. 129/2007; Videospielkonsolen, Laptops, Tablet-Computer, Gas und Elektrizität, Gas- und Elektrizitätszertifikate, Metalle, Anlagegold, Verordnung BGBl. II Nr. 369/2013)"});			
 	form.push({"id":"4.26", "gr":"070", "vatClass":"2", "description":"Gesamtbetrag der Bemessungsgrundlagen für innergemeinschaftliche Erwerbe"});
 	form.push({"id":"4.27", "gr":"071", "vatClass":"2", "description":"Davon steuerfrei gemäß Art. 6 Abs. 2"});
 	form.push({"id":"4.28", "description":"Gesamtbetrag der steuerpflichtigen innergemeinschaftlichen Erwerbe", "sum":"4.26;-4.27"});		
@@ -139,7 +139,7 @@ function loadForm() {
 	form.push({"id":"5.5", "gr":"066", "vatClass":"3", "description":"Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1 zweiter Satz, § 19 Abs. 1c, 1e sowie gemäß Art. 25 Abs. 5"});		
 	form.push({"id":"5.6", "gr":"082", "vatClass":"3", "description":"Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1a (Bauleistungen)"});
 	form.push({"id":"5.7", "gr":"087", "vatClass":"3", "description":"Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1b (Sicherungseigentum, Vorbehaltseigentum und Grundstücke im Zwangsversteigerungsverfahren)"});			
-	form.push({"id":"5.8", "gr":"089", "vatClass":"3", "description":"Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe)"});
+	form.push({"id":"5.8", "gr":"089", "vatClass":"3", "description":"Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe, Verordnung BGBl. II Nr.129/2007; Videospielkonsolen, Laptops, Tablet-Computer, Gas und Elektrizität, Gas- und Elektrizitätszertifikate, Metalle, Anlagegold, Verordnung BGBl. II Nr. 369/2013)"});
 	form.push({"id":"5.9", "gr":"064", "vatClass":"3", "description":"Vorsteuern für innergemeinschaftliche Lieferungen neuer Fahrzeuge von Fahrzeuglieferern gemäß Art. 2"});		
 	form.push({"id":"5.10", "gr":"062", "vatClass":"4", "description":"Davon nicht abzugsfähig gemäß § 12 Abs. 3 iVm Abs. 4 und 5"});
 	form.push({"id":"5.11", "gr":"063", "vatClass":"3", "description":"Berichtigung gemäß § 12 Abs. 10 und 11"});
@@ -380,7 +380,7 @@ function createVatReport(banDoc, startDate, endDate, isTest) {
 	}
 	
 	tableRow = table.addRow();
-	tableRow.addCell("Davon steuerfrei MIT Vorsteuerabzug gemäß", "horizontalLine descriptionBold", 7);
+	tableRow.addCell("Davon steuerfrei MIT Vorsteuerabzug bzw. Nullsatz gemäß", "horizontalLine descriptionBold", 7);
 	
 	tableRow = table.addRow();
 	tableRow.addCell("4.5", "", 1);

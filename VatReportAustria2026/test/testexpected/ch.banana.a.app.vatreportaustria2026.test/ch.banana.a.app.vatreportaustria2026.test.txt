@@ -48,7 +48,7 @@
 4.2  & zuzüglich Eigenverbrauch (§ 1 Abs. 1 Z 2, § 3 Abs. 2 und § 3a Abs. 1a)  & 001  & \multicolumn{2}{l}{} & +  & 200.00 \\
 4.3  & abzüglich Umsätze, für die die Steuerschuld gemäß § 19 Abs. 1 zweiter Satz sowie gemäß § 19 Abs. 1a, 1b, 1c, 1d und 1e auf den Leistungsempfänger übergegangen ist.  & 021  & \multicolumn{2}{l}{} & -  & 2'500.00 \\
 4.4  & \multicolumn{4}{l}{SUMME } &  & 18'495.00 \\
-\multicolumn{7}{l}{Davon steuerfrei MIT Vorsteuerabzug gemäß }\\
+\multicolumn{7}{l}{Davon steuerfrei MIT Vorsteuerabzug bzw. Nullsatz gemäß }\\
 4.5  & § 6 Abs. 1 Z 1 iVm § 7 (Ausfuhrlieferungen)  & 011  & \multicolumn{2}{l}{} & -  & 1'500.00 \\
 4.6  & § 6 Abs. 1 Z 1 iVm § 8 (Lohnveredelungen)  & 012  & \multicolumn{2}{l}{} & -  & \\
 4.7  & § 6 Abs. 1 Z 2 bis 6 sowie § 23 Abs. 5 (Seeschifffahrt, Luftfahrt, grenzüberschreitende Personenbeförderung, Diplomaten, Reisevorleistungen im Drittlandsgebiet usw.).  & 015  & \multicolumn{2}{l}{} & -  & \\
@@ -72,7 +72,7 @@
 4.22  & Steuerschuld gemäß § 19 Abs. 1 zweiter Satz, § 19 Abs. 1c, 1e sowie gemäß Art. 25 Abs. 5  & 057  & \multicolumn{2}{l}{} & +  & 200.00 \\
 4.23  & Steuerschuld gemäß § 19 Abs. 1a (Bauleistungen)  & 048  & \multicolumn{2}{l}{} & +  & \\
 4.24  & Steuerschuld gemäß § 19 Abs. 1b (Sicherungseigentum, Vorbehaltseigentum und Grundstücke im Zwangsversteigerungsverfahren)  & 044  & \multicolumn{2}{l}{} & +  & \\
-4.25  & Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe)  & 032  & \multicolumn{2}{l}{} & +  & \\
+4.25  & Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe, Verordnung BGBl. II Nr. 129/2007; Videospielkonsolen, Laptops, Tablet-Computer, Gas und Elektrizität, Gas- und Elektrizitätszertifikate, Metalle, Anlagegold, Verordnung BGBl. II Nr. 369/2013)  & 032  & \multicolumn{2}{l}{} & +  & \\
 \multicolumn{4}{l}{Innergemeinschaftliche Erwerbe: } & Bemessungsgrundlage  & \multicolumn{2}{l}{}\\
 4.26  & Gesamtbetrag der Bemessungsgrundlagen für innergemeinschaftliche Erwerbe  & 070  &  & 230.00  & \multicolumn{2}{l}{}\\
 4.27  & Davon steuerfrei gemäß Art. 6 Abs. 2  & 071  & -  &  & \multicolumn{2}{l}{}\\
@@ -94,7 +94,7 @@
 5.5  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1 zweiter Satz, § 19 Abs. 1c, 1e sowie gemäß Art. 25 Abs. 5  & 066  & \multicolumn{2}{l}{} & -  & 200.00 \\
 5.6  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1a (Bauleistungen)  & 082  & \multicolumn{2}{l}{} & -  & \\
 5.7  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1b (Sicherungseigentum, Vorbehaltseigentum und Grundstücke im Zwangsversteigerungsverfahren)  & 087  & \multicolumn{2}{l}{} & -  & \\
-5.8  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe)  & 089  & \multicolumn{2}{l}{} & -  & \\
+5.8  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe, Verordnung BGBl. II Nr.129/2007; Videospielkonsolen, Laptops, Tablet-Computer, Gas und Elektrizität, Gas- und Elektrizitätszertifikate, Metalle, Anlagegold, Verordnung BGBl. II Nr. 369/2013)  & 089  & \multicolumn{2}{l}{} & -  & \\
 5.9  & Vorsteuern für innergemeinschaftliche Lieferungen neuer Fahrzeuge von Fahrzeuglieferern gemäß Art. 2  & 064  & \multicolumn{2}{l}{} & -  & \\
 5.10  & Davon nicht abzugsfähig gemäß § 12 Abs. 3 iVm Abs. 4 und 5  & 062  & \multicolumn{2}{l}{} & +  & \\
 5.11  & Berichtigung gemäß § 12 Abs. 10 und 11  & 063  & \multicolumn{2}{l}{} & +/-  & \\
@@ -132,7 +132,7 @@
 4.2  & zuzüglich Eigenverbrauch (§ 1 Abs. 1 Z 2, § 3 Abs. 2 und § 3a Abs. 1a)  & 001  & \multicolumn{2}{l}{} & +  & 0.00 \\
 4.3  & abzüglich Umsätze, für die die Steuerschuld gemäß § 19 Abs. 1 zweiter Satz sowie gemäß § 19 Abs. 1a, 1b, 1c, 1d und 1e auf den Leistungsempfänger übergegangen ist.  & 021  & \multicolumn{2}{l}{} & -  & 0.00 \\
 4.4  & \multicolumn{4}{l}{SUMME } &  & 0.00 \\
-\multicolumn{7}{l}{Davon steuerfrei MIT Vorsteuerabzug gemäß }\\
+\multicolumn{7}{l}{Davon steuerfrei MIT Vorsteuerabzug bzw. Nullsatz gemäß }\\
 4.5  & § 6 Abs. 1 Z 1 iVm § 7 (Ausfuhrlieferungen)  & 011  & \multicolumn{2}{l}{} & -  & 0.00 \\
 4.6  & § 6 Abs. 1 Z 1 iVm § 8 (Lohnveredelungen)  & 012  & \multicolumn{2}{l}{} & -  & 0.00 \\
 4.7  & § 6 Abs. 1 Z 2 bis 6 sowie § 23 Abs. 5 (Seeschifffahrt, Luftfahrt, grenzüberschreitende Personenbeförderung, Diplomaten, Reisevorleistungen im Drittlandsgebiet usw.).  & 015  & \multicolumn{2}{l}{} & -  & 0.00 \\
@@ -156,7 +156,7 @@
 4.22  & Steuerschuld gemäß § 19 Abs. 1 zweiter Satz, § 19 Abs. 1c, 1e sowie gemäß Art. 25 Abs. 5  & 057  & \multicolumn{2}{l}{} & +  & 0.00 \\
 4.23  & Steuerschuld gemäß § 19 Abs. 1a (Bauleistungen)  & 048  & \multicolumn{2}{l}{} & +  & 0.00 \\
 4.24  & Steuerschuld gemäß § 19 Abs. 1b (Sicherungseigentum, Vorbehaltseigentum und Grundstücke im Zwangsversteigerungsverfahren)  & 044  & \multicolumn{2}{l}{} & +  & 0.00 \\
-4.25  & Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe)  & 032  & \multicolumn{2}{l}{} & +  & 0.00 \\
+4.25  & Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe, Verordnung BGBl. II Nr. 129/2007; Videospielkonsolen, Laptops, Tablet-Computer, Gas und Elektrizität, Gas- und Elektrizitätszertifikate, Metalle, Anlagegold, Verordnung BGBl. II Nr. 369/2013)  & 032  & \multicolumn{2}{l}{} & +  & 0.00 \\
 \multicolumn{4}{l}{Innergemeinschaftliche Erwerbe: } & Bemessungsgrundlage  & \multicolumn{2}{l}{}\\
 4.26  & Gesamtbetrag der Bemessungsgrundlagen für innergemeinschaftliche Erwerbe  & 070  &  & 0.00  & \multicolumn{2}{l}{}\\
 4.27  & Davon steuerfrei gemäß Art. 6 Abs. 2  & 071  & -  & 0.00  & \multicolumn{2}{l}{}\\
@@ -178,7 +178,7 @@
 5.5  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1 zweiter Satz, § 19 Abs. 1c, 1e sowie gemäß Art. 25 Abs. 5  & 066  & \multicolumn{2}{l}{} & -  & 0.00 \\
 5.6  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1a (Bauleistungen)  & 082  & \multicolumn{2}{l}{} & -  & 0.00 \\
 5.7  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1b (Sicherungseigentum, Vorbehaltseigentum und Grundstücke im Zwangsversteigerungsverfahren)  & 087  & \multicolumn{2}{l}{} & -  & 0.00 \\
-5.8  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe)  & 089  & \multicolumn{2}{l}{} & -  & 0.00 \\
+5.8  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe, Verordnung BGBl. II Nr.129/2007; Videospielkonsolen, Laptops, Tablet-Computer, Gas und Elektrizität, Gas- und Elektrizitätszertifikate, Metalle, Anlagegold, Verordnung BGBl. II Nr. 369/2013)  & 089  & \multicolumn{2}{l}{} & -  & 0.00 \\
 5.9  & Vorsteuern für innergemeinschaftliche Lieferungen neuer Fahrzeuge von Fahrzeuglieferern gemäß Art. 2  & 064  & \multicolumn{2}{l}{} & -  & 0.00 \\
 5.10  & Davon nicht abzugsfähig gemäß § 12 Abs. 3 iVm Abs. 4 und 5  & 062  & \multicolumn{2}{l}{} & +  & 0.00 \\
 5.11  & Berichtigung gemäß § 12 Abs. 10 und 11  & 063  & \multicolumn{2}{l}{} & +/-  & 0.00 \\
@@ -218,7 +218,7 @@ Warning! Different values: Total from Banana <0.00>, Total from report <324.32> 
 4.2  & zuzüglich Eigenverbrauch (§ 1 Abs. 1 Z 2, § 3 Abs. 2 und § 3a Abs. 1a)  & 001  & \multicolumn{2}{l}{} & +  & 0.00 \\
 4.3  & abzüglich Umsätze, für die die Steuerschuld gemäß § 19 Abs. 1 zweiter Satz sowie gemäß § 19 Abs. 1a, 1b, 1c, 1d und 1e auf den Leistungsempfänger übergegangen ist.  & 021  & \multicolumn{2}{l}{} & -  & 0.00 \\
 4.4  & \multicolumn{4}{l}{SUMME } &  & 0.00 \\
-\multicolumn{7}{l}{Davon steuerfrei MIT Vorsteuerabzug gemäß }\\
+\multicolumn{7}{l}{Davon steuerfrei MIT Vorsteuerabzug bzw. Nullsatz gemäß }\\
 4.5  & § 6 Abs. 1 Z 1 iVm § 7 (Ausfuhrlieferungen)  & 011  & \multicolumn{2}{l}{} & -  & 0.00 \\
 4.6  & § 6 Abs. 1 Z 1 iVm § 8 (Lohnveredelungen)  & 012  & \multicolumn{2}{l}{} & -  & 0.00 \\
 4.7  & § 6 Abs. 1 Z 2 bis 6 sowie § 23 Abs. 5 (Seeschifffahrt, Luftfahrt, grenzüberschreitende Personenbeförderung, Diplomaten, Reisevorleistungen im Drittlandsgebiet usw.).  & 015  & \multicolumn{2}{l}{} & -  & 0.00 \\
@@ -242,7 +242,7 @@ Warning! Different values: Total from Banana <0.00>, Total from report <324.32> 
 4.22  & Steuerschuld gemäß § 19 Abs. 1 zweiter Satz, § 19 Abs. 1c, 1e sowie gemäß Art. 25 Abs. 5  & 057  & \multicolumn{2}{l}{} & +  & 200.00 \\
 4.23  & Steuerschuld gemäß § 19 Abs. 1a (Bauleistungen)  & 048  & \multicolumn{2}{l}{} & +  & 0.00 \\
 4.24  & Steuerschuld gemäß § 19 Abs. 1b (Sicherungseigentum, Vorbehaltseigentum und Grundstücke im Zwangsversteigerungsverfahren)  & 044  & \multicolumn{2}{l}{} & +  & 0.00 \\
-4.25  & Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe)  & 032  & \multicolumn{2}{l}{} & +  & 0.00 \\
+4.25  & Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe, Verordnung BGBl. II Nr. 129/2007; Videospielkonsolen, Laptops, Tablet-Computer, Gas und Elektrizität, Gas- und Elektrizitätszertifikate, Metalle, Anlagegold, Verordnung BGBl. II Nr. 369/2013)  & 032  & \multicolumn{2}{l}{} & +  & 0.00 \\
 \multicolumn{4}{l}{Innergemeinschaftliche Erwerbe: } & Bemessungsgrundlage  & \multicolumn{2}{l}{}\\
 4.26  & Gesamtbetrag der Bemessungsgrundlagen für innergemeinschaftliche Erwerbe  & 070  &  & 230.00  & \multicolumn{2}{l}{}\\
 4.27  & Davon steuerfrei gemäß Art. 6 Abs. 2  & 071  & -  & 0.00  & \multicolumn{2}{l}{}\\
@@ -264,7 +264,7 @@ Warning! Different values: Total from Banana <0.00>, Total from report <324.32> 
 5.5  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1 zweiter Satz, § 19 Abs. 1c, 1e sowie gemäß Art. 25 Abs. 5  & 066  & \multicolumn{2}{l}{} & -  & 200.00 \\
 5.6  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1a (Bauleistungen)  & 082  & \multicolumn{2}{l}{} & -  & 0.00 \\
 5.7  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1b (Sicherungseigentum, Vorbehaltseigentum und Grundstücke im Zwangsversteigerungsverfahren)  & 087  & \multicolumn{2}{l}{} & -  & 0.00 \\
-5.8  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe)  & 089  & \multicolumn{2}{l}{} & -  & 0.00 \\
+5.8  & Vorsteuern betreffend die Steuerschuld gemäß § 19 Abs. 1d (Schrott und Abfallstoffe, Verordnung BGBl. II Nr.129/2007; Videospielkonsolen, Laptops, Tablet-Computer, Gas und Elektrizität, Gas- und Elektrizitätszertifikate, Metalle, Anlagegold, Verordnung BGBl. II Nr. 369/2013)  & 089  & \multicolumn{2}{l}{} & -  & 0.00 \\
 5.9  & Vorsteuern für innergemeinschaftliche Lieferungen neuer Fahrzeuge von Fahrzeuglieferern gemäß Art. 2  & 064  & \multicolumn{2}{l}{} & -  & 0.00 \\
 5.10  & Davon nicht abzugsfähig gemäß § 12 Abs. 3 iVm Abs. 4 und 5  & 062  & \multicolumn{2}{l}{} & +  & 0.00 \\
 5.11  & Berichtigung gemäß § 12 Abs. 10 und 11  & 063  & \multicolumn{2}{l}{} & +/-  & 0.00 \\
